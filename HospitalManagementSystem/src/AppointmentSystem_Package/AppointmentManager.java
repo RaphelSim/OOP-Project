@@ -1,17 +1,18 @@
 package AppointmentSystem_Package;
 
-public class AppointmentManager {
+public interface AppointmentManager {
+	public static Appointment slot = new Appointment();
 	
-	public void schedule() {
-		
-	}
+	public void viewSlots();
 	
-	public void accept() {
-		
-	}
+	public void schedule();
 	
-	public void reject() {
-		
-	}
+	public void reschedule();
+	
+	public void cancel();
+	
+	public void accept();
+	
+	public void reject();
 
 }
