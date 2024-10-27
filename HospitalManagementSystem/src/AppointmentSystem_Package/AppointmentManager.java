@@ -17,6 +17,14 @@ public class AppointmentManager {
 	 *	[  ] Methods: Accept, Decline, View Upcoming list, Record Appointment Outcome
 	 *
 	 *	Set current date time?
+	 *	Appointment personal schedule doctor set a day 9am - 1300
+	 *	Doctor each appointment manager
+	 *	Time slot display in interval (30mins?) for patients when they choose doctor 
+	 *
+	 * Save to file after logout
+	 *  Files read at start of runtime
+	 *  
+	 *  Patient choose a appointment - pending
 	 */
 	
 	protected ArrayList<Appointment> slots = new ArrayList<Appointment>();

@@ -19,7 +19,7 @@ enum Gender {
 	F
 }
 
-public class Patient {
+public class Patient {							// inherit Account class
 	private int patientID;					// Patient ID Format: PAT23456 (PAT + 5 digits)
 	private String name;					// Name of Patient
 	private LocalDate dob;					// Date of Birth format DD-MM-YYYY
