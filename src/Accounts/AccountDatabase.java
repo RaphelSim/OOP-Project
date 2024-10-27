@@ -74,4 +74,17 @@ public class AccountDatabase extends Database {
     public void addAccount(Account account) {
         records.add(account);
     }
+
+    public void removeAccount(String userid) {
+        boolean accountRemoved = records.removeIf(user -> {
+            Account account = (Account) user;
+            return account.getid().equals(userid);
+        });
+
+        if (accountRemoved) {
+            System.out.println("Account with ID " + userid + " removed successfully.");
+        } else {
+            System.out.println("Account with ID " + userid + " not found.");
+        }
+    }
 }
