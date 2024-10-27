@@ -3,13 +3,21 @@ import java.time.LocalDateTime;
 //import java.time.format.DateTimeFormatter;
 
 public class Appointment {
-	private LocalDateTime slotTime;
-	private int doctorID;
-	private int patientID;
+	/*	Appointment ID: 2024-10-20/1300
+	 * 	isAssigned - to determine if appointment slot is open or taken
+	 * 	if slot is taken, Appointment object store patientID, doctorID, slotTime
+	 * 	if open, patientID and doctorID are empty
+	 */
+	
+	private String appointmentID;
+	private LocalDateTime slotTime;		// Format:  yyyy-mm-dd/hh-mm\
+	private int doctorID;				// DOC12345 (DOC + 5 digits)
+	private int patientID;				// PAT23456 (PAT + 5 digits)
 	private boolean assigned;
 	
 	public Appointment(LocalDateTime slotTime, int doctorID, int patientID, boolean assigned) {
 		//super();
+		this.appointmentID = doctorID + "/" + patientID + "/" + slotTime;	//Format: DOC12345/PAT22345/yyyy-mm-dd/1200\
 		this.slotTime = slotTime;
 		this.doctorID = doctorID;
 		this.patientID = patientID;
@@ -19,12 +27,16 @@ public class Appointment {
 	public Appointment () {
 		
 	}
+	
+	public String getAppointmentID() {
+		return appointmentID;
+	}
 
-	public LocalDateTime getSlot() {
+	public LocalDateTime getSlotTime() {
 		return slotTime;
 	}
 
-	public void setSlot(LocalDateTime slotTime) {
+	public void setSlotTime(LocalDateTime slotTime) {
 		this.slotTime = slotTime;
 	}
 

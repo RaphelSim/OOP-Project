@@ -1,6 +1,7 @@
 package AppointmentSystem_Package;
 import java.time.LocalDate;
-//import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 enum BloodTypes {
 	A_POSITIVE,
@@ -13,19 +14,25 @@ enum BloodTypes {
     O_NEGATIVE
 }
 
-public class Patient implements AppointmentManager{
-	private int patientID;		// Patient ID 
-	private String name;		// Name of Patient
-	private LocalDate dob;		// Date of Birth format DD-MM-YYYY
-	private char gender;		// M / F
-	private int phone;			// Start with 6, 8 or 9 (8 digits)
-	private String email;		// email address with @
-	private BloodTypes blood;		// 8 blood types: A+, A-, B+, B-, AB+, AB-, O+, O-
-	private String pastDiag;	// Placeholder for Past Diagnoses
-	private String treatment;	// Placeholder for Treatment
-	private int doctorID;		// Assigned Doctor?
+enum Gender {
+	M,
+	F
+}
+
+public class Patient {
+	private int patientID;					// Patient ID Format: PAT23456 (PAT + 5 digits)
+	private String name;					// Name of Patient
+	private LocalDate dob;					// Date of Birth format DD-MM-YYYY
+	private Gender gender;					// M / F
+	private String phone;					// Start with 6, 8 or 9 (8 digits)
+	private String email;					// email address with @
+	private BloodTypes blood;				// 8 blood types: A+, A-, B+, B-, AB+, AB-, O+, O-
+	private String pastDiag;				// Placeholder for Past Diagnoses
+	private String treatment;				// Placeholder for Treatment
+	private Doctor doc;						// Assigned Doctor?
+	private ArrayList<Appointment> app;		// Appointment for Patient using ArrayList
 	
-	public Patient(int patientID, String name, LocalDate dob, char gender, int phone, String email, BloodTypes blood,
+	public Patient(int patientID, String name, LocalDate dob, Gender gender, String phone, String email, BloodTypes blood,
 			String pastDiag, String treatment) {
 		//super();
 		this.patientID = patientID;
@@ -40,13 +47,17 @@ public class Patient implements AppointmentManager{
 	}
 	
 	// Retrieve Personal Info - Phone
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 	
 	// Update Personal Info - Phone
-	public void setPhone(int phone) {
-		this.phone = phone;
+	public void setPhone(String phone) {
+		char first = phone.charAt(0);
+		if(phone.length() == 8 && (first == '6' || first == '8' || first == '9'))
+			this.phone = phone;
+		else
+			System.out.println("Please enter a valid phone number. (8 digits starting with '6', '8' or '9'.");
 	}
 
 	// Retrieve Personal Info - Email
@@ -56,7 +67,10 @@ public class Patient implements AppointmentManager{
 	
 	// Update Personal Info - Email
 	public void setEmail(String email) {
-		this.email = email;
+		if(email.contains("@") && email.contains(".com"))
+			this.email = email;
+		else
+			System.out.println("Please provide a valid email address.");
 	}
 
 	public int getPatientID() {
@@ -71,7 +85,7 @@ public class Patient implements AppointmentManager{
 		return dob;
 	}
 
-	public char getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
@@ -89,44 +103,37 @@ public class Patient implements AppointmentManager{
 	
 	// View Medical Record
 	public void viewMedicalRecord() {
+		System.out.println("Patient ID: " + this.patientID);
+		System.out.println("Patient Name: " + this.name);
+		System.out.println("Gender: " + this.gender);
 		
+		// Format the DOB
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		String formattedDob = this.dob.format(formatter);
+		System.out.println("Date of Birth: " + formattedDob);
+		
+		System.out.println("Blood Type: " + this.blood);
+		System.out.println("---------------------------------------------------");
+		
+		System.out.println("Assigned Doctor: " + this.doc.getName());
+		System.out.println("Diagnoses: " + this.pastDiag);
+		System.out.println("Recommended Treatment: " + this.treatment);
+		
+		
+		
+	}
+	
+	// Only able to get Doc Name
+	public String getDoc() {
+		return doc.getName();
+	}
+	
+	// Assign Doctor
+	public void setDoc(Doctor doc) {
+		this.doc = doc;
 	}
 
-	@Override
-	public void viewSlots() {
-		 
-		
-	}
 
-	@Override
-	public void schedule() {
-		 
-		
-	}
-
-	@Override
-	public void reschedule() {
-		 
-		
-	}
-
-	@Override
-	public void cancel() {
-		 
-		
-	}
-
-	// Not Applicable
-	public void accept() {
-		 
-		
-	}
-
-	//Not Applicable
-	public void reject() {
-		 
-		
-	}
 	
 	
 	
@@ -134,10 +141,7 @@ public class Patient implements AppointmentManager{
 
 }
 
-//// Format the date
-//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//String formattedDob = dob.format(formatter);
-//System.out.println("Formatted Date of Birth: " + formattedDob);
+
 
 
 
