@@ -4,7 +4,7 @@ public class Doctor {
 	private int doctorID;			// DOC12345 (DOC + 5 digits)
 	private String name;
 	private Patient[] patients;
-	private Appointment app;
+	private AppointmentManager AM_D;	// AM for Doc to allow them to set personal schedule, manage appointmnents
 	
 	public Doctor(int doctorID, String name, Patient[] patients) {
 		//super();
