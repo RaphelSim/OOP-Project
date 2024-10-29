@@ -1,4 +1,4 @@
-package Accounts;
+package Databases;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,15 +7,23 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import Common.*;
+import DatabaseItems.Account;
 
 public class AccountDatabase extends Database {
-    AccountDatabase(String csvpath) {
+    public AccountDatabase() {
+        setcsvPath("Database/AccountCredentials.csv");
+        extractFromCSV();
+    }
+
+    public AccountDatabase(String csvpath) {
         setcsvPath(csvpath);
+        extractFromCSV();
     }
 
     @Override
-    public void abstractFromCSV() {
-        System.out.println(System.getProperty("user.dir"));
+    public void extractFromCSV() {
+        // System.out.println(System.getProperty("user.dir")); uncomment this line to
+        // print your directory
         try (Scanner scanner = new Scanner(new File(csvPath))) {
             // Skip the header
             if (scanner.hasNextLine()) {
@@ -28,21 +36,11 @@ public class AccountDatabase extends Database {
                 String name = values[0];
                 String id = values[1];
                 Role role = Role.fromString(values[3]);
-                String email = values[4].toString();
-                String phone = values[5].toString();
-                String dob = values[6];
                 // Add a new Account to the records list
-                records.add(new Account(name, id, role, dob, email, phone));
+                records.add(new Account(name, id, role));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-
-        // Print the users
-        for (DatabaseItems user : records) {
-            Account account = (Account) user;
-            System.out.println(account.getName() + account.getrole().toString() + account.getEmail()
-                    + account.getPhone() + account.getpassword() + account.getdob());
         }
     }
 
@@ -50,41 +48,56 @@ public class AccountDatabase extends Database {
     public void storeToCSV() {
         try (FileWriter writer = new FileWriter(csvPath)) {
             // Write header line
-            writer.write("Name,ID,Password,Role,Email,Phone,DOB\n");
+            writer.write("Name,id,Password,Role\n");
 
             // Write account details
             for (DatabaseItems user : records) {
                 Account account = (Account) user;
-                writer.write(String.format("%s,%s,%s,%s,%s,%s,%s\n",
+                writer.write(String.format("%s,%s,%s,%s\n",
                         account.getName(),
                         account.getid(),
                         account.getpassword(), // You can handle password encryption or use the actual password
-                        account.getrole().toString(),
-                        account.getEmail(),
-                        account.getPhone(),
-                        account.getdob()));
+                        account.getrole().toString()));
             }
-            System.out.println("Data successfully saved to CSV file.");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void addAccount(Account account) {
+    @Override
+    public void printItems() {
+        // Print the users
+        System.out.println("Account Database:");
+        System.out.println("-------------------");
+        for (DatabaseItems user : records) {
+            Account account = (Account) user;
+            System.out.println(); // Print a new line for better readability
+            System.out.println("ID: " + account.getid());
+            System.out.println("Name: " + account.getName());
+            System.out.println("Role: " + account.getrole().toString());
+            System.out.println("Password: " + account.getpassword());
+            System.out.println(); // Print a new line for better readability
+        }
+    }
+
+    // method overloading, add item to the database
+    public void addItem(Account account) {
         records.add(account);
     }
 
-    public void removeAccount(String userid) {
+    // method overloading, remove item from database, return true id successful else
+    // return false
+    public boolean removeItem(String userid) {
         boolean accountRemoved = records.removeIf(user -> {
             Account account = (Account) user;
             return account.getid().equals(userid);
         });
 
         if (accountRemoved) {
-            System.out.println("Account with ID " + userid + " removed successfully.");
+            return true;
         } else {
-            System.out.println("Account with ID " + userid + " not found.");
+            return false;
         }
     }
 }
