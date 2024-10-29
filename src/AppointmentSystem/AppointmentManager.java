@@ -1,4 +1,4 @@
-package AppointmentSystem;
+package src.AppointmentSystem;
 import java.util.ArrayList;
 
 public class AppointmentManager {
