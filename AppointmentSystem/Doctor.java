@@ -1,4 +1,4 @@
-package AppointmentSystem_Package;
+package AppointmentSystem;
 
 public class Doctor {
 	private int doctorID;			// DOC12345 (DOC + 5 digits)
