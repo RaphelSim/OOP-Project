@@ -9,13 +9,20 @@ public abstract class Database {
         this.csvPath = path;
     }
 
-    abstract public void abstractFromCSV();
+    abstract public void extractFromCSV();
 
     abstract public void storeToCSV();
 
-    public void addRecord(DatabaseItems item) {
+    abstract public void printItems();
+
+    public void addItem(DatabaseItems item) {
         records.add(item);
     };
 
-    protected ArrayList<DatabaseItems> records = new ArrayList<>();
+    public boolean removeItem() {
+        System.out.println("Please indicate the item to remove");
+        return false;
+    }
+
+    protected ArrayList<DatabaseItems> records = new ArrayList<DatabaseItems>();
 }
