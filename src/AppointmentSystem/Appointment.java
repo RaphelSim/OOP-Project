@@ -1,4 +1,4 @@
-package src.AppointmentSystem;
+package AppointmentSystem;
 import java.time.LocalDateTime;
 //import java.time.format.DateTimeFormatter;
 
