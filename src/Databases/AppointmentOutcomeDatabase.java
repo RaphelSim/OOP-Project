@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import Common.AppointmentOutcomeStatus;
@@ -90,6 +91,10 @@ public class AppointmentOutcomeDatabase extends Database {
         }
     }
 
+    public List<DatabaseItems> getRecords() {
+    return records;
+}
+
     @Override
     public void printItems() {
         // Print the AppointmentOutcomes
@@ -109,5 +114,6 @@ public class AppointmentOutcomeDatabase extends Database {
             }
         }
     }
+    
 
 }

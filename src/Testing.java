@@ -5,6 +5,7 @@ import Common.BloodType;
 import Common.ClearOutput;
 import Common.Gender;
 import Common.Role;
+import Controllers.AppointmentOutcomeManager;
 import DatabaseItems.Account;
 import DatabaseItems.AppointmentOutcome;
 import DatabaseItems.AppointmentSlot;
@@ -18,6 +19,7 @@ import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
 import Databases.MedicalRecordDatabase;
 import java.util.List;
+import Controllers.AppointmentOutcomeManager;
 
 public class Testing {
 
@@ -50,15 +52,27 @@ public class Testing {
         // medidata.storeToCSV();
 
         // TEST FOR APPOINTMENT OUTCOME
-        // ClearOutput.clearOutput();
-        // AppointmentOutcomeDatabase database = new AppointmentOutcomeDatabase();
-        // // AppointmentOutcome record = new AppointmentOutcome("testesttest",
-        // // "2004-01-07", "MRI,XRay", "drugs,weed",
-        // // "All good", AppointmentOutcomeStatus.PENDING);
-        // // database.addItem(record);
+        ClearOutput.clearOutput();
+        AppointmentOutcomeDatabase database = new AppointmentOutcomeDatabase();
+        AppointmentOutcomeManager manager = new AppointmentOutcomeManager(database);
+        AppointmentOutcome record = new AppointmentOutcome("testesttest",
+        "2004-01-07", "MRI,XRay", "drugs,weed",
+        "All good", AppointmentOutcomeStatus.PENDING);
+        manager.addOutcome(record);  // Add new outcome
+        System.out.println("After Adding:");
+        manager.printAllOutcomes();
+
+        // Use correct ID to remove
+        manager.removeOutcome("testesttest");  
+        System.out.println("After Removing:");
+        manager.printAllOutcomes();
+
+
+        // database.addItem(record);
         // if(database.removeItem("testesttest")) System.out.println("Remove success");
         // database.printItems();
         // database.storeToCSV();
+        
 
         // TEST FOR DOCTOR SCHEDULE
         // ClearOutput.clearOutput();
@@ -98,4 +112,5 @@ public class Testing {
         // System.out.println("Remove failed");
         // database.storeToCSV();
     }
+
 }
