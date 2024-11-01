@@ -21,7 +21,7 @@
             "type": "java",
             "name": "Testing",
             "request": "launch",
-            "mainClass": "Accounts.Testing",
+            "mainClass": "Testing", //need to be changed to the actual main file OR to the file that you wish to test on (but must consist of a main function)
             "projectName": "OOP-Project_c1a6683"
         },
         {
