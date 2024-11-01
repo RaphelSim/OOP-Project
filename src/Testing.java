@@ -50,29 +50,27 @@ public class Testing {
         // medidata.storeToCSV();
 
         // TEST FOR APPOINTMENT OUTCOME
-        // ClearOutput.clearOutput();
-        // AppointmentOutcomeDatabase database = new AppointmentOutcomeDatabase();
-        // // AppointmentOutcome record = new AppointmentOutcome("testesttest",
-        // // "2004-01-07", "MRI,XRay", "drugs,weed",
-        // // "All good", AppointmentOutcomeStatus.PENDING);
-        // // database.addItem(record);
-        // if(database.removeItem("testesttest")) System.out.println("Remove success");
-        // database.printItems();
-        // database.storeToCSV();
+        ClearOutput.clearOutput();
+        AppointmentOutcomeDatabase database = new AppointmentOutcomeDatabase();
+        AppointmentOutcome record = new AppointmentOutcome("testesttest","DOC12345","PAT12345",
+        "2004-01-07", "MRI,XRay", "drugs,weed",
+        "All good", AppointmentOutcomeStatus.PENDING);
+        database.addItem(record);
+        //if(database.removeItem("testesttest")) System.out.println("Remove success");
+        database.printItems();
+        database.storeToCSV();
 
         // TEST FOR DOCTOR SCHEDULE
         // ClearOutput.clearOutput();
-        // DoctorSchedule.newDoctor("DOC12345"); // if doctor is newly added
-        // DoctorSchedule schedule = new DoctorSchedule("DOC12345"); // retrieve
-        // schedule
+        // DoctorSchedule.newDoctor("DOC88888"); // if doctor is newly added
+        // DoctorSchedule schedule = new DoctorSchedule("DOC12345"); // retrieveschedule
         // AppointmentSlot slot = new AppointmentSlot("PAT12345", "DOC12345",
         // "2024-10-29", "12:00", "13:00",
         // AppointmentStatus.REQUESTED);
         // schedule.addItem(slot);
         // schedule.printItems();
         // schedule.storeToCSV();
-        // if(DoctorSchedule.deleteDoctorFile("DOC12345"))System.out.println("Remove
-        // success"); // to delete a Doctor's file
+        // DoctorSchedule.deleteDoctorFile("DOC88888"); // to delete a Doctor's file
         // schedule.storeToCSV();
 
         // TEST FOR INVENTORY
@@ -99,3 +97,5 @@ public class Testing {
         // database.storeToCSV();
     }
 }
+
+// PatientAppointmentManager(AppointmentDatabase database, String doctor_id , String patient_id)

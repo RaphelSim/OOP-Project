@@ -32,18 +32,20 @@ public class AppointmentOutcomeDatabase extends Database {
             if (scanner.hasNextLine()) {
                 scanner.nextLine();
             }
-            // appointment_id,date,type_of_service,medication,consultation_notes,status
+            // appointment_id,patient_id,doctor_id,date,type_of_service,medication,consultation_notes,status
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] values = line.split(",");
                 String id = values[0];
-                String date = values[1];
-                String type_of_service = ListConverter.replaceWithComma(values[2]);
-                String medication = ListConverter.replaceWithComma(values[3]);
-                String consultation = ListConverter.replaceWithComma(values[4]);
-                AppointmentOutcomeStatus status = AppointmentOutcomeStatus.fromString(values[5]);
+                String patient_id = values[1];
+                String doctor_id = values[2];
+                String date = values[3];
+                String type_of_service = ListConverter.replaceWithComma(values[4]);
+                String medication = ListConverter.replaceWithComma(values[5]);
+                String consultation = ListConverter.replaceWithComma(values[6]);
+                AppointmentOutcomeStatus status = AppointmentOutcomeStatus.fromString(values[7]);
 
-                records.add(new AppointmentOutcome(id, date, type_of_service, medication, consultation, status));
+                records.add(new AppointmentOutcome(id,doctor_id,patient_id, date, type_of_service, medication, consultation, status));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -54,13 +56,15 @@ public class AppointmentOutcomeDatabase extends Database {
     public void storeToCSV() {
         try (FileWriter writer = new FileWriter(csvPath)) {
             // Write header line
-            writer.write("appointment_id,date,type_of_service,medication,consultation_notes,status\n");
+            writer.write("appointment_id,patient_id,doctor_id,date,type_of_service,medication,consultation_notes,status\n");
 
             // Write AppointmentOutcome details
             for (DatabaseItems record : records) {
                 AppointmentOutcome AppointmentOutcome = (AppointmentOutcome) record;
-                writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
+                writer.write(String.format("%s,%s,%s,%s,%s,%s,%s,%s\n",
                         AppointmentOutcome.getAppointmentId(),
+                        AppointmentOutcome.getPatientId(),
+                        AppointmentOutcome.getDoctorId(),
                         AppointmentOutcome.getDate(),
                         ListConverter.replaceWithCurly(AppointmentOutcome.getTypeOfService()),
                         ListConverter.replaceWithCurly(AppointmentOutcome.getMedication()),
@@ -100,6 +104,8 @@ public class AppointmentOutcomeDatabase extends Database {
                 AppointmentOutcome AppointmentOutcome = (AppointmentOutcome) record;
                 System.out.println(); // Print a new line for better readability
                 System.out.println("Appointment ID: " + AppointmentOutcome.getAppointmentId());
+                System.out.println("Doctor ID: " + AppointmentOutcome.getDoctorId());
+                System.out.println("Patient ID: " + AppointmentOutcome.getPatientId());
                 System.out.println("Date: " + AppointmentOutcome.getDate());
                 System.out.println("Type of Service: " + AppointmentOutcome.getTypeOfService());
                 System.out.println("Medication: " + AppointmentOutcome.getMedication());

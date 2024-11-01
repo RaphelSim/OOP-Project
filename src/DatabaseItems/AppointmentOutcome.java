@@ -6,6 +6,8 @@ import Common.DatabaseItems;
 public class AppointmentOutcome implements DatabaseItems {
 
     private String appointment_id;
+    private String doctor_id;
+    private String patient_id;
     private String date;
     private String type_of_service;
     private String medication;
@@ -13,7 +15,7 @@ public class AppointmentOutcome implements DatabaseItems {
     private AppointmentOutcomeStatus status;
 
     // Constructor
-    public AppointmentOutcome(String appointment_id, String date, String type_of_service, String medication,
+    public AppointmentOutcome(String appointment_id,String doctor_id,String patient_id, String date, String type_of_service, String medication,
             String consultation_notes, AppointmentOutcomeStatus status) {
         this.appointment_id = appointment_id;
         this.date = date;
@@ -21,6 +23,8 @@ public class AppointmentOutcome implements DatabaseItems {
         this.medication = medication;
         this.consultation_notes = consultation_notes;
         this.status = status;
+        this.doctor_id = doctor_id;
+        this.patient_id = patient_id;
     }
 
     // Getters
@@ -48,6 +52,14 @@ public class AppointmentOutcome implements DatabaseItems {
         return status;
     }
 
+    public String getDoctorId(){
+        return doctor_id;
+    }
+
+    public String getPatientId(){
+        return patient_id;
+    }
+
     // Setters
     public void setDate(String date) {
         this.date = date;
@@ -67,5 +79,13 @@ public class AppointmentOutcome implements DatabaseItems {
 
     public void setStatus(AppointmentOutcomeStatus status) {
         this.status = status;
+    }
+
+    public void setPatientId(String patient_id){
+        this.patient_id = patient_id;
+    }
+
+    public void setDoctorId(String doctor_id){
+        this.doctor_id = doctor_id;
     }
 }

@@ -1,1 +1,2 @@
-appointment_id,date,type_of_service,medication,consultation_notes,status
+appointment_id,patient_id,doctor_id,date,type_of_service,medication,consultation_notes,status
+testesttest,PAT12345,DOC12345,2004-01-07,MRI~XRay,drugs~weed,All good,PENDING
