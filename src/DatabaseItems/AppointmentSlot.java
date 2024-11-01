@@ -29,7 +29,7 @@ public class AppointmentSlot implements DatabaseItems {
     public AppointmentSlot(String patient_id, String doctor_id, String date, String timestart, String timeend,
             AppointmentStatus status) {
         this.doctor_id = doctor_id;
-        this.appointment_id = doctor_id + "/" + patient_id + "/" + date + "/" + timestart; // create the appointment id
+        this.appointment_id = doctor_id + "/" + date + "/" + timestart; // create the appointment id
         this.patient_id = patient_id;
         this.date = date;
         this.timestart = timestart;
