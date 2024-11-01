@@ -9,8 +9,6 @@ import java.util.Scanner;
 import Common.Database;
 import Common.DatabaseItems;
 import DatabaseItems.InventoryRequest;
-import DatabaseItems.InventoryRequest;
-import DatabaseItems.InventoryRequest;
 
 public class InventoryRequestDatabase extends Database {
 
