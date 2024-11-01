@@ -132,11 +132,11 @@ public class AppointmentManager {
                 System.out.println("Invalid input. Please enter a numeric value.");
 			}
         }
-
+		Scanner sc2 = new Scanner(System.in);
         // Start Time
         while (true) {
             System.out.print("Enter Start Time (HH:MM, from 08:00 to 18:00): ");
-            startTime = sc.nextLine();
+            startTime = sc2.nextLine();
             if (isValidTime(startTime))
                 break;
             else
@@ -146,7 +146,7 @@ public class AppointmentManager {
         // End Time
         while (true) {
             System.out.print("Enter End Time (HH:MM, must be after Start Time): ");
-            endTime = sc.nextLine();
+            endTime = sc2.nextLine();
             if (isValidTime(endTime) && isEndTimeAfterStart(startTime, endTime))
                 break;
             else
@@ -165,7 +165,7 @@ public class AppointmentManager {
 		// Display Timeslots
         System.out.println("Generated Timeslots:");
         for (Appointment tS : timeSlots) {
-            System.out.println(tS);
+            System.out.println(tS.getAppointmentID());
         }
 
 

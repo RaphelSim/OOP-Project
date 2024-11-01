@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AppointmentTestapp",
+            "request": "launch",
+            "mainClass": "AppointmentSystem.AppointmentTestapp",
+            "projectName": "OOP-Project_f46e5df6"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -16,6 +23,14 @@
             "request": "launch",
             "mainClass": "Accounts.Testing",
             "projectName": "OOP-Project_c1a6683"
+        },
+        {
+            "type": "java",
+            "name": "Launch AppointmentTestapp",
+            "request": "launch",
+            "mainClass": "AppointmentSystem.AppointmentTestapp",
+            "projectName": "OOP-Project",
+            "cwd": "Users/shunyu/Documents/GitHub/OOP-Project/src"
         }
     ]
 }
