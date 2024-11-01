@@ -18,6 +18,7 @@ public class Appointment {
 	public Appointment(LocalDateTime slotTime, int doctorID, int patientID, boolean assigned) {
 		//super();
 		this.appointmentID = doctorID + "/" + patientID + "/" + slotTime;	//Format: DOC12345/PAT22345/yyyy-mm-dd/1200\
+		//this.appointmentID = appointmentID;
 		this.slotTime = slotTime;
 		this.doctorID = doctorID;
 		this.patientID = patientID;

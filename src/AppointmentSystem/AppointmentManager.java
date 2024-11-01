@@ -1,7 +1,9 @@
 package AppointmentSystem;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.time.format.DateTimeFormatter;
+//import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -81,7 +83,7 @@ public class AppointmentManager {
 
 		Scanner sc = new Scanner(System.in);
 		int day = 0, month = 0, year = 0;
-		String date = "", startTime = "", endTime = "";
+		String startTime = "", endTime = "";
 		System.out.println("Welcome Dr." + d.getName());
 		System.out.println("Please setup your Personal Schedule Availability:");
 		
@@ -153,10 +155,22 @@ public class AppointmentManager {
 
         // Display Personal Schedule Date and Time
         System.out.printf("You have entered:\nDate: %02d/%02d/%04d\nTime: %s - %s\n", day, month, year, startTime, endTime);
-
+		LocalDate confirmDate = LocalDate.of(year, month, day);
 		// Should we ask to confirm date and time?
 
+
 		// Code to format them and split to 30mins interval time slots assigning each to appointment
+		ArrayList<Appointment> timeSlots = generateTimeSlot(confirmDate, startTime, endTime);
+
+		// Display Timeslots
+        System.out.println("Generated Timeslots:");
+        for (Appointment tS : timeSlots) {
+            System.out.println(tS);
+        }
+
+
+
+		sc.close();
 	 }
 
 	 // Just a method to check valid date
@@ -195,6 +209,22 @@ public class AppointmentManager {
 
         return (endHours > startHours || (endHours == startHours && endMinutes > startMinutes));
     }
+
+	// Just a method to split start time and end time to individual 30mins time slots
+	private ArrayList<Appointment> generateTimeSlot(LocalDate date, String startTime, String endTime) {
+		LocalTime sT = LocalTime.parse(startTime);
+		LocalTime eT = LocalTime.parse(endTime);
+		ArrayList<Appointment> ap = new ArrayList<>();
+
+		while(sT.plusMinutes(30).isBefore(eT)) {
+			//LocalTime end = sT.plusMinutes(30);
+			LocalDateTime slotTime = LocalDateTime.of(date, sT);
+			ap.add(new Appointment(slotTime, 0, 0,false));
+			sT = sT.plusMinutes(30);
+		}
+
+		return ap;
+	}
 }
 	
 	//  [Doctor] Accept Appointment Request
@@ -203,4 +233,4 @@ public class AppointmentManager {
 	//  [Doctor] Reject Appointment Request
 	//public void rejectAppointment();
 
-}
+
