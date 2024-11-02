@@ -27,6 +27,16 @@ public class AccountDatabase extends Database {
         printItems("Account Database");
     }
 
+    public DatabaseItems searchItem(String id) {
+        for (DatabaseItems item : records) {
+            Account account = (Account) item;
+            if (account.getid().equals(id)) {
+                return account; // Return the found item
+            }
+        }
+        return null; // Return null if no item is found
+    }
+
     public boolean removeItem(String userid) {
         boolean accountRemoved = records.removeIf(user -> {
             Account account = (Account) user;

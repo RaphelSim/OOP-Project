@@ -48,6 +48,16 @@ public class DoctorSchedule extends Database {
         return new AppointmentSlot(values);
     }
 
+    public DatabaseItems searchItem(String id) {
+        for (DatabaseItems item : records) {
+            AppointmentSlot appointment = (AppointmentSlot) item;
+            if (appointment.getAppointmentId().equals(id)) {
+                return appointment; // Return the found item
+            }
+        }
+        return null; // Return null if no item is found
+    }
+
     public boolean removeItem(String appointment_id) {
         boolean itemRemoved = records.removeIf(record -> {
             AppointmentSlot item = (AppointmentSlot) record;

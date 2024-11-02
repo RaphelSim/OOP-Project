@@ -19,6 +19,16 @@ public class AppointmentOutcomeDatabase extends Database {
         extractFromCSV();
     }
 
+    public DatabaseItems searchItem(String id) {
+        for (DatabaseItems item : records) {
+            AppointmentOutcome appointment = (AppointmentOutcome) item;
+            if (appointment.getAppointmentId().equals(id)) {
+                return appointment; // Return the found item
+            }
+        }
+        return null; // Return null if no item is found
+    }
+
     public boolean removeItem(String appointment_id) {
         boolean itemRemoved = records.removeIf(record -> {
             AppointmentOutcome item = (AppointmentOutcome) record;
