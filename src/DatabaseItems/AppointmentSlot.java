@@ -28,13 +28,42 @@ public class AppointmentSlot implements DatabaseItems {
     // If appointment id not provided
     public AppointmentSlot(String patient_id, String doctor_id, String date, String timestart, String timeend,
             AppointmentStatus status) {
-        this.doctor_id = doctor_id;
-        this.appointment_id = doctor_id + "/" + date + "/" + timestart; // create the appointment id
-        this.patient_id = patient_id;
-        this.date = date;
-        this.timestart = timestart;
-        this.timeend = timeend;
-        this.status = status;
+        this(doctor_id + "/" + date + "/" + timestart,patient_id,doctor_id,date,timestart,timeend,status);
+    }
+
+    //call the deserialisation method
+    public AppointmentSlot(String ...params){
+        deserialise(params);
+    }
+
+    //appointment_id,patient_id,date,timestart,timeend,status
+    //interface functions
+    public void deserialise(String ...params){
+        this.appointment_id = params[0];
+        this.patient_id = params[1];
+        this.date = params[2];
+        this.timestart = params[3];
+        this.timeend = params[4];
+        this.status = AppointmentStatus.fromString(params[5]);
+    }
+
+    public String serialise(){
+        return String.format("%s,%s,%s,%s,%s,%s\n",
+        this.appointment_id,
+        this.patient_id,
+        this.date,
+        this.timestart,
+        this.timeend,
+        this.status.toString());
+    }
+
+    public void printItem(){
+        System.out.println("Appointment ID: " + this.appointment_id);
+        System.out.println("Patient ID: " + this.patient_id);
+        System.out.println("Date: " +this.date);
+        System.out.println("Time Start: " + this.timestart);
+        System.out.println("Time End: " + this.timeend);
+        System.out.println("Status: " + this.status);
     }
 
     // Getters

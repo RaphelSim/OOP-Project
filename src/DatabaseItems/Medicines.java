@@ -20,6 +20,31 @@ public class Medicines implements DatabaseItems {
         this.alert_level = alert_level;
     }
 
+    //call the deserialisation method
+    public Medicines(String ...params){
+        deserialise(params);
+    }
+    // medicine,stock,alert_level
+    //interface functions
+    public void deserialise(String ...params){
+        this.medicine = params[0];
+        this.stock = Integer.parseInt(params[1]);
+        this.alert_level = Integer.parseInt(params[2]);
+    }
+
+    public String serialise(){
+        return String.format("%s,%s,%s\n",
+        this.medicine,
+        this.stock,
+        this.alert_level);
+    }
+
+    public void printItem(){
+        System.out.println("Medicine: " + this.medicine);
+        System.out.println("Stock: " + this.stock);
+        System.out.println("Alert Level: " + this.alert_level);
+    }
+
     public String getMedicine() {
         return medicine;
     }
