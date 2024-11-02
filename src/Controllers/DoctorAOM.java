@@ -1,35 +1,60 @@
 package Controllers;
-
-import Databases.AppointmentOutcomeDatabase;
-import DatabaseItems.AppointmentOutcome;
 import java.util.List;
 import java.util.stream.Collectors;
+import UI.DoctorUI; // Assuming DoctorUI is in the UI package
+import Databases.AppointmentOutcomeDatabase; // Replace with the actual package name
+import DatabaseItems.AppointmentOutcome; // Replace with the actual package name
 
 public class DoctorAOM extends BaseAppointmentOutcomeManager {
-    private final String doctorID;  // Doctor ID for filtering outcomes
+    private String doctorID;
+    private DoctorUI ui;
 
-    public DoctorAOM(AppointmentOutcomeDatabase database, String doctorID) {
+    public DoctorAOM(AppointmentOutcomeDatabase database, String doctorID, DoctorUI ui) {
         super(database);
         this.doctorID = doctorID;
+        this.ui = ui;  // Inject UI instance
     }
 
-    @Override
-    public void printAllOutcomes() {
-        // Filter outcomes based on an assumed mapping or external logic
+    public void handleOutcomes() {
+        String action = ui.getActionChoice(); // Assume a method to ask user for choice
+        switch (action.toLowerCase()) {
+            case "view":
+                displayDoctorOutcomes();
+                break;
+            case "edit":
+                editOutcome();
+                break;
+            default:
+                ui.displayMessage("Invalid choice.");
+        }
+    }
+
+    private void displayDoctorOutcomes() {
         List<AppointmentOutcome> doctorOutcomes = database.getRecords().stream()
-            .map(record -> (AppointmentOutcome) record)
-            .filter(outcome -> outcome.getAppointmentId().startsWith(doctorID))  // Example: Using appointment ID prefix
+            .map(record -> (AppointmentOutcome) record) // Cast each item to AppointmentOutcome
+            .filter(outcome -> outcome.getAppointmentId().startsWith(doctorID))
             .collect(Collectors.toList());
-
-        // Print each outcome for the doctor
-        doctorOutcomes.forEach(outcome -> System.out.println(outcome));
+    
+        if (doctorOutcomes.isEmpty()) {
+            ui.displayMessage("No outcomes found.");
+        } else {
+            doctorOutcomes.forEach(ui::displayOutcomeDetails); // Delegate display to UI
+        }
     }
+    
 
-    // Method to edit outcomes if required for doctors
-    public void editOutcome(String appointmentID, AppointmentOutcome newOutcome) {
-        removeOutcome(appointmentID);
-        addOutcome(newOutcome);
+    public void editOutcome() {
+        String appointmentID = ui.getAppointmentIdInput();
+        AppointmentOutcome existingOutcome = database.getRecord(appointmentID);
+        
+        if (existingOutcome != null) {
+            ui.displayOutcomeDetails(existingOutcome); // Display current outcome
+            AppointmentOutcome newOutcome = ui.getNewOutcomeDetails(); // Get new details from UI
+            removeOutcome(appointmentID);
+            addOutcome(newOutcome);
+            ui.displayMessage("Outcome updated successfully.");
+        } else {
+            ui.displayMessage("Outcome not found.");
+        }
     }
 }
-
-

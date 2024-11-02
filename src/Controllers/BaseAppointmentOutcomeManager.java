@@ -1,38 +1,35 @@
+// BaseAppointmentOutcomeManager.java
 package Controllers;
 
 import Databases.AppointmentOutcomeDatabase;
 import DatabaseItems.AppointmentOutcome;
 
+import java.util.List;
+
 public abstract class BaseAppointmentOutcomeManager {
-    protected final AppointmentOutcomeDatabase database;
+    protected AppointmentOutcomeDatabase database;
 
     public BaseAppointmentOutcomeManager(AppointmentOutcomeDatabase database) {
         this.database = database;
     }
 
-    // Common functionalities
+    // Shared data management logic (without printing)
     public void addOutcome(AppointmentOutcome outcome) {
-        boolean exists = database.getRecords().stream()
-            .anyMatch(item -> ((AppointmentOutcome) item).getAppointmentId().equals(outcome.getAppointmentId()));
-
-        if (!exists) {
-            database.addItem(outcome);
-            database.storeToCSV();
-            System.out.println("Outcome added.");
-        } else {
-            System.out.println("Outcome with this ID already exists.");
-        }
+        database.addRecord(outcome);
     }
 
     public void removeOutcome(String appointmentID) {
-        boolean removed = database.removeItem(appointmentID);
-        if (removed) {
-            System.out.println("Outcome removed.");
-            database.storeToCSV();
-        } else {
-            System.out.println("Failed to remove outcome.");
-        }
+        database.removeRecord(appointmentID);
     }
 
-    public abstract void printAllOutcomes(); // Abstract for specialized print logic
+    public AppointmentOutcome getOutcome(String appointmentID) {
+        return database.getRecord(appointmentID);
+    }
+
+    public List<AppointmentOutcome> getAllOutcomes() {
+        return database.getRecords();
+    }
+
+    // Optionally, define additional methods without enforcing display-related actions.
 }
+
