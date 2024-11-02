@@ -1,89 +1,80 @@
 package Databases;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 import Common.Database;
 import Common.DatabaseItems;
 import DatabaseItems.InventoryRequest;
+import DatabaseItems.Medicines;
 
 public class InventoryRequestDatabase extends Database {
 
     public InventoryRequestDatabase() {
+        setHeaderFormat("medicine,request_value");
         setcsvPath("Database/InventoryRequests.csv");
         extractFromCSV();
     }
 
     public InventoryRequestDatabase(String csvPath) {
+        setHeaderFormat("medicine,request_value");
         setcsvPath(csvPath);
         extractFromCSV();
     }
 
-    @Override
-    public void extractFromCSV() {
-        // System.out.println(System.getProperty("user.dir")); uncomment this line to
-        // print your directory
-        try (Scanner scanner = new Scanner(new File(csvPath))) {
-            // Skip the header
-            if (scanner.hasNextLine()) {
-                scanner.nextLine();
-            }
-            // medicine,request_value
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] values = line.split(",");
-                String medicine = values[0];
-                int request_value = Integer.parseInt(values[1]);
-
-                records.add(new InventoryRequest(medicine, request_value));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public DatabaseItems createDatabaseItem(String[] values){
+        return new InventoryRequest(values);
     }
 
-    @Override
-    public void storeToCSV() {
-        try (FileWriter writer = new FileWriter(csvPath)) {
-            // Write header line
-            writer.write("medicine,request_value\n");
-
-            // Write InventoryRequest details
-            for (DatabaseItems record : records) {
-                InventoryRequest InventoryRequest = (InventoryRequest) record;
-                writer.write(String.format("%s,%s\n",
-                        InventoryRequest.getMedicine(),
-                        InventoryRequest.getRequestValue()));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void printItems() {
-        // Print the InventoryRequests
-        System.out.println("Inventory Requests Database: ");
-        System.out.println("--------------------------");
-        for (DatabaseItems record : records) {
-            if (record instanceof InventoryRequest) { // Ensure it's an InventoryRequest
-                InventoryRequest InventoryRequest = (InventoryRequest) record;
-                System.out.println(); // Print a new line for better readability
-                System.out.println("Medicine: " + InventoryRequest.getMedicine());
-                System.out.println("Request Value: " + InventoryRequest.getRequestValue());
-                System.out.println(); // Print a new line for better readability
+        printItems("Inventory Request Database");
+    }
+
+    public DatabaseItems searchItem(String medicine){
+        for (DatabaseItems item : records) {
+            Medicines request = (Medicines) item;
+            if (request.getMedicine().equals(medicine)) {
+                return request; // Return the found item
             }
         }
+        return null;
+    }
+    
+    public DatabaseItems searchItem(String medicine, int request_value){
+        for (DatabaseItems item : records) {
+            InventoryRequest request = (InventoryRequest) item;
+            if (request.getMedicine().equals(medicine) && request.getRequestValue() == request_value) {
+                return request; // Return the found item
+            }
+        }
+        return null;
     }
 
-    public void addItem(InventoryRequest request) {
-        records.add(request);
+    public List<InventoryRequest> searchItems(String medicine) {
+    List<InventoryRequest> matchingItems = new ArrayList<>(); // List to store found items
+    for (DatabaseItems item : records) {
+        InventoryRequest account = (InventoryRequest) item;
+        if (account.getMedicine().equals(medicine)) {
+            matchingItems.add(account); // Add matching item to the list
+        }
     }
+    return matchingItems; // Return the list of matching items
+}
 
+
+    public boolean removeItem(String medicine){
+        boolean itemRemoved = records.removeIf(record -> {
+            InventoryRequest item = (InventoryRequest) record;
+            return item.getMedicine().equals(medicine);
+        });
+
+        if (itemRemoved) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public boolean removeItem(String medicine, int request_value) {
         boolean itemRemoved = records.removeIf(record -> {
             InventoryRequest item = (InventoryRequest) record;

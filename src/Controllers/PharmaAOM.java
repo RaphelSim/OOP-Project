@@ -1,29 +1,24 @@
 package Controllers;
 
-import Common.AppointmentOutcomeStatus;
 import DatabaseItems.AppointmentOutcome;
+import UI.PharmaAOMUI;
 import Databases.AppointmentOutcomeDatabase;
+
+import java.util.List;
+
 public class PharmaAOM extends BaseAppointmentOutcomeManager {
+    private PharmaAOMUI ui;
 
-    public PharmaAOM(AppointmentOutcomeDatabase database) {
+    public PharmaAOM(AppointmentOutcomeDatabase database, PharmaAOMUI ui) {
         super(database);
+        this.ui = ui;
     }
 
-    @Override
-    public void printAllOutcomes() {
-        database.printItems(); // Pharmacists can view all outcomes
-    }
-
-    public void updatePrescriptionStatus(String appointmentID, AppointmentOutcomeStatus newStatus) {
-        database.getRecords().stream()
-        .filter(record -> record instanceof AppointmentOutcome)  // Filter only AppointmentOutcome objects
-        .map(record -> (AppointmentOutcome) record)  // Safely cast to AppointmentOutcome
-        .filter(outcome -> outcome.getAppointmentId().equals(appointmentID))  // Match by appointment ID
-        .findFirst()  // Get the first matching outcome
-        .ifPresent(outcome -> {
-            outcome.setStatus(newStatus);  // Update the status
-            database.storeToCSV();  // Save changes back to CSV
-            System.out.println("Prescription status updated.");
-        });
+    // Display medication details for all outcomes
+    public void displayMedicationDetails() {
+        List<AppointmentOutcome> outcomes = getAllOutcomes();
+        outcomes.forEach(ui::displayMedicationDetails);
     }
 }
+
+

@@ -5,10 +5,10 @@ import DatabaseItems.AppointmentOutcome;
 
 import java.util.Scanner;
 
-public class DoctorUI {
+public class DoctorAOMUI {
     private Scanner scanner;
 
-    public DoctorUI() {
+    public DoctorAOMUI() {
         this.scanner = new Scanner(System.in);
     }
 

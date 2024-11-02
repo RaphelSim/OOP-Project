@@ -1,36 +1,34 @@
 package Controllers;
 
+import UI.PatientAOMUI;
 import DatabaseItems.AppointmentOutcome;
 import Databases.AppointmentOutcomeDatabase;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class PatientAOM extends BaseAppointmentOutcomeManager {
-    private final String patientID;  // Patient ID for filtering
+    private String patientID;
+    private PatientAOMUI ui;
 
-    public PatientAOM(AppointmentOutcomeDatabase database, String patientID) {
+    public PatientAOM(AppointmentOutcomeDatabase database, String patientID, PatientAOMUI ui) {
         super(database);
         this.patientID = patientID;
+        this.ui = ui;
     }
 
-    @Override
-    public void printAllOutcomes() {
-        List<AppointmentOutcome> patientOutcomes = database.getRecords().stream()
-            .map(record -> (AppointmentOutcome) record)
-            .filter(outcome -> patientID.equals(lookupPatientId(outcome.getAppointmentId())))
-            .collect(Collectors.toList());
+    // Display outcomes for this patient
+    public void displayPatientOutcomes() {
+        List<AppointmentOutcome> patientOutcomes = getAllOutcomes().stream()
+                .filter(outcome -> outcome.getPatientId().equals(patientID))
+                .collect(Collectors.toList());
 
-        patientOutcomes.forEach(System.out::println);
-    }
-
-    // Mock method to look up patient ID
-    private String lookupPatientId(String appointmentId) {
-        Map<String, String> appointmentToPatientMap = Map.of(
-            "appt001", "pat123",
-            "appt002", "pat456"
-        );
-        return appointmentToPatientMap.getOrDefault(appointmentId, "unknown");
+        if (patientOutcomes.isEmpty()) {
+            ui.displayMessage("No outcomes found.");
+        } else {
+            patientOutcomes.forEach(ui::displayOutcomeDetails);
+        }
     }
 }
+
 
 

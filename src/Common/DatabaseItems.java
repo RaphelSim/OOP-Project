@@ -1,8 +1,8 @@
 package Common;
 
-/**
- * DatabaseItems
- */
+
 public interface DatabaseItems {
-    // set the attributes and getters and setters
+    public String serialise();
+    public void deserialise(String ...params);
+    public void printItem();
 }

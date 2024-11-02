@@ -2,6 +2,7 @@ package DatabaseItems;
 
 import Common.AppointmentOutcomeStatus;
 import Common.DatabaseItems;
+import Common.ListConverter;
 
 public class AppointmentOutcome implements DatabaseItems {
 
@@ -25,6 +26,50 @@ public class AppointmentOutcome implements DatabaseItems {
         this.status = status;
         this.doctor_id = doctor_id;
         this.patient_id = patient_id;
+    }
+
+    public AppointmentOutcome(String ...params){
+        deserialise(params);
+    }
+
+// appointment_id,patient_id,doctor_id,date,type_of_service,medication,consultation_notes,status
+
+    //implement interface functions
+    public void deserialise(String ...params){
+        //Name,id,Password,Role
+        this.appointment_id = params[0];
+        this.patient_id = params[1];
+        this.doctor_id = params[2];
+        this.date = params[3];
+        this.type_of_service = ListConverter.replaceWithComma(params[4]);
+        this.medication = ListConverter.replaceWithComma(params[5]);
+        this.consultation_notes = ListConverter.replaceWithComma(params[6]);
+        this.status = AppointmentOutcomeStatus.fromString(params[7]);
+    }
+
+    public String serialise(){
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s\n",
+        this.appointment_id,
+        this.patient_id,
+        this.doctor_id,
+        this.date,
+        ListConverter.replaceWithCurly(this.type_of_service),
+        ListConverter.replaceWithCurly(this.medication),
+        ListConverter.replaceWithCurly(this.consultation_notes),
+        this.status.toString()
+        );
+    }
+
+    public void printItem(){
+        System.out.println(); // Print a new line for better readability
+        System.out.println("Appointment ID: " + this.appointment_id);
+        System.out.println("Doctor ID: " + this.doctor_id);
+        System.out.println("Patient ID: " + this.patient_id);
+        System.out.println("Date: " + this.date);
+        System.out.println("Type of Service: " + this.type_of_service);
+        System.out.println("Medication: " +this.medication);
+        System.out.println("Consultation Notes: " + this.consultation_notes);
+        System.out.println("Status: " + this.status);
     }
 
     // Getters

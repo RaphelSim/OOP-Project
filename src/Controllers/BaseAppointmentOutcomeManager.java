@@ -1,35 +1,52 @@
-// BaseAppointmentOutcomeManager.java
 package Controllers;
 
 import Databases.AppointmentOutcomeDatabase;
 import DatabaseItems.AppointmentOutcome;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class BaseAppointmentOutcomeManager {
-    protected AppointmentOutcomeDatabase database;
+    protected final AppointmentOutcomeDatabase database;
 
     public BaseAppointmentOutcomeManager(AppointmentOutcomeDatabase database) {
         this.database = database;
     }
 
-    // Shared data management logic (without printing)
+    // Method to add a new outcome
     public void addOutcome(AppointmentOutcome outcome) {
-        database.addRecord(outcome);
+        if (database.searchItem(outcome.getAppointmentId()) == null) {
+            database.addItem(outcome);
+            database.storeToCSV();
+            System.out.println("Outcome added successfully.");
+        } else {
+            System.out.println("Outcome with this ID already exists.");
+        }
     }
 
+    // Method to remove an outcome by appointment ID
     public void removeOutcome(String appointmentID) {
-        database.removeRecord(appointmentID);
+        boolean removed = database.removeItem(appointmentID);
+        if (removed) {
+            database.storeToCSV();
+            System.out.println("Outcome removed successfully.");
+        } else {
+            System.out.println("Outcome not found.");
+        }
     }
 
+    // Retrieve an outcome by appointment ID
     public AppointmentOutcome getOutcome(String appointmentID) {
-        return database.getRecord(appointmentID);
+        return (AppointmentOutcome) database.searchItem(appointmentID);
     }
 
+    // Get all outcomes
     public List<AppointmentOutcome> getAllOutcomes() {
-        return database.getRecords();
+        return database.getRecords().stream()
+                .filter(item -> item instanceof AppointmentOutcome)
+                .map(item -> (AppointmentOutcome) item)
+                .collect(Collectors.toList());
     }
-
-    // Optionally, define additional methods without enforcing display-related actions.
 }
+
 
