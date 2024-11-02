@@ -27,6 +27,16 @@ public class InventoryDatabase extends Database {
         printItems("Inventory Database");
     }
 
+    public DatabaseItems searchItem(String medicine_name) {
+        for (DatabaseItems item : records) {
+            Medicines medicine = (Medicines) item;
+            if (medicine.getMedicine().equals(medicine_name)) {
+                return medicine; // Return the found item
+            }
+        }
+        return null; // Return null if no item is found
+    }
+
     public boolean removeItem(String medicine) {
         boolean itemRemoved = records.removeIf(record -> {
             Medicines item = (Medicines) record;

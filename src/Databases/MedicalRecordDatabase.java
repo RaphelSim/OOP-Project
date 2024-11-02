@@ -23,6 +23,16 @@ public class MedicalRecordDatabase extends Database {
         return new MedicalRecord(values);
     }
 
+    public DatabaseItems searchItem(String id){
+        for (DatabaseItems item : records) {
+            MedicalRecord medicalRecord = (MedicalRecord) item;
+            if (medicalRecord.getId().equals(id)) {
+                return medicalRecord; // Return the found item
+            }
+        }
+        return null;
+    }
+
     public boolean removeItem(String userid) {
         boolean accountRemoved = records.removeIf(user -> {
             MedicalRecord account = (MedicalRecord) user;

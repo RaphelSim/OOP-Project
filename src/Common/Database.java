@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -68,8 +69,13 @@ public abstract class Database {
         records.add(item);
     };
 
+    public List<DatabaseItems> getRecords(){
+        return records;
+    }
+
     // Abstract method for subclasses to implement
     protected abstract DatabaseItems createDatabaseItem(String[] values);
     public abstract void printItems();
     public abstract boolean removeItem(String id);
+    public abstract DatabaseItems searchItem(String id);
 }
