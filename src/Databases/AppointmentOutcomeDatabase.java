@@ -42,6 +42,8 @@ public class AppointmentOutcomeDatabase extends Database {
         }
     }
 
+ 
+
     public DatabaseItems createDatabaseItem(String[] values){
         //Name,id,Password,Role
         return new AppointmentOutcome(values);
