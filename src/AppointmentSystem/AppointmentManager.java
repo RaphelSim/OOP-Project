@@ -30,6 +30,7 @@ public class AppointmentManager {
 			System.out.println(slots.get(i).getAppointmentID());
 		}
 	}
+}
 	
  
 	
