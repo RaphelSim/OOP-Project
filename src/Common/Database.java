@@ -61,7 +61,6 @@ public abstract class Database {
         for (DatabaseItems item : records) {
             System.out.println(); // Print a new line for better readability
             item.printItem();
-            System.out.println(); // Print a new line for better readability
         }
     }
 

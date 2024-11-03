@@ -7,19 +7,22 @@ public class Account implements DatabaseItems {
     private String id;
     private String password;
     private Role role;
+    private Gender gender;
+    private int age;
     
-    public Account(String name, String id, Role role) {
+    public Account(String name, String id, Role role, Gender gender, int age) {
         this.name = name;
         this.id = id;
         this.password = "password";
         this.role = role;
+        this.gender = gender;
+        this.age = age;
     }
 
-    public Account(String name, String id, String password, Role role) {
-        this(name,id,role);
+    public Account(String name, String id, String password, Role role, Gender gender, int age) {
+        this(name,id,role,gender,age);
         this.password = password;
     }
-
 
     //call the deserialisation method
     public Account(String ...params){
@@ -28,20 +31,24 @@ public class Account implements DatabaseItems {
 
     //interface functions
     public void deserialise(String ...params){
-        //Name,id,Password,Role
-        Role role = Role.fromString(params[3]);
+        //name,id,password,role,gender,age
         this.name = params[0];
         this.id = params[1];
         this.password = params[2];
-        this.role = role;
+        this.role = Role.fromString(params[3]);
+        this.gender = Gender.fromString(params[4]);
+        this.age = Integer.parseInt(params[5]);
     }
 
     public String serialise(){
-        return String.format("%s,%s,%s,%s\n",
+        return String.format("%s,%s,%s,%s,%s,%s\n",
         name,
         id,
         password,
-        role.toString());
+        role.toString(),
+        gender.toString(),
+        Integer.toString(age)
+        );
     }
 
     public void printItem(){
@@ -49,6 +56,8 @@ public class Account implements DatabaseItems {
             System.out.println("Name: " + name);
             System.out.println("Role: " + role);
             System.out.println("Password: " + password);
+            System.out.println("Gender: " + gender.toString());
+            System.out.println("Age: " + age);
     }
 
     // getters
@@ -68,8 +77,22 @@ public class Account implements DatabaseItems {
         return role;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     // setters
     public void setPassword(String pwd) {
         this.password = pwd;
+    }
+
+    // utilities functions
+    public boolean checkPassword(String password){
+        if(this.password.equals(password)) return true;
+        else return  false;
     }
 }

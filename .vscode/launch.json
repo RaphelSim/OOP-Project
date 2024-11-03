@@ -19,9 +19,9 @@
         },
         {
             "type": "java",
-            "name": "Testing",
+            "name": "Hospital System",
             "request": "launch",
-            "mainClass": "Testing",
+            "mainClass": "HomePage", //change to Testing if you wish to test your managers
             "projectName": "OOP-Project_c1a6683"
         }
     ]
