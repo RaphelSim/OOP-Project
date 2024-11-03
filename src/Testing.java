@@ -3,8 +3,10 @@ import Common.AppointmentOutcomeStatus;
 import Common.AppointmentStatus;
 import Common.BloodType;
 import Common.ClearOutput;
+import Common.CustomTimer;
 import Common.Gender;
 import Common.Role;
+import Controllers.LoginManager;
 import DatabaseItems.Account;
 import DatabaseItems.AppointmentOutcome;
 import DatabaseItems.AppointmentSlot;
@@ -18,6 +20,7 @@ import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
 import Databases.MedicalRecordDatabase;
 import java.util.List;
+import java.util.logging.LogManager;
 
 public class Testing {
 
@@ -29,7 +32,7 @@ public class Testing {
         //TEST FOR ACCOUNTS/USERS
         // ClearOutput.clearOutput();
         // AccountDatabase database = new AccountDatabase("Database/AccountCredentials.csv");
-        // Account account = new Account("LeBron James", "PAT99999", Role.PAT);
+        // Account account = new Account("LeBron James", "PAT99999", Role.PAT, Gender.MALE, 39);
         // database.addItem(account);
         // //if(database.removeItem("PAT99999"))System.out.println("Remove success");
         // database.storeToCSV();
@@ -99,4 +102,3 @@ public class Testing {
     }
 }
 
-// PatientAppointmentManager(AppointmentDatabase database, String doctor_id , String patient_id)
