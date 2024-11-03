@@ -1,16 +1,21 @@
 package AppointmentSystem;
 
 public class Doctor {
-	private int doctorID;			// DOC12345 (DOC + 5 digits)
+	private String doctorID;			// DOC12345 (DOC + 5 digits)
 	private String name;
 	private Patient[] patients;
-	private AppointmentManager AM_D;	// AM for Doc to allow them to set personal schedule, manage appointmnents
+	private DoctorAM AM_D;	// AM for Doc to allow them to set personal schedule, manage appointmnents
 	
-	public Doctor(int doctorID, String name, Patient[] patients) {
+	public Doctor(String doctorID, String name, Patient[] patients) {
 		//super();
 		this.doctorID = doctorID;
 		this.name = name;
 		this.patients = patients;
+		AM_D = new DoctorAM();
+	}
+
+	public Doctor() {
+		
 	}
 	
 	
@@ -27,11 +32,11 @@ public class Doctor {
 
 
 
-	public int getDoctorID() {
+	public String getDoctorID() {
 		return doctorID;
 	}
 
-	public void setDoctorID(int doctorID) {
+	public void setDoctorID(String doctorID) {
 		this.doctorID = doctorID;
 	}
 
@@ -42,6 +47,20 @@ public class Doctor {
 	public void setPatients(Patient[] patients) {
 		this.patients = patients;
 	}
+
+
+
+	public DoctorAM getAM_D() {
+		return AM_D;
+	}
+
+
+
+	public void setAM_D(DoctorAM aM_D) {
+		AM_D = aM_D;
+	}
+
+	
 	
 	
 
