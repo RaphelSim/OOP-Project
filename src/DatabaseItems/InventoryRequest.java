@@ -11,6 +11,30 @@ public class InventoryRequest implements DatabaseItems {
         this.request_value = request_value;
     }
 
+    //call the deserialisation method
+    public InventoryRequest(String ...params){
+        deserialise(params);
+    }
+
+    //interface functions
+    public void deserialise(String ...params){
+        // medicine,request_value
+        this.medicine = params[0];
+        this.request_value = Integer.parseInt(params[1]);
+    }
+
+    public String serialise(){
+        return String.format("%s,%s\n",
+        this.medicine,
+        this.request_value
+        );
+    }
+
+    public void printItem(){
+        System.out.println("Medicine: " + this.medicine);
+        System.out.println("Request Value: " + this.request_value);
+    }
+
     public String getMedicine() {
         return medicine;
     }
