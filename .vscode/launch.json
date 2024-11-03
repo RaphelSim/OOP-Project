@@ -14,7 +14,7 @@
             "type": "java",
             "name": "Hospital System",
             "request": "launch",
-            "mainClass": "HomePage", //need to be changed to the actual main file OR to the file that you wish to test on (but must consist of a main function)
+            "mainClass": "HomePage", //change to Testing if you wish to test your managers
             "projectName": "OOP-Project_c1a6683"
         }
     ]
