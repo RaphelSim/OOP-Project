@@ -7,13 +7,13 @@ import DatabaseItems.Account;
 public class AccountDatabase extends Database {
 
     public AccountDatabase() {
-        setHeaderFormat("Name,id,Password,Role");
+        setHeaderFormat("name,id,password,role,gender,age");
         setcsvPath("Database/AccountCredentials.csv");
         extractFromCSV();
     }
 
     public AccountDatabase(String csvpath) {
-        setHeaderFormat("Name,id,Password,Role");
+        setHeaderFormat("name,id,password,role,gender,age");
         setcsvPath(csvpath);
         extractFromCSV();
     }
