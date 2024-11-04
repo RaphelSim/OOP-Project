@@ -19,8 +19,7 @@ import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
 import Databases.MedicalRecordDatabase;
 import java.util.List;
-import Controllers.*;
-import UI.*;
+
 
 public class Testing {
 
@@ -61,20 +60,6 @@ public class Testing {
         // // if(database.removeItem("1234567")) System.out.println("Remove success");
         // database.printItems();
         // database.storeToCSV();
-            AppointmentOutcomeDatabase database = new AppointmentOutcomeDatabase("AppointmentOutcomeRecord.csv");
-            DoctorAOMUI ui = new DoctorAOMUI();
-            DoctorAOM doctorAOM = new DoctorAOM(database, "DOC1", ui);
-    
-            // Display outcomes for a specific doctor
-            doctorAOM.displayDoctorOutcomes();
-    
-            // Add a new outcome
-            AppointmentOutcome newOutcome = new AppointmentOutcome("3", "DOC1", "PAT3", "2024-02-01",
-                    "Consultation", "Aspirin", "Review in a month", AppointmentOutcomeStatus.PENDING);
-            doctorAOM.addOutcome(newOutcome);
-    
-            // Verify it was added
-            doctorAOM.displayDoctorOutcomes();
 
         //TEST FOR DOCTOR SCHEDULE
         // ClearOutput.clearOutput();
