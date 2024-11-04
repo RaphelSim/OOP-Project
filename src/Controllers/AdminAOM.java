@@ -20,13 +20,13 @@ public class AdminAOM extends BaseAppointmentOutcomeManager {
     // Add a new outcome
     public void addNewOutcome(AppointmentOutcome outcome) {
         addOutcome(outcome);
-        ui.displayMessage("Outcome added successfully.");
+        ui.displaySuccessMessage("Outcome added successfully.");
     }
 
     // Remove an outcome by ID
     public void removeOutcomeById(String appointmentID) {
         removeOutcome(appointmentID);
-        ui.displayMessage("Outcome removed successfully.");
+        ui.displayErrorMessage("Outcome removed successfully.");
     }
 }
 

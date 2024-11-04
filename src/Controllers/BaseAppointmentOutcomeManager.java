@@ -47,6 +47,14 @@ public abstract class BaseAppointmentOutcomeManager {
                 .map(item -> (AppointmentOutcome) item)
                 .collect(Collectors.toList());
     }
+
+    //edit existing record
+    public void saveOutcome(AppointmentOutcome outcome) {
+        // Remove the old record (if it exists) and add the updated outcome back to the database
+        database.removeItem(outcome.getAppointmentId()); // Remove the existing record by appointment ID
+        database.addItem(outcome); // Add the updated record to the database
+        database.storeToCSV(); // Save all records to the CSV file or database
+    }
 }
 
 

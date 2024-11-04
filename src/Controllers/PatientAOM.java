@@ -6,6 +6,7 @@ import Databases.AppointmentOutcomeDatabase;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class PatientAOM extends BaseAppointmentOutcomeManager {
     private String patientID;
     private PatientAOMUI ui;
@@ -17,18 +18,19 @@ public class PatientAOM extends BaseAppointmentOutcomeManager {
     }
 
     // Display outcomes for this patient
-    public void displayPatientOutcomes() {
+    public void displayOutcomeDetails() {
         List<AppointmentOutcome> patientOutcomes = getAllOutcomes().stream()
                 .filter(outcome -> outcome.getPatientId().equals(patientID))
                 .collect(Collectors.toList());
 
         if (patientOutcomes.isEmpty()) {
-            ui.displayMessage("No outcomes found.");
-        } else {
+            ui.displayErrorMessage("No outcomes found.");
+        } else 
             patientOutcomes.forEach(ui::displayOutcomeDetails);
         }
-    }
 }
+
+
 
 
 

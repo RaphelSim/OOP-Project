@@ -1,10 +1,12 @@
 package UI;
 
+import Common.UserInterface;
 import DatabaseItems.AppointmentOutcome;
+import Common.ClearOutput;
 
-public class AdminAOMUI {
+public class AdminAOMUI extends UserInterface {
 
-    // Display details of a specific outcome
+    // Display details of a specific outcome for an admin
     public void displayOutcomeDetails(AppointmentOutcome outcome) {
         System.out.println("Appointment ID: " + outcome.getAppointmentId());
         System.out.println("Patient ID: " + outcome.getPatientId());
@@ -16,9 +18,13 @@ public class AdminAOMUI {
         System.out.println("Status: " + outcome.getStatus());
     }
 
-    // Display a message to the administrator
-    public void displayMessage(String message) {
-        System.out.println(message);
+    // Method for admin to display success or error messages
+    public void displaySuccessMessage(String message) {
+        displaySuccess(message);
+    }
+
+    public void displayErrorMessage(String message) {
+        displayError(message);
     }
 }
 

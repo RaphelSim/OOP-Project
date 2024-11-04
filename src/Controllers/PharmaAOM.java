@@ -1,10 +1,9 @@
 package Controllers;
 
+import Databases.AppointmentOutcomeDatabase;
 import DatabaseItems.AppointmentOutcome;
 import UI.PharmaAOMUI;
-import Databases.AppointmentOutcomeDatabase;
-
-import java.util.List;
+import Common.AppointmentOutcomeStatus;
 
 public class PharmaAOM extends BaseAppointmentOutcomeManager {
     private PharmaAOMUI ui;
@@ -14,11 +13,24 @@ public class PharmaAOM extends BaseAppointmentOutcomeManager {
         this.ui = ui;
     }
 
-    // Display medication details for all outcomes
-    public void displayMedicationDetails() {
-        List<AppointmentOutcome> outcomes = getAllOutcomes();
-        outcomes.forEach(ui::displayMedicationDetails);
+    // Method for pharmacist to update prescription status
+    public void updatePrescriptionStatus(String appointmentID) {
+        AppointmentOutcome outcome = getOutcome(appointmentID);
+        if (outcome == null) {
+            ui.displayErrorMessage("Appointment Outcome not found.");
+            return;
+        }
+    
+        ui.displayOutcomeDetails(outcome);
+        AppointmentOutcomeStatus newStatus = ui.getUpdatedStatus(outcome.getStatus());
+    
+        if (newStatus != null) {
+            outcome.setStatus(newStatus); // Update the status
+            saveOutcome(outcome);  // Save the entire AppointmentOutcome record
+            ui.displayMessage("Prescription status updated successfully.");
+        } else {
+            ui.displayMessage("Update canceled.");
+        }
     }
 }
-
 

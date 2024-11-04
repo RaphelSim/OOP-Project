@@ -30,16 +30,18 @@ public class DoctorAOM extends BaseAppointmentOutcomeManager {
     }
 
     // Edit an outcome for a specific appointment
+    // Edit an outcome for a specific appointment
     public void editOutcome(String appointmentID) {
-        AppointmentOutcome existingOutcome = getOutcome(appointmentID);
-        if (existingOutcome != null && existingOutcome.getDoctorId().equals(doctorID)) {
-            ui.displayOutcomeDetails(existingOutcome);
-            AppointmentOutcome newOutcome = ui.getNewOutcomeDetails();
-            removeOutcome(appointmentID);
-            addOutcome(newOutcome);
-            ui.displayMessage("Outcome updated successfully.");
-        } else {
-            ui.displayMessage("Outcome not found or you are not authorized to edit this outcome.");
+    AppointmentOutcome existingOutcome = getOutcome(appointmentID);
+    if (existingOutcome != null && existingOutcome.getDoctorId().equals(doctorID)) {
+        ui.displayOutcomeDetails(existingOutcome);
+        AppointmentOutcome newOutcome = ui.getNewOutcomeDetails(appointmentID, doctorID, existingOutcome.getPatientId());
+        removeOutcome(appointmentID);
+        addOutcome(newOutcome);
+        ui.displayMessage("Outcome updated successfully.");
+    } else {
+        ui.displayMessage("Outcome not found or you are not authorized to edit this outcome.");
         }
     }
+
 }
