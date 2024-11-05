@@ -1,4 +1,4 @@
-package Controllers;
+package Common;
 
 import Databases.AppointmentOutcomeDatabase;
 import DatabaseItems.AppointmentOutcome;
@@ -6,10 +6,10 @@ import DatabaseItems.AppointmentOutcome;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class BaseAppointmentOutcomeManager {
+public abstract class AppointmentOutcomeManager {
     protected final AppointmentOutcomeDatabase database;
 
-    public BaseAppointmentOutcomeManager(AppointmentOutcomeDatabase database) {
+    public AppointmentOutcomeManager(AppointmentOutcomeDatabase database) {
         this.database = database;
     }
 

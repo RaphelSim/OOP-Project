@@ -1,5 +1,6 @@
 package Controllers.AppManagers;
 
+import Controllers.AOManagers.PatientAOM;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AccountManager;
@@ -8,11 +9,15 @@ import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
 import UI.PatientMenu;
 import UI.UpdateDetailsPage;
+import UI.AOMUI.PatientOutcomeInterface;
 
 public class PatientAppMgr extends AppManager {
     // Declare managers
     private AccountManager accountManager;
     private UpdateDetailsPage updateDetailsPage;
+    private PatientAOM patientOutcomeManager;
+    private PatientOutcomeInterface patientOutcomeUI;
+
 
     @Override
     public void displayMainPage() {
@@ -76,6 +81,7 @@ public class PatientAppMgr extends AppManager {
     @Override
     protected void createManagers() {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
+        patientOutcomeManager = new PatientAOM(appointmentOutcomeDatabase);
     }
 
     @Override
@@ -90,6 +96,7 @@ public class PatientAppMgr extends AppManager {
 
     private void updatePersonalInformation() {
         updateDetailsPage.displayOptions(account);
+        patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
     }
 
     private void viewAvailableAppointments() {
@@ -114,5 +121,6 @@ public class PatientAppMgr extends AppManager {
 
     private void viewPastAppointmentOutcomes() {
         //  Implement PatientAOM interaction for viewing past outcomes
+        patientOutcomeUI.displayOptions(account.getid());
     }
 }
