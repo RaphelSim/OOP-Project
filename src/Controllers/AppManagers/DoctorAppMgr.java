@@ -1,19 +1,56 @@
 package Controllers.AppManagers;
 
 import Common.AppManager;
+import Common.ClearOutput;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
+import UI.UserMenu;
 
 public class DoctorAppMgr extends AppManager {
-    //initiate managers and pages(UI here)
+    // Declare managers
+    private DoctorSchedule doctorSchedule;
 
     @Override
     public void displayMainPage() {
-        //call the main page here
+        boolean logout = false;
+        while (!logout) {
+            ClearOutput.clearOutput();
+            int selection = UserMenu.displayDoctorMenu();
 
-        //must call after the user selects logout
+            switch (selection) {
+                case 1:
+                    viewPatientMedicalRecords();
+                    break;
+                case 2:
+                    updatePatientMedicalRecords();
+                    break;
+                case 3:
+                    viewPersonalSchedule();
+                    break;
+                case 4:
+                    setAvailability();
+                    break;
+                case 5:
+                    handleAppointmentRequests();
+                    break;
+                case 6:
+                    viewUpcomingAppointments();
+                    break;
+                case 7:
+                    recordAppointmentOutcome();
+                    break;
+                case 8:
+                    ClearOutput.clearOutput();
+                    System.out.println("Thank you for using the Hospital X System. Goodbye!");
+                    logout = true;
+                    break;
+                default:
+                    System.out.println("Invalid selection. Please try again.");
+                    break;
+            }
+        }
         logOut();
     }
 
@@ -35,13 +72,40 @@ public class DoctorAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
-        // create instance of manager here
+
     }
 
     @Override
     protected void createPages() {
-        // create instance of pages here
+        // Initialize any UI pages needed for doctor interactions
     }
 
-    //declare functions to call your managers accordingly
+    // Methods to handle each menu option
+    private void viewPatientMedicalRecords() {
+        // Implement functionality to view patient medical records
+    }
+
+    private void updatePatientMedicalRecords() {
+        // Implement functionality to update patient medical records
+    }
+
+    private void viewPersonalSchedule() {
+        // Implement functionality to view personal schedule
+    }
+
+    private void setAvailability() {
+        // Implement functionality to set availability for appointments
+    }
+
+    private void handleAppointmentRequests() {
+        // Implement functionality to accept or decline appointment requests
+    }
+
+    private void viewUpcomingAppointments() {
+        // Implement functionality to view upcoming appointments
+    }
+
+    private void recordAppointmentOutcome() {
+        // Implement functionality to record appointment outcomes
+    }
 }

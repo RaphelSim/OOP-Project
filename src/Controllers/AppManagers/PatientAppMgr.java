@@ -6,7 +6,7 @@ import Controllers.AccountManager;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
-import UI.PatientMenu;
+import UI.UserMenu;
 import UI.UpdateDetailsPage;
 
 public class PatientAppMgr extends AppManager {
@@ -19,7 +19,7 @@ public class PatientAppMgr extends AppManager {
         boolean logout = false;
         while (!logout) {
             ClearOutput.clearOutput();
-            int selection = PatientMenu.displayMenu();
+            int selection = UserMenu.displayPatientMenu();
             
             switch (selection) {
                 case 1:
