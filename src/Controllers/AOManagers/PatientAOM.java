@@ -13,18 +13,20 @@ public class PatientAOM extends AppointmentOutcomeManager {
         super(database);
     }
 
-    // Method to view an appointment outcome for a patient
+    // Method to view an appointment outcome for a patient by appointment ID
     public AppointmentOutcome viewOutcome(String appointmentId) {
         AppointmentOutcome record = getOutcome(appointmentId);
         if (record == null) {
             System.out.println("Record not found.");
+        } else {
+            System.out.println("Appointment outcome found for Appointment ID: " + appointmentId);
         }
-        return record; // Return record to allow UI to handle display
+        return record; 
     }
-     public List<AppointmentOutcome> getPastOutcomes(String patientId) {
-        return database.getRecords().stream()
-            .filter(record -> record instanceof AppointmentOutcome) // Ensure it's an AppointmentOutcome record
-            .map(record -> (AppointmentOutcome) record) // Cast to AppointmentOutcome
+
+    // Method to retrieve past outcomes for a specific patient by patient ID
+    public List<AppointmentOutcome> getPastOutcomes(String patientId) {
+        return getAllOutcomes().stream() // Use inherited helper method to get only AppointmentOutcome records
             .filter(outcome -> outcome.getPatientId().equals(patientId)) // Filter by patient ID
             .collect(Collectors.toList()); // Collect and return as a list
     }

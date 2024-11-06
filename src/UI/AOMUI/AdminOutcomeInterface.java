@@ -10,9 +10,10 @@ public class AdminOutcomeInterface extends UserInterface {
     public AdminOutcomeInterface(AdminAOM adminManager) {
         this.adminManager = adminManager;
     }
+
     private String getStringInput(String prompt) {
         System.out.print(prompt);
-        return scanner.nextLine();
+        return scanner.nextLine().trim(); // Trim input to avoid leading/trailing spaces
     }    
 
     public void displayOptions() {
@@ -43,8 +44,13 @@ public class AdminOutcomeInterface extends UserInterface {
 
     private void viewOutcome() {
         String appointmentId = getStringInput("Enter Appointment ID to view: ");
-        AppointmentOutcome outcome = adminManager.getOutcome(appointmentId);
         
+        if (appointmentId.isEmpty()) {
+            System.out.println("Appointment ID cannot be empty. Please try again.");
+            return;
+        }
+
+        AppointmentOutcome outcome = adminManager.getOutcome(appointmentId);
         if (outcome != null) {
             outcome.printItem();
         } else {
@@ -54,12 +60,17 @@ public class AdminOutcomeInterface extends UserInterface {
 
     private void deleteOutcome() {
         String appointmentId = getStringInput("Enter Appointment ID to delete: ");
-        boolean success = adminManager.deleteOutcome(appointmentId);
+        
+        if (appointmentId.isEmpty()) {
+            System.out.println("Appointment ID cannot be empty. Please try again.");
+            return;
+        }
 
+        boolean success = adminManager.deleteOutcome(appointmentId);
         if (success) {
             System.out.println("Appointment outcome deleted successfully.");
         } else {
-            System.out.println("Failed to delete appointment outcome.");
+            System.out.println("Failed to delete appointment outcome. The record may not exist.");
         }
     }
 }

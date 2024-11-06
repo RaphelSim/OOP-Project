@@ -12,27 +12,26 @@ public class PatientOutcomeInterface extends UserInterface {
         this.patientManager = patientManager;
     }
 
-    protected static String getStringInput(String prompt) {
-    System.out.print(prompt);
-    return scanner.nextLine().trim(); // Ensure no extra spaces in input
+    private String getStringInput(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine().trim(); 
     }
 
-
-    public void displayOptions(String accountId) { // Passing accountId if needed
+    public void displayOptions(String accountId) { 
         boolean exit = false;
         while (!exit) {
             System.out.println("Patient Interface - Appointment Outcome");
             System.out.println("1. View Specific Appointment Outcome");
             System.out.println("2. View All Past Appointment Outcomes");
             System.out.println("3. Exit");
-    
+
             int choice = getIntInput(-1); 
             switch (choice) {
                 case 1:
                     viewSpecificOutcome();
                     break;
                 case 2:
-                    displayPastOutcomes(accountId); // Use the passed accountId
+                    viewPastOutcomes(accountId); 
                     break;
                 case 3:
                     System.out.println("Exiting Patient Interface...");
@@ -43,21 +42,25 @@ public class PatientOutcomeInterface extends UserInterface {
             }
         }
     }
-    
-    private void viewSpecificOutcome() {
-        String appointmentId = getStringInput("Enter Appointment ID to view: "); // Prompt user to enter ID
+
+    public void viewSpecificOutcome() {
+        String appointmentId = getStringInput("Enter Appointment ID to view: "); 
+        
+        if (appointmentId.isEmpty()) {
+            System.out.println("Appointment ID cannot be empty. Please try again.");
+            return;
+        }
+        
         AppointmentOutcome outcome = patientManager.getOutcome(appointmentId);
-    
         if (outcome != null) {
             outcome.printItem();
         } else {
             System.out.println("No outcome found for the given Appointment ID.");
         }
     }
-    
 
-    // New method to display all past outcomes for a specific patient
-    public void displayPastOutcomes(String patientId) {
+    // Method to display all past outcomes for a specific patient
+    public void viewPastOutcomes(String patientId) {
         List<AppointmentOutcome> outcomes = patientManager.getPastOutcomes(patientId); // Assuming this method exists in PatientAOM
         
         System.out.println("Past Appointment Outcomes for Patient ID: " + patientId);
@@ -70,3 +73,4 @@ public class PatientOutcomeInterface extends UserInterface {
         }
     }
 }
+

@@ -91,6 +91,7 @@ public class PatientAppMgr extends AppManager {
 
     // Methods to handle each menu option
     private void viewMedicalRecord() {
+        patientOutcomeUI.viewSpecificOutcome();
         //  Implement PatientMRM interaction here
     }
 

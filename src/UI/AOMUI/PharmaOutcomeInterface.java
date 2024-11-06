@@ -11,6 +11,7 @@ public class PharmaOutcomeInterface extends UserInterface {
     public PharmaOutcomeInterface(PharmaAOM pharmaManager) {
         this.pharmaManager = pharmaManager;
     }
+
     private String getStringInput(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine();
@@ -62,8 +63,20 @@ public class PharmaOutcomeInterface extends UserInterface {
             return;
         }
 
-        AppointmentOutcomeStatus newStatus = AppointmentOutcomeStatus.fromString(
-            getStringInput("Enter new Status (e.g., READY, COMPLETED): "));
+        AppointmentOutcomeStatus newStatus;
+        while (true) {
+            try {
+                newStatus = AppointmentOutcomeStatus.fromString(
+                    getStringInput("Enter new Status (PENDING, DISPENSED): "));
+                if (newStatus == AppointmentOutcomeStatus.PENDING || newStatus == AppointmentOutcomeStatus.DISPENSED) {
+                    break;
+                } else {
+                    System.out.println("Invalid status. Please enter either 'PENDING' or 'DISPENSED'.");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid status entered. Please enter either 'PENDING' or 'DISPENSED'.");
+            }
+        }
 
         boolean success = pharmaManager.updateOutcomeStatus(appointmentId, newStatus);
         if (success) {
