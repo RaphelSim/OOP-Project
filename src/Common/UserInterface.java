@@ -28,11 +28,11 @@ public class UserInterface {
         }
     }
 
-    protected static void displaySuccess(String message) {
+    public static void displaySuccess(String message) {
         System.out.println(message);
     }
 
-    protected static void displayError(String message) {
+    public static void displayError(String message) {
         System.err.println(message);
     }
 } 

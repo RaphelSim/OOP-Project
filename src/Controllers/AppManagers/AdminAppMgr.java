@@ -1,24 +1,47 @@
 package Controllers.AppManagers;
 
 import Common.AppManager;
-import Controllers.AOManagers.AdminAOM;
+import Common.ClearOutput;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
 import Databases.MedicalRecordDatabase;
-import UI.AOMUI.AdminOutcomeInterface;
+import UI.UserMenu;
 
 public class AdminAppMgr extends AppManager {
-    //initialise your managers and pages here
-    private AdminAOM adminOutcomeManager;
-    private AdminOutcomeInterface adminOutcomeUI;
+    // Declare managers
 
     @Override
     public void displayMainPage() {
-        //call the main page here
+        boolean logout = false;
+        while (!logout) {
+            ClearOutput.clearOutput();
+            int selection = UserMenu.displayAdminMenu();
 
-        //must call after the user selects logout
+            switch (selection) {
+                case 1:
+                    manageHospitalStaff();
+                    break;
+                case 2:
+                    viewAppointmentsDetails();
+                    break;
+                case 3:
+                    manageMedicationInventory();
+                    break;
+                case 4:
+                    approveReplenishmentRequests();
+                    break;
+                case 5:
+                    ClearOutput.clearOutput();
+                    System.out.println("Thank you for using the Hospital X System. Goodbye!");
+                    logout = true;
+                    break;
+                default:
+                    System.out.println("Invalid selection. Please try again.");
+                    break;
+            }
+        }
         logOut();
     }
 
@@ -42,18 +65,28 @@ public class AdminAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
-        adminOutcomeManager = new AdminAOM(appointmentOutcomeDatabase);
-        // create instance of manager here
+;
     }
 
     @Override
     protected void createPages() {
-        // create instance of pages here
-        adminOutcomeUI = new AdminOutcomeInterface(adminOutcomeManager);
+        // Create instances of pages for the admin view
     }
 
-    private void viewOrEditAppointmentOutcomes() {
-        adminOutcomeUI.displayOptions(); // Display options to view or edit appointment outcomes
+    // Methods to handle each menu option
+    private void manageHospitalStaff() {
+        // Implement functionality for managing hospital staff
     }
-    //declare functions to call your managers accordingly
+
+    private void viewAppointmentsDetails() {
+        // Implement functionality to view appointment details
+    }
+
+    private void manageMedicationInventory() {
+        // Implement functionality to manage medication inventory
+    }
+
+    private void approveReplenishmentRequests() {
+        // Implement functionality to approve replenishment requests
+    }
 }

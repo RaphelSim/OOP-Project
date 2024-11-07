@@ -1,23 +1,46 @@
 package Controllers.AppManagers;
 
-import Controllers.AOManagers.PharmaAOM;
 import Common.AppManager;
+import Common.ClearOutput;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
-import UI.AOMUI.PharmaOutcomeInterface;
+import UI.UserMenu;
 
 public class PharmaAppMgr extends AppManager {
-    //initiate managers and pages(UI here)
-    private PharmaAOM pharmaOutcomeManager;
-    private PharmaOutcomeInterface pharmaOutcomeUI;
+    // Declare managers
 
     @Override
     public void displayMainPage() {
-        //call the main page here
+        boolean logout = false;
+        while (!logout) {
+            ClearOutput.clearOutput();
+            int selection = UserMenu.displayPharmacistMenu();
 
-        //must call after the user selects logout
+            switch (selection) {
+                case 1:
+                    viewInventory();
+                    break;
+                case 2:
+                    updateMedicationStock();
+                    break;
+                case 3:
+                    processReplenishmentRequests();
+                    break;
+                case 4:
+                    viewAppointmentPrescriptions();
+                    break;
+                case 5:
+                    ClearOutput.clearOutput();
+                    System.out.println("Thank you for using the Hospital X System. Goodbye!");
+                    logout = true;
+                    break;
+                default:
+                    System.out.println("Invalid selection. Please try again.");
+                    break;
+            }
+        }
         logOut();
     }
 
@@ -39,18 +62,28 @@ public class PharmaAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
-        pharmaOutcomeManager = new PharmaAOM(appointmentOutcomeDatabase);
-        // create instance of manager here
+        // Initialize manager instances here once the relevant classes are created
     }
 
     @Override
     protected void createPages() {
-        pharmaOutcomeUI = new PharmaOutcomeInterface(pharmaOutcomeManager);
-        // create instance of pages here
+        // Initialize UI pages here once they are available
     }
 
-    private void viewAppointmentOutcomes() {
-        pharmaOutcomeUI.displayOptions(); // Display appointment outcome options for the pharmacist
+    // Methods to handle each menu option
+    private void viewInventory() {
+        // Implement functionality to view medication inventory
     }
-    //declare functions to call your managers accordingly
+
+    private void updateMedicationStock() {
+        // Implement functionality to update stock levels of medications
+    }
+
+    private void processReplenishmentRequests() {
+        // Implement functionality to handle replenishment requests
+    }
+
+    private void viewAppointmentPrescriptions() {
+        // Implement functionality to view prescriptions related to appointments
+    }
 }

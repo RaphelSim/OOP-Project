@@ -1,25 +1,23 @@
 package Controllers.AppManagers;
-import Controllers.AOManagers.DoctorAOM;
+
 import Common.AppManager;
 import Common.ClearOutput;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
-import UI.DoctorMenu;
-import UI.AOMUI.DoctorOutcomeInterface;
+import UI.UserMenu;
 
 public class DoctorAppMgr extends AppManager {
-    //initiate managers and pages(UI here)
-    private DoctorAOM doctorOutcomeManager;
-    private DoctorOutcomeInterface doctorOutcomeUI;
-    //call the main page here
+    // Declare managers
+    private DoctorSchedule doctorSchedule;
+
     @Override
     public void displayMainPage() {
         boolean logout = false;
         while (!logout) {
-            ClearOutput.clearOutput();  
-            int selection = DoctorMenu.displayMenu();
+            ClearOutput.clearOutput();
+            int selection = UserMenu.displayDoctorMenu();
 
             switch (selection) {
                 case 1:
@@ -35,7 +33,7 @@ public class DoctorAppMgr extends AppManager {
                     setAvailability();
                     break;
                 case 5:
-                    acceptOrDeclineAppointmentRequests();
+                    handleAppointmentRequests();
                     break;
                 case 6:
                     viewUpcomingAppointments();
@@ -44,7 +42,8 @@ public class DoctorAppMgr extends AppManager {
                     recordAppointmentOutcome();
                     break;
                 case 8:
-                    System.out.println("Thank you for using the Hospital X System. See you again soon!");
+                    ClearOutput.clearOutput();
+                    System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
                     break;
                 default:
@@ -54,7 +53,6 @@ public class DoctorAppMgr extends AppManager {
         }
         logOut();
     }
-
 
     @Override
     protected void loadDatabases() {
@@ -74,31 +72,40 @@ public class DoctorAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
-        doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
-        // create instance of manager here
+
     }
 
     @Override
     protected void createPages() {
-        doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager);
-        // create instance of pages here
+        // Initialize any UI pages needed for doctor interactions
     }
 
+    // Methods to handle each menu option
     private void viewPatientMedicalRecords() {
-
+        // Implement functionality to view patient medical records
     }
 
     private void updatePatientMedicalRecords() {
-
+        // Implement functionality to update patient medical records
     }
 
-    //declare functions to call your managers accordingly
-    private void viewPersonalSchedule(){}
-    private void setAvailability(){}
-    private void acceptOrDeclineAppointmentRequests(){}
-    private void viewUpcomingAppointments(){}
+    private void viewPersonalSchedule() {
+        // Implement functionality to view personal schedule
+    }
+
+    private void setAvailability() {
+        // Implement functionality to set availability for appointments
+    }
+
+    private void handleAppointmentRequests() {
+        // Implement functionality to accept or decline appointment requests
+    }
+
+    private void viewUpcomingAppointments() {
+        // Implement functionality to view upcoming appointments
+    }
 
     private void recordAppointmentOutcome() {
-        doctorOutcomeUI.recordOutcome();
+        // Implement functionality to record appointment outcomes
     }
 }
