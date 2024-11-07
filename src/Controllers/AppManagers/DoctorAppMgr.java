@@ -2,15 +2,19 @@ package Controllers.AppManagers;
 
 import Common.AppManager;
 import Common.ClearOutput;
+import Controllers.AOManagers.DoctorAOM;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
+import UI.AOMUI.DoctorOutcomeInterface;
 
 public class DoctorAppMgr extends AppManager {
     // Declare managers
     private DoctorSchedule doctorSchedule;
+    private DoctorAOM doctorOutcomeManager;
+    private DoctorOutcomeInterface doctorOutcomeUI;
 
     @Override
     public void displayMainPage() {
@@ -42,7 +46,6 @@ public class DoctorAppMgr extends AppManager {
                     recordAppointmentOutcome();
                     break;
                 case 8:
-                    ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
                     break;
@@ -72,12 +75,13 @@ public class DoctorAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
-
+        doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
     }
 
     @Override
     protected void createPages() {
         // Initialize any UI pages needed for doctor interactions
+        doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager);
     }
 
     // Methods to handle each menu option
@@ -107,5 +111,6 @@ public class DoctorAppMgr extends AppManager {
 
     private void recordAppointmentOutcome() {
         // Implement functionality to record appointment outcomes
+        doctorOutcomeUI.displayOptions();
     }
 }

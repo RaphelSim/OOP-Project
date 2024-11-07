@@ -40,7 +40,6 @@ public class PharmaAOM extends AppointmentOutcomeManager {
         
         try {
             database.storeToCSV(); // Save changes to the database
-            System.out.println("Appointment outcome status updated successfully.");
         } catch (Exception e) {
             System.out.println("Error: Failed to save the updated status to the database.");
             return false;

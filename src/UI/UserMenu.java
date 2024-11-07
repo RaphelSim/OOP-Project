@@ -31,12 +31,11 @@ public class UserMenu extends UserInterface{
     
     public static int displayPharmacistMenu() {
         System.out.println("Please select an option: ");
-        System.out.println("1. View Appointment Outcome Record");
-        System.out.println("2. Update Prescription Status");
-        System.out.println("3. View Medication Inventory");
-        System.out.println("4. Submit Replenishment Request");
-        System.out.println("5. Logout");
-        return getIntInput(6);
+        System.out.println("1. View Appointment Outcome or update prescription Status");
+        System.out.println("2. View Medication Inventory");
+        System.out.println("3. Submit Replenishment Request");
+        System.out.println("4. Logout");
+        return getIntInput(5);
     }
     
     public static int displayAdminMenu() {

@@ -3,8 +3,8 @@ package UI.AOMUI;
 import Controllers.AOManagers.DoctorAOM;
 import Common.UserInterface;
 import Common.AppointmentOutcomeStatus;
-import Common.ClearOutput;
 import DatabaseItems.AppointmentOutcome;
+import Common.ClearOutput;
 
 public class DoctorOutcomeInterface extends UserInterface {
     private DoctorAOM doctorManager;
@@ -15,10 +15,11 @@ public class DoctorOutcomeInterface extends UserInterface {
 
     private String getStringInput(String prompt) {
         System.out.print(prompt);
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 
     public void displayOptions() {
+        ClearOutput.clearOutput();
         boolean exit = false;
         while (!exit) {
             System.out.println("Doctor Interface - Appointment Outcome Management");
@@ -51,12 +52,14 @@ public class DoctorOutcomeInterface extends UserInterface {
     public void viewOutcome() {
         ClearOutput.clearOutput();
         String appointmentId = getStringInput("Enter Appointment ID to view: ");
+
         AppointmentOutcome outcome = doctorManager.getOutcome(appointmentId);
-        
         if (outcome != null) {
             outcome.printItem();
+            System.out.println();
         } else {
             System.out.println("No outcome found for the given Appointment ID.");
+            System.out.println();
         }
     }
 
@@ -76,6 +79,7 @@ public class DoctorOutcomeInterface extends UserInterface {
         String newConsultationNotes = getStringInput("Enter new Consultation Notes: ");
         
         AppointmentOutcomeStatus newStatus = null;
+
         String statusInput = getStringInput("Enter new Status (PENDING or DISPENSED): ").toUpperCase();
         if (statusInput.equals("PENDING") || statusInput.equals("DISPENSED")) {
             newStatus = AppointmentOutcomeStatus.valueOf(statusInput);
@@ -83,27 +87,27 @@ public class DoctorOutcomeInterface extends UserInterface {
             System.out.println("Invalid status entered. Defaulting to PENDING.");
             newStatus = AppointmentOutcomeStatus.PENDING;
         }
-
-        // Only print success message if edit was actually successful
         boolean success = doctorManager.editOutcome(appointmentId, newDate, newTypeOfService, newMedication, newConsultationNotes, newStatus);
         
         if (success) {
             System.out.println("Appointment outcome updated successfully.");
+            System.out.println();
         } else {
             System.out.println("Failed to update appointment outcome.");
+            System.out.println();
         }
     }
 
     public void recordOutcome() {
         ClearOutput.clearOutput();
         String appointmentId = getStringInput("Enter Appointment ID: ");
-        String doctorId = "DOC12345";  // Example doctor ID; replace with actual logic
+        String doctorId = getStringInput("Enter Doctor ID: ");
         String patientId = getStringInput("Enter Patient ID: ");
         String date = getStringInput("Enter Date (YYYY-MM-DD): ");
         String typeOfService = getStringInput("Enter Type of Service: ");
         String medication = getStringInput("Enter Medication: ");
         String consultationNotes = getStringInput("Enter Consultation Notes: ");
-        AppointmentOutcomeStatus status = AppointmentOutcomeStatus.PENDING;  // Default status
+        AppointmentOutcomeStatus status = AppointmentOutcomeStatus.PENDING; 
 
         AppointmentOutcome newOutcome = new AppointmentOutcome(
             appointmentId, doctorId, patientId, date, typeOfService, medication, consultationNotes, status
@@ -112,8 +116,11 @@ public class DoctorOutcomeInterface extends UserInterface {
         boolean success = doctorManager.addOutcome(newOutcome);
         if (success) {
             System.out.println("New appointment outcome recorded successfully.");
+            System.out.println(); 
+            System.out.println();
         } else {
             System.out.println("Failed to record appointment outcome. An outcome with this ID may already exist.");
+            System.out.println(); 
         }
     }
 }

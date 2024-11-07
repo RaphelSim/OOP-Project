@@ -1,9 +1,9 @@
 package UI.AOMUI;
 
 import Controllers.AOManagers.PatientAOM;
-import Common.ClearOutput;
 import Common.UserInterface;
 import DatabaseItems.AppointmentOutcome;
+import Common.ClearOutput;
 import java.util.List;
 
 public class PatientOutcomeInterface extends UserInterface {
@@ -46,9 +46,9 @@ public class PatientOutcomeInterface extends UserInterface {
     }
 
     public void viewSpecificOutcome() {
+        ClearOutput.clearOutput();
         String appointmentId = getStringInput("Enter Appointment ID to view: "); 
         
-        ClearOutput.clearOutput();
         if (appointmentId.isEmpty()) {
             System.out.println("Appointment ID cannot be empty. Please try again.");
             return;
@@ -57,14 +57,16 @@ public class PatientOutcomeInterface extends UserInterface {
         AppointmentOutcome outcome = patientManager.getOutcome(appointmentId);
         if (outcome != null) {
             outcome.printItem();
+            System.out.println();
         } else {
             System.out.println("No outcome found for the given Appointment ID.");
+            System.out.println();
         }
     }
 
     // Method to display all past outcomes for a specific patient
     public void viewPastOutcomes(String patientId) {
-        List<AppointmentOutcome> outcomes = patientManager.getPastOutcomes(patientId); // Assuming this method exists in PatientAOM
+        List<AppointmentOutcome> outcomes = patientManager.getPastOutcomes(patientId); 
         
         ClearOutput.clearOutput();
         System.out.println("Past Appointment Outcomes for Patient ID: " + patientId);

@@ -2,15 +2,19 @@ package Controllers.AppManagers;
 
 import Common.AppManager;
 import Common.ClearOutput;
+// import Controllers.AOManagers.AdminAOM;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
+// import UI.AOMUI.AdminOutcomeInterface;
 
 public class AdminAppMgr extends AppManager {
     // Declare managers
+    // private AdminAOM adminOutcomeManager;
+    // private AdminOutcomeInterface adminOutcomeInterface;
 
     @Override
     public void displayMainPage() {
@@ -33,7 +37,6 @@ public class AdminAppMgr extends AppManager {
                     approveReplenishmentRequests();
                     break;
                 case 5:
-                    ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
                     break;

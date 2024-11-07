@@ -52,7 +52,6 @@ public class PatientAppMgr extends AppManager {
                     viewPastAppointmentOutcomes();
                     break;
                 case 9:
-                    ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. See you again soon!");
                     logout = true;
                     break;
