@@ -41,11 +41,9 @@ public class DoctorAppMgr extends AppManager {
                     viewUpcomingAppointments();
                     break;
                 case 7:
-                    ClearOutput.clearOutput();
                     recordAppointmentOutcome();
                     break;
                 case 8:
-                    ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. See you again soon!");
                     logout = true;
                     break;
@@ -87,11 +85,11 @@ public class DoctorAppMgr extends AppManager {
     }
 
     private void viewPatientMedicalRecords() {
-        doctorOutcomeUI.displayOptions();  
+
     }
 
     private void updatePatientMedicalRecords() {
-        doctorOutcomeUI.editOutcome(); 
+
     }
 
     //declare functions to call your managers accordingly

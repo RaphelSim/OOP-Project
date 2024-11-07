@@ -87,17 +87,16 @@ public class PatientAppMgr extends AppManager {
     @Override
     protected void createPages() {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
+        patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
     }
 
     // Methods to handle each menu option
     private void viewMedicalRecord() {
-        patientOutcomeUI.viewSpecificOutcome();
         //  Implement PatientMRM interaction here
     }
 
     private void updatePersonalInformation() {
         updateDetailsPage.displayOptions(account);
-        patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
     }
 
     private void viewAvailableAppointments() {

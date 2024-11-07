@@ -1,4 +1,5 @@
 appointment_id,patient_id,doctor_id,date,type_of_service,medication,consultation_notes,status
+123,1,DOC12345,2024-11-08,X_RAY,afeafea,fafefea,PENDING
 1234567,PAT12345,DOC12345,2024-11-07,X-RAY,PARA,NOT GOOD,PENDING
 2345678,PAT2345678,DOC12345,2024-03-10,CT,C,NOT GOOD,PENDING
 testesttest,PAT12345,DOC12345,2024-06-11,MRI,PARA,GOOD,PENDING
