@@ -20,9 +20,9 @@ public class AccountManager {
         if (newPassword == null || newPassword.isEmpty()) {
             return false; // New password invalid
         }
-        account.setPassword(newPassword);
-        accountDatabase.removeItem(account.getid()); // Remove old record
-        accountDatabase.addItem(account); // Add updated record
+
+        Account newAccount = (Account) accountDatabase.searchItem(account.getid());
+        newAccount.setPassword(newPassword);
         return true; // Indicate success
     }
 
@@ -33,9 +33,7 @@ public class AccountManager {
         MedicalRecord medicalRecord = (MedicalRecord) medicalRecordDatabase.searchItem(account.getid());
         if (medicalRecord == null) return false; // MedicalRecord not found
 
-        medicalRecord.setEmail(newEmail);
-        medicalRecordDatabase.removeItem(account.getid());
-        medicalRecordDatabase.addItem(medicalRecord); // Update medical record
+        medicalRecord.setEmail(newEmail); // Update medical record
         return true;
     }
 
@@ -46,9 +44,7 @@ public class AccountManager {
         MedicalRecord medicalRecord = (MedicalRecord) medicalRecordDatabase.searchItem(account.getid());
         if (medicalRecord == null) return false; // MedicalRecord not found
 
-        medicalRecord.setPhone(newPhone);
-        medicalRecordDatabase.removeItem(account.getid());
-        medicalRecordDatabase.addItem(medicalRecord); // Update medical record
+        medicalRecord.setPhone(newPhone); // Update medical record
         return true;
     }
 }
