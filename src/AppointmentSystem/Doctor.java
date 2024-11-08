@@ -11,7 +11,7 @@ public class Doctor {
 		this.doctorID = doctorID;
 		this.name = name;
 		this.patients = patients;
-		AM_D = new DoctorAM();
+		AM_D = new DoctorAM(this);
 	}
 
 	public Doctor() {

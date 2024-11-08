@@ -11,11 +11,11 @@ public class Appointment {
 	
 	private String appointmentID;
 	private LocalDateTime slotTime;		// Format:  yyyy-mm-dd/hh-mm\
-	private int doctorID;				// DOC12345 (DOC + 5 digits)
-	private int patientID;				// PAT23456 (PAT + 5 digits)
+	private String doctorID;				// DOC12345 (DOC + 5 digits)
+	private String patientID;				// PAT23456 (PAT + 5 digits)
 	private boolean assigned;
 	
-	public Appointment(LocalDateTime slotTime, int doctorID, int patientID, boolean assigned) {
+	public Appointment(LocalDateTime slotTime, String doctorID, String patientID, boolean assigned) {
 		//super();
 		this.appointmentID = doctorID + "/" + slotTime;	//Format: DOC12345/PAT22345/yyyy-mm-dd/1200\
 		//this.appointmentID = appointmentID;
@@ -41,19 +41,19 @@ public class Appointment {
 		this.slotTime = slotTime;
 	}
 
-	public int getDoctorID() {
+	public String getDoctorID() {
 		return doctorID;
 	}
 
-	public void setDoctorID(int doctorID) {
+	public void setDoctorID(String doctorID) {
 		this.doctorID = doctorID;
 	}
 
-	public int getPatientID() {
+	public String getPatientID() {
 		return patientID;
 	}
 
-	public void setPatientID(int patientID) {
+	public void setPatientID(String patientID) {
 		this.patientID = patientID;
 	}
 
@@ -62,7 +62,7 @@ public class Appointment {
 	}
 	
 	
-	public void setAssigned(LocalDateTime slotTime, int doctorID, int patientID) {
+	public void setAssigned(LocalDateTime slotTime, String doctorID, String patientID) {
 		this.assigned = true;
 		this.slotTime = slotTime;
 		this.doctorID = doctorID;
@@ -73,8 +73,8 @@ public class Appointment {
 	public void unAssigned() {
 		this.assigned = false;
 		this.slotTime = null;
-		this.doctorID = 0;
-		this.patientID = 0;
+		this.doctorID = "";
+		this.patientID = "";
 		
 	}
 	

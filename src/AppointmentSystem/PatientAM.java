@@ -28,6 +28,12 @@ public class PatientAM extends AppointmentManager {
     /*	[Patient] Schedule an Appointment
 	 * Choose doctor, date, available time slot
 	 */
+
+    // // View Available Appointment Slots
+    // public void viewAvailableAppointments() {
+
+    // }
+
 	public void scheduleAppointment() {
 		String choiceDoc = "";
         Doctor chosenDoc = new Doctor();
@@ -57,17 +63,20 @@ public class PatientAM extends AppointmentManager {
         chosenDoc.getAM_D().displayDocTimeSlot();
 
         // User input to choose timeslot then add to Patient's Appointment
+        int choice;
+        choice = sc.nextInt();
+        //if(choice)
 
 
 		//System.out.println("Appointment slot is taken. Please choose another available slot.");
-
+        sc.close();
 	}
 	
 	/* [Patient] Reschedule an Existing Appointment
 	 * Change existing appointment to a new slot with no conflict
 	 * Slot availability updated automatically
 	 */ 
-	public void rescheduleAppointment(Appointment oldApp, Appointment newApp, int patientID, int doctorID) {
+	public void rescheduleAppointment(Appointment oldApp, Appointment newApp, String patientID, String doctorID) {
 		oldApp.unAssigned();
 		newApp.setAssigned(newApp.getSlotTime(), patientID, doctorID);
 	}

@@ -16,10 +16,12 @@ import java.util.Scanner;
 // 	 Time slot display in interval (30mins?) for patients when they choose doctor 
 
 public class DoctorAM extends AppointmentManager {
-
+    private Doctor d;
     private ArrayList<Appointment> doctorSchedule = new ArrayList<>();
 
-
+    public DoctorAM (Doctor d) {
+        this.d = d;
+    }
 
 
 
@@ -82,23 +84,22 @@ public class DoctorAM extends AppointmentManager {
                 System.out.println("Invalid input. Please enter a numeric value.");
 			}
         }
-        sc.close();
+        
 
-		Scanner sc2 = new Scanner(System.in);
         // Start Time
         while (true) {
             System.out.print("Enter Start Time (HH:MM, from 08:00 to 18:00): ");
-            startTime = sc2.nextLine();
+            startTime = sc.next();
             if (isValidTime(startTime))
                 break;
             else
-                System.out.println("Invalid time! Please enter a start time between 08:00 and 18:00.");
+                System.out.println("Invalid start time! Please enter a start time between 08:00 and 18:00.");
         }
 
         // End Time
         while (true) {
             System.out.print("Enter End Time (HH:MM, must be after Start Time): ");
-            endTime = sc2.nextLine();
+            endTime = sc.next();
             if (isValidTime(endTime) && isEndTimeAfterStart(startTime, endTime))
                 break;
             else
@@ -111,15 +112,15 @@ public class DoctorAM extends AppointmentManager {
 		// Should we ask to confirm date and time?
 
 
-		// Code to format them and split to 30mins interval time slots assigning each to appointment
-		this.doctorSchedule = generateTimeSlot(confirmDate, startTime, endTime);
+		// Code to format them and split to 60mins interval time slots assigning each to appointment
+		this.doctorSchedule = generateTimeSlot(d.getDoctorID(),confirmDate, startTime, endTime);
 
 		// Display Timeslots
         displayDocTimeSlot();
 
 
 
-		sc2.close();
+		sc.close();
 	 }
 
 	 // Just a method to check valid date
@@ -160,26 +161,29 @@ public class DoctorAM extends AppointmentManager {
     }
 
 	// Just a method to split start time and end time to individual 30mins time slots
-	private ArrayList<Appointment> generateTimeSlot(LocalDate date, String startTime, String endTime) {
+	private ArrayList<Appointment> generateTimeSlot(String doctorID, LocalDate date, String startTime, String endTime) {
 		LocalTime sT = LocalTime.parse(startTime);
 		LocalTime eT = LocalTime.parse(endTime);
 		ArrayList<Appointment> ap = new ArrayList<>();
 
-		while(sT.plusMinutes(30).isBefore(eT)) {
-			//LocalTime end = sT.plusMinutes(30);
+		while(sT.plusMinutes(60).isBefore(eT)) {
+			//LocalTime end = sT.plusMinutes(60);
 			LocalDateTime slotTime = LocalDateTime.of(date, sT);
-			ap.add(new Appointment(slotTime, 0, 0,false));
-			sT = sT.plusMinutes(30);
+			ap.add(new Appointment(slotTime, doctorID, "",false));
+			sT = sT.plusMinutes(60);
 		}
 
 		return ap;
 	}
 
-    // Display Doctor's Personal Schedule (TimeSlots - 30min interval)
+    // Display Doctor's Personal Schedule (TimeSlots - 60min interval)
     public void displayDocTimeSlot() {
+        int counter = 1;
         System.out.println("Generated Timeslots:");
         for (Appointment tS : this.doctorSchedule) {
+            System.out.print(counter + ". ");
             System.out.println(tS.getAppointmentID());
+            counter ++;
         }
     }
 }
