@@ -22,7 +22,8 @@ public class LoginManager {
 
         //check if account exist
         if(account == null){
-            System.out.println("User not found!");
+            LoginPage.displayError("User not found!");
+            CustomTimer.pause(2000);
         }
         //check if password is correct
         else{
@@ -44,16 +45,17 @@ public class LoginManager {
                         break;
                     default:
                         appManager = null; //should never reach here!
-                        System.out.println("Something went wrong!!! Invalid Role!!!");
+                        LoginPage.displayError("Something went wrong!!! Invalid Role!!!");
                         break;
                 }
                 ClearOutput.clearOutput();
-                System.out.println("Welcome to Hospital X System "+ account.getName());
-                CustomTimer.pause(1000);
+                LoginPage.displaySuccess("Welcome to Hospital X System "+ account.getName());
+                CustomTimer.pause(1500);
                 appManager.logIn(account);
             }
             else{
                 System.out.println("Wrong Password!");
+                CustomTimer.pause(1500);
             }
         }
     }
