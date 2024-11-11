@@ -1,5 +1,9 @@
 package Controllers.AppManagers;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import AppointmentSystem.Doctor;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AccountManager;
@@ -13,6 +17,9 @@ public class PatientAppMgr extends AppManager {
     // Declare managers
     private AccountManager accountManager;
     private UpdateDetailsPage updateDetailsPage;
+
+    // Attributes
+    private ArrayList<Doctor> doctorList;
 
     @Override
     public void displayMainPage() {
@@ -98,6 +105,42 @@ public class PatientAppMgr extends AppManager {
 
     private void scheduleAppointment() {
         //  Implement PatientAptMgr interaction for scheduling an appointment
+
+        String choiceDoc = "";
+        Doctor chosenDoc = new Doctor();
+        Scanner sc = new Scanner(System.in);
+        boolean exists = true;
+        while (exists) {
+            System.out.println("Here are the list of Doctors you can choose from (Enter Doctor ID):");
+            System.out.println("Doctor ID   |   Doctor Name");
+            for(Doctor d:doctorList) {
+                System.out.println(d.getDoctorID() + "      " + d.getName());
+            }
+            
+            choiceDoc = sc.nextLine();
+
+            for(Doctor d:doctorList) {
+                if(d.getDoctorID().equalsIgnoreCase(choiceDoc)) {
+                    chosenDoc = d;
+                    exists = false;
+                    break;
+                }
+            }
+            if(exists)
+                System.out.println("Invalid Doctor ID entered! Please enter again.");
+
+        }
+
+        chosenDoc.getAM_D().displayDocTimeSlot();
+
+        // User input to choose timeslot then add to Patient's Appointment
+        int choice;
+        choice = sc.nextInt();
+        //if(choice)
+
+
+		//System.out.println("Appointment slot is taken. Please choose another available slot.");
+        sc.close();
     }
 
     private void rescheduleAppointment() {
