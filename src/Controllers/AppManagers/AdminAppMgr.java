@@ -18,7 +18,6 @@ import UI.UserMenu;
 public class AdminAppMgr extends AppManager {
     // Declare managers
     private AdminAOM adminOutcomeManager;
-    private AdminOutcomeInterface adminOutcomeInterface;
     private StaffManager staffManager;
     private ManageStaffPage manageStaffPage;
 

@@ -29,13 +29,13 @@ public class PharmaAppMgr extends AppManager {
                     viewAppointmentOutcome();
                     break;
                 case 2:
-                    viewInventory();
+                    viewAppointmentPrescriptions();
                     break;
                 case 3:
-                    processReplenishmentRequests();
+                    viewInventory();
                     break;
                 case 4:
-                    viewAppointmentPrescriptions();
+                    processReplenishmentRequests();
                     break;
                 case 5:
                     settings();
