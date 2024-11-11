@@ -2,6 +2,7 @@ package Controllers.AppManagers;
 
 import Common.AppManager;
 import Common.ClearOutput;
+import Controllers.AOManagers.DoctorAOM;
 import Controllers.AccountManager;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
@@ -9,10 +10,13 @@ import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
 import UI.UpdateDetailsPage;
 import UI.UserMenu;
+import UI.AOMUI.DoctorOutcomeInterface;
 
 public class DoctorAppMgr extends AppManager {
     // Declare managers
     private DoctorSchedule doctorSchedule;
+    private DoctorAOM doctorOutcomeManager;
+    private DoctorOutcomeInterface doctorOutcomeUI;
 
     @Override
     public void displayMainPage() {
@@ -77,11 +81,13 @@ public class DoctorAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
+        doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
     }
 
     @Override
     protected void createPages() {
+        doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager);
         updateDetailsPage = new UpdateDetailsPage(accountManager);
     }
 
@@ -112,5 +118,6 @@ public class DoctorAppMgr extends AppManager {
 
     private void recordAppointmentOutcome() {
         // Implement functionality to record appointment outcomes
+        doctorOutcomeUI.displayOptions();
     }
 }

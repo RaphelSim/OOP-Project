@@ -2,6 +2,7 @@ package Controllers.AppManagers;
 
 import Common.AppManager;
 import Common.ClearOutput;
+import Controllers.AOManagers.AdminAOM;
 import Controllers.AccountManager;
 import Controllers.StaffManager;
 import Databases.AccountDatabase;
@@ -12,9 +13,12 @@ import Databases.MedicalRecordDatabase;
 import UI.ManageStaffPage;
 import UI.UpdateDetailsPage;
 import UI.UserMenu;
+// import UI.AOMUI.AdminOutcomeInterface;
 
 public class AdminAppMgr extends AppManager {
     // Declare managers
+    private AdminAOM adminOutcomeManager;
+    private AdminOutcomeInterface adminOutcomeInterface;
     private StaffManager staffManager;
     private ManageStaffPage manageStaffPage;
 

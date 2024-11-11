@@ -6,6 +6,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HomePage",
+            "request": "launch",
+            "mainClass": "HomePage",
+            "projectName": "OOP-Project_921471c4"
+        },
+        {
             "name": "AppointmentTestapp",
             "request": "launch",
             "mainClass": "AppointmentSystem.AppointmentTestapp",
@@ -28,7 +34,7 @@
             "type": "java",
             "name": "Hospital System",
             "request": "launch",
-            "mainClass": "HomePage", //change to Testing if you wish to test your managers
+            "mainClass": "HomePage",
             "projectName": "OOP-Project_c1a6683"
         }
     ]
