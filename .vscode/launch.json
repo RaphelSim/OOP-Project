@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AppointmentTestapp",
+            "request": "launch",
+            "mainClass": "AppointmentSystem.AppointmentTestapp",
+            "projectName": "OOP-Project_f46e5df6"
+        },
+        {
+            "type": "java",
             "name": "Testing",
             "request": "launch",
             "mainClass": "Testing",
