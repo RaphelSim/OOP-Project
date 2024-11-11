@@ -30,7 +30,7 @@ public class HomePage extends UserInterface {
         CustomTimer.pause(500); // pause after initial display
         
         // Loop to create a pulsing effect
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 7; i++) {
             ClearOutput.clearOutput();
             System.out.println(); // Move the text a bit down the console
             
@@ -45,7 +45,7 @@ public class HomePage extends UserInterface {
                 System.out.println("                                                 ");
             }
             
-            CustomTimer.pause(500); // delay for pulsing effect
+            CustomTimer.pause(150); // delay for pulsing effect
         }
         
         // Final display
@@ -67,7 +67,7 @@ public class HomePage extends UserInterface {
         // Typing effect for the initial message display
         for (char c : message.toCharArray()) {
             System.out.print(c);
-            CustomTimer.pause(70); // delay for typing effect
+            CustomTimer.pause(30); // delay for typing effect
         }
         
         CustomTimer.pause(500);

@@ -11,8 +11,7 @@ import UI.UpdateDetailsPage;
 
 public class PatientAppMgr extends AppManager {
     // Declare managers
-    private AccountManager accountManager;
-    private UpdateDetailsPage updateDetailsPage;
+
 
     @Override
     public void displayMainPage() {
@@ -26,7 +25,7 @@ public class PatientAppMgr extends AppManager {
                     viewMedicalRecord();
                     break;
                 case 2:
-                    updatePersonalInformation();
+                    settings();
                     break;
                 case 3:
                     viewAvailableAppointments();
@@ -86,10 +85,6 @@ public class PatientAppMgr extends AppManager {
     // Methods to handle each menu option
     private void viewMedicalRecord() {
         //  Implement PatientMRM interaction here
-    }
-
-    private void updatePersonalInformation() {
-        updateDetailsPage.displayOptions(account);
     }
 
     private void viewAvailableAppointments() {

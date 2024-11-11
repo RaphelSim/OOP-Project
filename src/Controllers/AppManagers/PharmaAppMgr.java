@@ -2,10 +2,12 @@ package Controllers.AppManagers;
 
 import Common.AppManager;
 import Common.ClearOutput;
+import Controllers.AccountManager;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
+import UI.UpdateDetailsPage;
 import UI.UserMenu;
 
 public class PharmaAppMgr extends AppManager {
@@ -32,6 +34,9 @@ public class PharmaAppMgr extends AppManager {
                     viewAppointmentPrescriptions();
                     break;
                 case 5:
+                    settings();
+                    break;
+                case 6:
                     ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
@@ -62,12 +67,12 @@ public class PharmaAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
-        // Initialize manager instances here once the relevant classes are created
+        accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
     }
 
     @Override
     protected void createPages() {
-        // Initialize UI pages here once they are available
+        updateDetailsPage = new UpdateDetailsPage(accountManager);
     }
 
     // Methods to handle each menu option
