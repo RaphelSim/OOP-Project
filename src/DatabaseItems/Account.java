@@ -52,6 +52,7 @@ public class Account implements DatabaseItems {
     }
 
     public void printItem(){
+            System.out.println(); // add a line break to improve readability
             System.out.println("ID: " + id);
             System.out.println("Name: " + name);
             System.out.println("Role: " + role);
@@ -86,8 +87,34 @@ public class Account implements DatabaseItems {
     }
 
     // setters
-    public void setPassword(String pwd) {
-        this.password = pwd;
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Setter for id
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    // Setter for password
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // Setter for role
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    // Setter for gender
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    // Setter for age
+    public void setAge(int age) {
+        this.age = age;
     }
 
     // utilities functions

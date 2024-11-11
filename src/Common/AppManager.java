@@ -1,5 +1,7 @@
 package Common;
 
+import Controllers.AccountManager;
+
 // import java.io.File;
 // import java.io.FilenameFilter;
 // import java.util.ArrayList;
@@ -7,6 +9,7 @@ package Common;
 
 import DatabaseItems.Account;
 import Databases.*;
+import UI.UpdateDetailsPage;
 
 public abstract class AppManager {
     protected AccountDatabase accountDatabase;
@@ -18,6 +21,10 @@ public abstract class AppManager {
     protected DoctorSchedule doctorSchedule;
     protected Account account;
     protected Role role;
+
+    //common managers for all users to be able to change password
+    protected AccountManager accountManager;
+    protected UpdateDetailsPage updateDetailsPage;
 
     public void logIn(Account account){
         this.account = account;
@@ -34,6 +41,10 @@ public abstract class AppManager {
 
     public Role getRole(){
         return role;
+    }
+
+    protected void settings(){
+        updateDetailsPage.displayOptions(account);
     }
 
     protected abstract void createManagers();

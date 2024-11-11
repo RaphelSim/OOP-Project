@@ -12,11 +12,10 @@
             "projectName": "OOP-Project_921471c4"
         },
         {
-            "type": "java",
-            "name": "Testing",
+            "name": "AppointmentTestapp",
             "request": "launch",
-            "mainClass": "Testing",
-            "projectName": "OOP-Project_921471c4"
+            "mainClass": "AppointmentSystem.AppointmentTestapp",
+            "projectName": "OOP-Project_f46e5df6"
         },
         {
             "type": "java",

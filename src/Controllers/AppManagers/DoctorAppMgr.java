@@ -3,10 +3,12 @@ package Controllers.AppManagers;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AOManagers.DoctorAOM;
+import Controllers.AccountManager;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
+import UI.UpdateDetailsPage;
 import UI.UserMenu;
 import UI.AOMUI.DoctorOutcomeInterface;
 
@@ -46,6 +48,10 @@ public class DoctorAppMgr extends AppManager {
                     recordAppointmentOutcome();
                     break;
                 case 8:
+                    settings();
+                    break;
+                case 9:
+                    ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
                     break;
@@ -76,12 +82,13 @@ public class DoctorAppMgr extends AppManager {
     @Override
     protected void createManagers() {
         doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
+        accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
     }
 
     @Override
     protected void createPages() {
-        // Initialize any UI pages needed for doctor interactions
         doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager);
+        updateDetailsPage = new UpdateDetailsPage(accountManager);
     }
 
     // Methods to handle each menu option

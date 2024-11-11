@@ -25,17 +25,28 @@ public class UserMenu extends UserInterface{
         System.out.println("5. Accept or Decline Appointment Requests");
         System.out.println("6. View Upcoming Appointments");
         System.out.println("7. Record Appointment Outcome");
-        System.out.println("8. Logout");
-        return getIntInput(9);
+        System.out.println("8. Settings");
+        System.out.println("9. Logout");
+        return getIntInput(10);
     }
     
     public static int displayPharmacistMenu() {
         System.out.println("Please select an option: ");
+    //merged
         System.out.println("1. View Appointment Outcome or update prescription Status");
         System.out.println("2. View Medication Inventory");
         System.out.println("3. Submit Replenishment Request");
         System.out.println("4. Logout");
         return getIntInput(5);
+      
+      //main
+        System.out.println("1. View Appointment Outcome Record");
+        System.out.println("2. Update Prescription Status");
+        System.out.println("3. View Medication Inventory");
+        System.out.println("4. Submit Replenishment Request");
+        System.out.println("5. Settings");
+        System.out.println("6. Logout");
+        return getIntInput(7);
     }
     
     public static int displayAdminMenu() {
@@ -44,8 +55,9 @@ public class UserMenu extends UserInterface{
         System.out.println("2. View Appointments details");
         System.out.println("3. View and Manage Medication Inventory");
         System.out.println("4. Approve Replenishment Requests");
-        System.out.println("5. Logout");
-        return getIntInput(6);
+        System.out.println("5. Settings");
+        System.out.println("6. Logout");
+        return getIntInput(7);
     }
     
 }

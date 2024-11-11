@@ -40,6 +40,7 @@ public class Medicines implements DatabaseItems {
     }
 
     public void printItem(){
+        System.out.println(); // add a line break to improve readability
         System.out.println("Medicine: " + this.medicine);
         System.out.println("Stock: " + this.stock);
         System.out.println("Alert Level: " + this.alert_level);

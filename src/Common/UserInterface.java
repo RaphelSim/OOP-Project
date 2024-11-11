@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class UserInterface {
     protected static Scanner scanner = new Scanner(System.in);
 
+
+    // get an integer input and check for any error, if yes then return the defaultreturn parameter
     protected static int getIntInput(int defaultReturn){
         try{
             int choice = scanner.nextInt();
@@ -19,6 +21,7 @@ public class UserInterface {
         }
     }
 
+    //getting a numeric string for id purposes
     protected static String getNumericString(){
         String input;
         while (true) {
@@ -28,11 +31,27 @@ public class UserInterface {
         }
     }
 
+    //getting a positive integer
+    protected int getValidatedInt(String prompt) {
+        System.out.println(prompt);
+        int value = getIntInput(0);
+        return value > 0 ? value : -1;
+    }
+
+    //getting a string which checks for null values
+    protected String getValidatedString(String prompt) {
+        System.out.println(prompt);
+        String value = scanner.nextLine().trim();
+        return value.isEmpty() ? null : value;
+    }
+
     public static void displaySuccess(String message) {
         System.out.println(message);
+        CustomTimer.pause(1000); //pause to view before clearing console
     }
 
     public static void displayError(String message) {
-        System.err.println(message);
+        System.err.println("ERROR: "+message + "<<<<<<<<<");
+        CustomTimer.pause(1500); //pause to view before clearing console
     }
 } 
