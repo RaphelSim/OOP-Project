@@ -13,7 +13,11 @@ import Databases.AccountDatabase;
 import UI.LoginPage;
 
 public class LoginManager {
-    AccountDatabase accountDatabase = new AccountDatabase();
+    AccountDatabase accountDatabase;
+
+    public LoginManager(){
+       accountDatabase = new AccountDatabase();
+    }
     
     public void logIn(){
         String userId = LoginPage.getUserId();
@@ -50,12 +54,10 @@ public class LoginManager {
                 }
                 ClearOutput.clearOutput();
                 LoginPage.displaySuccess("Welcome to Hospital X System "+ account.getName());
-                CustomTimer.pause(1500);
                 appManager.logIn(account);
             }
             else{
-                System.out.println("Wrong Password!");
-                CustomTimer.pause(1500);
+                LoginPage.displayError("Wrong Password!");
             }
         }
     }

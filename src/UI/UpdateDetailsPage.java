@@ -43,6 +43,7 @@ public class UpdateDetailsPage extends UserInterface {
     private void displayStaffOptions() {
         boolean quit = false;
         while (!quit) {
+            ClearOutput.clearOutput();
             int choice = getStaffChoice();
 
             switch (choice) {
@@ -59,14 +60,14 @@ public class UpdateDetailsPage extends UserInterface {
         System.out.println("1. Change password");
         System.out.println("2. Change phone number");
         System.out.println("3. Change email");
-        System.out.println("4. Cancel");
+        System.out.println("4. Back");
         return getIntInput(4);
     }
 
     private int getStaffChoice() {
         System.out.println("Please select an option: ");
         System.out.println("1. Change password");
-        System.out.println("2. Cancel");
+        System.out.println("2. Back");
         return getIntInput(2);
     }
 

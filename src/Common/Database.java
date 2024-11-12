@@ -59,7 +59,6 @@ public abstract class Database {
         System.out.println(title);
         System.out.println("-------------------");
         for (DatabaseItems item : records) {
-            System.out.println(); // Print a new line for better readability
             item.printItem();
         }
     }

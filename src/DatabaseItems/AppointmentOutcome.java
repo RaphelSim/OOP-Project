@@ -133,4 +133,5 @@ public class AppointmentOutcome implements DatabaseItems {
     public void setDoctorId(String doctor_id){
         this.doctor_id = doctor_id;
     }
+    
 }

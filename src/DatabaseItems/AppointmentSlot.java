@@ -58,6 +58,7 @@ public class AppointmentSlot implements DatabaseItems {
     }
 
     public void printItem(){
+        System.out.println(); // add a line break to improve readability
         System.out.println("Appointment ID: " + this.appointment_id);
         System.out.println("Patient ID: " + this.patient_id);
         System.out.println("Date: " +this.date);

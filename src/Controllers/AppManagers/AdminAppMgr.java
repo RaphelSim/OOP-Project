@@ -2,15 +2,24 @@ package Controllers.AppManagers;
 
 import Common.AppManager;
 import Common.ClearOutput;
+import Controllers.AOManagers.AdminAOM;
+import Controllers.AccountManager;
+import Controllers.StaffManager;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
 import Databases.MedicalRecordDatabase;
+import UI.ManageStaffPage;
+import UI.UpdateDetailsPage;
 import UI.UserMenu;
+// import UI.AOMUI.AdminOutcomeInterface;
 
 public class AdminAppMgr extends AppManager {
     // Declare managers
+    private AdminAOM adminOutcomeManager;
+    private StaffManager staffManager;
+    private ManageStaffPage manageStaffPage;
 
     @Override
     public void displayMainPage() {
@@ -33,6 +42,9 @@ public class AdminAppMgr extends AppManager {
                     approveReplenishmentRequests();
                     break;
                 case 5:
+                    settings();
+                    break;
+                case 6:
                     ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
@@ -65,17 +77,19 @@ public class AdminAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
-;
+        accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
+        staffManager = new StaffManager(accountDatabase);
     }
 
     @Override
     protected void createPages() {
-        // Create instances of pages for the admin view
+        updateDetailsPage = new UpdateDetailsPage(accountManager);
+        manageStaffPage = new ManageStaffPage(staffManager);
     }
 
     // Methods to handle each menu option
     private void manageHospitalStaff() {
-        // Implement functionality for managing hospital staff
+        manageStaffPage.displayOptions();
     }
 
     private void viewAppointmentsDetails() {

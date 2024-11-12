@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import AppointmentSystem.Doctor;
+import Controllers.AOManagers.PatientAOM;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AccountManager;
@@ -12,6 +13,7 @@ import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
 import UI.UpdateDetailsPage;
+import UI.AOMUI.PatientOutcomeInterface;
 
 public class PatientAppMgr extends AppManager {
     // Declare managers
@@ -21,6 +23,9 @@ public class PatientAppMgr extends AppManager {
     // Attributes
     private ArrayList<Doctor> doctorList;
     //private ArrayList<AppointmentSlot> patientApps;
+    private PatientAOM patientOutcomeManager;
+    private PatientOutcomeInterface patientOutcomeUI;
+
 
     @Override
     public void displayMainPage() {
@@ -34,7 +39,7 @@ public class PatientAppMgr extends AppManager {
                     viewMedicalRecord();
                     break;
                 case 2:
-                    updatePersonalInformation();
+                    settings();
                     break;
                 case 3:
                     viewAvailableAppointments();
@@ -55,7 +60,6 @@ public class PatientAppMgr extends AppManager {
                     viewPastAppointmentOutcomes();
                     break;
                 case 9:
-                    ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. See you again soon!");
                     logout = true;
                     break;
@@ -84,20 +88,18 @@ public class PatientAppMgr extends AppManager {
     @Override
     protected void createManagers() {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
+        patientOutcomeManager = new PatientAOM(appointmentOutcomeDatabase);
     }
 
     @Override
     protected void createPages() {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
+        patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
     }
 
     // Methods to handle each menu option
     private void viewMedicalRecord() {
         //  Implement PatientMRM interaction here
-    }
-
-    private void updatePersonalInformation() {
-        updateDetailsPage.displayOptions(account);
     }
 
     private void viewAvailableAppointments() {
@@ -158,5 +160,6 @@ public class PatientAppMgr extends AppManager {
 
     private void viewPastAppointmentOutcomes() {
         //  Implement PatientAOM interaction for viewing past outcomes
+        patientOutcomeUI.displayOptions(account.getid());
     }
 }

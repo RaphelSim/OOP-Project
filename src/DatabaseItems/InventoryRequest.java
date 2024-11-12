@@ -31,6 +31,7 @@ public class InventoryRequest implements DatabaseItems {
     }
 
     public void printItem(){
+        System.out.println(); // add a line break to improve readability
         System.out.println("Medicine: " + this.medicine);
         System.out.println("Request Value: " + this.request_value);
     }

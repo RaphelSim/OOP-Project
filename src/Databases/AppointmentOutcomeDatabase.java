@@ -4,7 +4,6 @@ import Common.Database;
 import Common.DatabaseItems;
 import DatabaseItems.AppointmentOutcome;
 
-
 // appointment_id,patient_id,doctor_id,date,type_of_service,medication,consultation_notes,status
 public class AppointmentOutcomeDatabase extends Database {
     public AppointmentOutcomeDatabase() {
@@ -41,8 +40,6 @@ public class AppointmentOutcomeDatabase extends Database {
             return false;
         }
     }
-
- 
 
     public DatabaseItems createDatabaseItem(String[] values){
         //Name,id,Password,Role
