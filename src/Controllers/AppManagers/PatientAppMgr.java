@@ -20,6 +20,7 @@ public class PatientAppMgr extends AppManager {
 
     // Attributes
     private ArrayList<Doctor> doctorList;
+    //private ArrayList<AppointmentSlot> patientApps;
 
     @Override
     public void displayMainPage() {
