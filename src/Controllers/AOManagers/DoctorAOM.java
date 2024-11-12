@@ -1,7 +1,6 @@
 package Controllers.AOManagers;
 
 import Common.AppointmentOutcomeManager;
-import Common.AppointmentOutcomeStatus;
 import Databases.AppointmentOutcomeDatabase;
 import DatabaseItems.AppointmentOutcome;
 
@@ -16,23 +15,21 @@ public class DoctorAOM extends AppointmentOutcomeManager {
         return doctorId; 
     }
 
-    // Doctor-specific method to edit an outcome
-    public boolean editOutcome(String appointmentId, String newDate, String newTypeOfService, String newMedication, String newConsultationNotes, AppointmentOutcomeStatus newStatus) {
+    public boolean editOutcome(String appointmentId, String newTypeOfService, String newMedication, String newConsultationNotes) {
         AppointmentOutcome record = getOutcome(appointmentId);
         if (record == null) {
             System.out.println("Record not found.");
             return false;
         }
+        if (!record.getDoctorId().equals(this.doctorId)) {
+            System.out.println("You are not authorized to edit this outcome.");
+            return false;
+        }
 
-        // Set each field individually using existing setters
-        record.setDate(newDate);
         record.setTypeOfService(newTypeOfService);
         record.setMedication(newMedication);
         record.setConsultationNotes(newConsultationNotes);
-        record.setStatus(newStatus);
-
-        // Use the inherited saveOutcome method to update and save the changes
-        return saveOutcome(record);
+        return true;
     }
 
     public boolean addOutcome(AppointmentOutcome newOutcome) {

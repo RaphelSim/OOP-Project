@@ -29,7 +29,7 @@ public class PharmaAppMgr extends AppManager {
                     viewAppointmentOutcome();
                     break;
                 case 2:
-                    viewAppointmentPrescriptions();
+                    updateOutcomeStatus();
                     break;
                 case 3:
                     viewInventory();
@@ -103,5 +103,8 @@ public class PharmaAppMgr extends AppManager {
 
     private void viewAppointmentPrescriptions() {
         // Implement functionality to view prescriptions related to appointments
+    }
+    private void updateOutcomeStatus(){
+        pharmaOutcomeUI.displayOptions();
     }
 }

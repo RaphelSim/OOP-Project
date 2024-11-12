@@ -49,21 +49,6 @@ public abstract class AppointmentOutcomeManager {
                 .map(item -> (AppointmentOutcome) item)
                 .collect(Collectors.toList());
     }
-
-    // Save (update) an existing outcome
-    public boolean saveOutcome(AppointmentOutcome outcome) {
-        AppointmentOutcome existingOutcome = getOutcome(outcome.getAppointmentId());
-        
-        if (existingOutcome != null) {
-            database.removeItem(outcome.getAppointmentId()); // Remove the existing record
-            database.addItem(outcome); // Add the updated outcome to the database
-            database.storeToCSV(); // Save changes to CSV
-            return true;  // Outcome updated successfully
-        } else {
-            System.out.println("Outcome not found. Unable to update.");
-            return false;  // Outcome not found
-        }
-    }
 }
 
 

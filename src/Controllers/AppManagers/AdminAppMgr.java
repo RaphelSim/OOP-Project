@@ -13,13 +13,14 @@ import Databases.MedicalRecordDatabase;
 import UI.ManageStaffPage;
 import UI.UpdateDetailsPage;
 import UI.UserMenu;
-// import UI.AOMUI.AdminOutcomeInterface;
+import UI.AOMUI.AdminOutcomeInterface;
 
 public class AdminAppMgr extends AppManager {
     // Declare managers
     private AdminAOM adminOutcomeManager;
     private StaffManager staffManager;
     private ManageStaffPage manageStaffPage;
+    private AdminOutcomeInterface adminOutcomeUI;
 
     @Override
     public void displayMainPage() {
@@ -79,12 +80,14 @@ public class AdminAppMgr extends AppManager {
     protected void createManagers() {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         staffManager = new StaffManager(accountDatabase);
+        adminOutcomeManager = new AdminAOM(appointmentOutcomeDatabase);
     }
 
     @Override
     protected void createPages() {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         manageStaffPage = new ManageStaffPage(staffManager);
+        adminOutcomeUI = new AdminOutcomeInterface(adminOutcomeManager);
     }
 
     // Methods to handle each menu option
@@ -94,6 +97,8 @@ public class AdminAppMgr extends AppManager {
 
     private void viewAppointmentsDetails() {
         // Implement functionality to view appointment details
+        adminOutcomeUI.displayOptions();
+
     }
 
     private void manageMedicationInventory() {
@@ -102,5 +107,6 @@ public class AdminAppMgr extends AppManager {
 
     private void approveReplenishmentRequests() {
         // Implement functionality to approve replenishment requests
+
     }
 }

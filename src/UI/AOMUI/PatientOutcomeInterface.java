@@ -64,7 +64,6 @@ public class PatientOutcomeInterface extends UserInterface {
         }
     }
 
-    // Method to display all past outcomes for a specific patient
     public void viewPastOutcomes(String patientId) {
         List<AppointmentOutcome> outcomes = patientManager.getPastOutcomes(patientId); 
         
