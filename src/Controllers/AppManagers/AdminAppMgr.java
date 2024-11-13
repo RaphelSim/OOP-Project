@@ -2,7 +2,7 @@ package Controllers.AppManagers;
 
 import Common.AppManager;
 import Common.ClearOutput;
-import Controllers.AOManagers.AdminAOM;
+//import Controllers.AOManagers.AdminAOM;
 import Controllers.AccountManager;
 import Controllers.StaffManager;
 import Databases.AccountDatabase;
@@ -17,7 +17,7 @@ import UI.UserMenu;
 
 public class AdminAppMgr extends AppManager {
     // Declare managers
-    private AdminAOM adminOutcomeManager;
+    //private AdminAOM adminOutcomeManager;
     private StaffManager staffManager;
     private ManageStaffPage manageStaffPage;
 

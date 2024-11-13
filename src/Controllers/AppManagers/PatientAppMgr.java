@@ -14,7 +14,6 @@ import UI.AOMUI.PatientOutcomeInterface;
 public class PatientAppMgr extends AppManager {
     // Declare managers
     private AccountManager accountManager;
-    private UpdateDetailsPage updateDetailsPage;
     private PatientAOM patientOutcomeManager;
     private PatientOutcomeInterface patientOutcomeUI;
 

@@ -93,10 +93,6 @@ public class PharmaAppMgr extends AppManager {
         // Implement functionality to view medication inventory
     }
 
-    private void updateMedicationStock() {
-        // Implement functionality to update stock levels of medications
-    }
-
     private void processReplenishmentRequests() {
         // Implement functionality to handle replenishment requests
     }
