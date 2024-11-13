@@ -10,6 +10,23 @@ public class InventoryManager {
         this.inventoryDatabase = inventoryDatabase;
     }
 
+    public boolean addMedicine(String medicineName, int value, int alert) {
+        Medicines stock = (Medicines) inventoryDatabase.searchItem(medicineName);
+        if (stock != null)
+            return false;
+        stock = new Medicines(medicineName, value, alert);
+        inventoryDatabase.addItem(stock);
+        return true;
+    }
+
+    public boolean removeMedicine(String medicineName) {
+        Medicines stock = (Medicines) inventoryDatabase.searchItem(medicineName);
+        if (stock == null)
+            return false;
+        inventoryDatabase.removeItem(medicineName);
+        return true;
+    }
+
     public boolean addStock(String medicineName, int value) {
         Medicines stock = (Medicines) inventoryDatabase.searchItem(medicineName);
         if (stock == null)

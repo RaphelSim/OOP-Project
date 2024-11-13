@@ -1,5 +1,7 @@
 package Controllers.AOManagers;
 
+import java.util.List;
+
 import Common.AppointmentOutcomeManager;
 import Databases.AppointmentOutcomeDatabase;
 import DatabaseItems.AppointmentOutcome;
@@ -11,41 +13,32 @@ public class PharmaAOM extends AppointmentOutcomeManager {
         super(database);
     }
 
-    // Method to view an appointment outcome
-    public AppointmentOutcome viewOutcome(String appointmentId) {
+    public boolean viewOutcome(String appointmentId) {
         AppointmentOutcome record = getOutcome(appointmentId);
-        if (record == null) {
-            System.out.println("Record not found.");
-        } else {
-            System.out.println("Appointment outcome found for Appointment ID: " + appointmentId);
+        if (record == null || record.getStatus() != AppointmentOutcomeStatus.PENDING) {
+            return false;
         }
-        return record; // Return record to allow UI to handle display
+        record.printItem();
+        return true;
     }
 
-    // Method to update the status of an appointment outcome (e.g., prescription ready)
-    public boolean updateOutcomeStatus(String appointmentId, AppointmentOutcomeStatus newStatus) {
+    public boolean viewAllOutcome() {
+        List<AppointmentOutcome> records = getAllOutcomes();
+        if (records == null || records.isEmpty())
+            return false;
+        for (AppointmentOutcome item : records) {
+            if (item.getStatus() == AppointmentOutcomeStatus.PENDING)
+                item.printItem();
+        }
+        return true;
+    }
+
+    public boolean updateOutcomeStatus(String appointmentId) {
         AppointmentOutcome record = getOutcome(appointmentId);
-        if (record == null) {
-            System.out.println("Record not found.");
+        if (record == null || record.getStatus() != AppointmentOutcomeStatus.PENDING) {
             return false;
         }
-
-        // Optional validation check for pharmacist-allowed statuses
-        if (newStatus != AppointmentOutcomeStatus.PENDING && newStatus != AppointmentOutcomeStatus.DISPENSED) {
-            System.out.println("Error: Invalid status update. Pharmacists can only set statuses to PENDING or DISPENSED.");
-            return false;
-        }
-
-        record.setStatus(newStatus); // Update the status
-        
-        try {
-            database.storeToCSV(); // Save changes to the database
-        } catch (Exception e) {
-            System.out.println("Error: Failed to save the updated status to the database.");
-            return false;
-        }
-        
+        record.setStatus(AppointmentOutcomeStatus.DISPENSED);
         return true;
     }
 }
-

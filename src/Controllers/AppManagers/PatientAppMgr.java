@@ -17,14 +17,13 @@ public class PatientAppMgr extends AppManager {
     private PatientAOM patientOutcomeManager;
     private PatientOutcomeInterface patientOutcomeUI;
 
-
     @Override
     public void displayMainPage() {
         boolean logout = false;
         while (!logout) {
             ClearOutput.clearOutput();
             int selection = UserMenu.displayPatientMenu();
-            
+
             switch (selection) {
                 case 1:
                     viewMedicalRecord();
@@ -60,7 +59,7 @@ public class PatientAppMgr extends AppManager {
             }
         }
         logOut();
-    }   
+    }
 
     @Override
     protected void loadDatabases() {
@@ -79,7 +78,7 @@ public class PatientAppMgr extends AppManager {
     @Override
     protected void createManagers() {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
-        patientOutcomeManager = new PatientAOM(appointmentOutcomeDatabase);
+        patientOutcomeManager = new PatientAOM(appointmentOutcomeDatabase, account.getid());
     }
 
     @Override
@@ -90,31 +89,31 @@ public class PatientAppMgr extends AppManager {
 
     // Methods to handle each menu option
     private void viewMedicalRecord() {
-        //  Implement PatientMRM interaction here
+        // Implement PatientMRM interaction here
     }
 
     private void viewAvailableAppointments() {
-        //  Implement PatientAptMgr interaction for viewing available slots
+        // Implement PatientAptMgr interaction for viewing available slots
     }
 
     private void scheduleAppointment() {
-        //  Implement PatientAptMgr interaction for scheduling an appointment
+        // Implement PatientAptMgr interaction for scheduling an appointment
     }
 
     private void rescheduleAppointment() {
-        //  Implement PatientAptMgr interaction for rescheduling an appointment
+        // Implement PatientAptMgr interaction for rescheduling an appointment
     }
 
     private void cancelAppointment() {
-        //  Implement PatientAptMgr interaction for canceling an appointment
+        // Implement PatientAptMgr interaction for canceling an appointment
     }
 
     private void viewScheduledAppointments() {
-        //  Implement PatientAptMgr interaction for viewing scheduled appointments
+        // Implement PatientAptMgr interaction for viewing scheduled appointments
     }
 
     private void viewPastAppointmentOutcomes() {
-        //  Implement PatientAOM interaction for viewing past outcomes
+        // Implement PatientAOM interaction for viewing past outcomes
         patientOutcomeUI.displayOptions(account.getid());
     }
 }

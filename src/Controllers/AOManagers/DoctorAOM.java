@@ -12,33 +12,20 @@ public class DoctorAOM extends AppointmentOutcomeManager {
         super(database);
         this.doctorId = doctorId;
     }
+
     public String getDoctorId() {
-        return doctorId; 
+        return doctorId;
     }
 
     // Doctor-specific method to edit an outcome
-    public boolean editOutcome(String appointmentId, String newDate, String newTypeOfService, String newMedication, String newConsultationNotes, AppointmentOutcomeStatus newStatus) {
-        AppointmentOutcome record = getOutcome(appointmentId);
-        if (record == null) {
-            System.out.println("Record not found.");
-            return false;
-        }
+    public boolean writeOutcome(String appointmentId, String patientId, String newDate, String newTypeOfService,
+            String newMedication,
+            String newConsultationNotes) {
 
-        // Set each field individually using existing setters
-        record.setDate(newDate);
-        record.setTypeOfService(newTypeOfService);
-        record.setMedication(newMedication);
-        record.setConsultationNotes(newConsultationNotes);
-        record.setStatus(newStatus);
+        AppointmentOutcome record = new AppointmentOutcome(
+                appointmentId, doctorId, patientId, newDate, newTypeOfService, newMedication, newConsultationNotes,
+                AppointmentOutcomeStatus.PENDING);
 
-        // Use the inherited saveOutcome method to update and save the changes
-        return saveOutcome(record);
-    }
-
-    public boolean addOutcome(AppointmentOutcome newOutcome) {
-        return super.addOutcome(newOutcome);
+        return addOutcome(record);
     }
 }
-
-
-

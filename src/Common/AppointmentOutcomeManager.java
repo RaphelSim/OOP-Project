@@ -17,24 +17,19 @@ public abstract class AppointmentOutcomeManager {
     public boolean addOutcome(AppointmentOutcome outcome) {
         if (database.searchItem(outcome.getAppointmentId()) == null) {
             database.addItem(outcome);
-            database.storeToCSV();
-            return true;  // Outcome added successfully
+            return true; // Outcome added successfully
         } else {
-            System.out.println("Outcome with this ID already exists.");
-            return false;  // Outcome already exists
+            return false; // Outcome already exists
         }
     }
 
     // Method to remove an outcome by appointment ID
     public boolean removeOutcome(String appointmentID) {
-        boolean removed = database.removeItem(appointmentID);
-        if (removed) {
-            database.storeToCSV();
-            System.out.println("Outcome removed successfully.");
+        if (database.removeItem(appointmentID)) {
+            return true;
         } else {
-            System.out.println("Outcome not found.");
+            return false;
         }
-        return removed;  // Return true if removed, false if not found
     }
 
     // Retrieve an outcome by appointment ID
@@ -49,21 +44,4 @@ public abstract class AppointmentOutcomeManager {
                 .map(item -> (AppointmentOutcome) item)
                 .collect(Collectors.toList());
     }
-
-    // Save (update) an existing outcome
-    public boolean saveOutcome(AppointmentOutcome outcome) {
-        AppointmentOutcome existingOutcome = getOutcome(outcome.getAppointmentId());
-        
-        if (existingOutcome != null) {
-            database.removeItem(outcome.getAppointmentId()); // Remove the existing record
-            database.addItem(outcome); // Add the updated outcome to the database
-            database.storeToCSV(); // Save changes to CSV
-            return true;  // Outcome updated successfully
-        } else {
-            System.out.println("Outcome not found. Unable to update.");
-            return false;  // Outcome not found
-        }
-    }
 }
-
-
