@@ -3,7 +3,9 @@ package Common;
 public enum AppointmentStatus {
     REQUESTED,
     CONFIRMED,
-    REQUESTFORCANCEL;
+    COMPLETED,
+    FREE,
+    DECLINED;
 
     public static AppointmentStatus fromString(String status) {
         try {

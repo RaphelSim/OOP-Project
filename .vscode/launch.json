@@ -9,20 +9,7 @@
             "name": "HomePage",
             "request": "launch",
             "mainClass": "HomePage",
-            "projectName": "OOP-Project_f46e5df6"
-        },
-        {
-            "type": "java",
-            "name": "HomePage",
-            "request": "launch",
-            "mainClass": "HomePage",
-            "projectName": "OOP-Project_921471c4"
-        },
-        {
-            "name": "AppointmentTestapp",
-            "request": "launch",
-            "mainClass": "AppointmentSystem.AppointmentTestapp",
-            "projectName": "OOP-Project_f46e5df6"
+            "projectName": "OOP-Project_c1a6683"
         },
         {
             "type": "java",
@@ -37,12 +24,5 @@
             "request": "launch",
             "mainClass": "${file}"
         },
-        {
-            "type": "java",
-            "name": "Hospital System",
-            "request": "launch",
-            "mainClass": "HomePage",
-            "projectName": "OOP-Project_c1a6683"
-        }
     ]
 }

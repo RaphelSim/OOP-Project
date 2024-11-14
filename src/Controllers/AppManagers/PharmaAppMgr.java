@@ -4,18 +4,24 @@ import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AOManagers.PharmaAOM;
 import Controllers.AccountManager;
+import Controllers.InventoryRequestManager;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
+import UI.StockRequestPage;
 import UI.UpdateDetailsPage;
 import UI.UserMenu;
+import UI.ViewInventoryPage;
 import UI.AOMUI.PharmaOutcomeInterface;
 
 public class PharmaAppMgr extends AppManager {
     // Declare managers
     private PharmaAOM pharmaOutcomeManager;
     private PharmaOutcomeInterface pharmaOutcomeUI;
+    private StockRequestPage stockRequestPage;
+    private InventoryRequestManager inventoryRequestManager;
+    private ViewInventoryPage viewInventoryPage;
 
     @Override
     public void displayMainPage() {
@@ -35,7 +41,7 @@ public class PharmaAppMgr extends AppManager {
                     viewInventory();
                     break;
                 case 4:
-                    processReplenishmentRequests();
+                    requestReplenishment();
                     break;
                 case 5:
                     settings();
@@ -74,6 +80,7 @@ public class PharmaAppMgr extends AppManager {
         // Initialize manager instances here once the relevant classes are created
         pharmaOutcomeManager = new PharmaAOM(appointmentOutcomeDatabase);
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
+        inventoryRequestManager = new InventoryRequestManager(inventoryRequestDatabase);
     }
 
     @Override
@@ -81,24 +88,22 @@ public class PharmaAppMgr extends AppManager {
         // Initialize UI pages here once they are available
         pharmaOutcomeUI = new PharmaOutcomeInterface(pharmaOutcomeManager);
         updateDetailsPage = new UpdateDetailsPage(accountManager);
+        stockRequestPage = new StockRequestPage(inventoryRequestManager);
+        viewInventoryPage = new ViewInventoryPage();
     }
 
     // Methods to handle each menu option
 
-    private void viewAppointmentOutcome(){
+    private void viewAppointmentOutcome() {
         pharmaOutcomeUI.displayOptions();
     }
 
     private void viewInventory() {
-        // Implement functionality to view medication inventory
+        viewInventoryPage.display(inventoryDatabase);
     }
 
-    private void updateMedicationStock() {
-        // Implement functionality to update stock levels of medications
-    }
-
-    private void processReplenishmentRequests() {
-        // Implement functionality to handle replenishment requests
+    private void requestReplenishment() {
+        stockRequestPage.displayOption();
     }
 
     private void viewAppointmentPrescriptions() {

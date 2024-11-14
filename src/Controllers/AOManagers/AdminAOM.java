@@ -1,5 +1,7 @@
 package Controllers.AOManagers;
 
+import java.util.List;
+
 import Common.AppointmentOutcomeManager;
 import Databases.AppointmentOutcomeDatabase;
 import DatabaseItems.AppointmentOutcome;
@@ -11,24 +13,22 @@ public class AdminAOM extends AppointmentOutcomeManager {
     }
 
     // Method to view an appointment outcome by ID
-    public AppointmentOutcome viewOutcome(String appointmentId) {
+    public boolean viewOutcome(String appointmentId) {
         AppointmentOutcome record = getOutcome(appointmentId);
         if (record == null) {
-            System.out.println("Record not found.");
+            return false;
         }
-        return record; // Return the record for UI handling and display
+        record.printItem();
+        return true;
     }
 
-    // Method to delete an appointment outcome by ID
-    public boolean deleteOutcome(String appointmentId) {
-        boolean removed = removeOutcome(appointmentId); // Directly use inherited method to delete
-        if (removed) {
-            System.out.println("Appointment outcome deleted successfully.");
-        } else {
-            System.out.println("Record not found or failed to delete appointment outcome.");
+    public boolean viewAllOutcome() {
+        List<AppointmentOutcome> records = getAllOutcomes();
+        if (records == null || records.isEmpty())
+            return false;
+        for (AppointmentOutcome item : records) {
+            item.printItem();
         }
-        return removed;
+        return true;
     }
 }
-
-

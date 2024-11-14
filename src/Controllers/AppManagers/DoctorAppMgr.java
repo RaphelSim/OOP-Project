@@ -107,7 +107,7 @@ public class DoctorAppMgr extends AppManager {
 
     @Override
     protected void createPages() {
-        doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager);
+        doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager, doctorSchedule);
         updateDetailsPage = new UpdateDetailsPage(accountManager);
     }
 
