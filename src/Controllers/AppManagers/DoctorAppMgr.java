@@ -11,24 +11,33 @@ import Common.ClearOutput;
 import Common.CustomTimer;
 import Common.DatabaseItems;
 import Controllers.AOManagers.DoctorAOM;
+import Controllers.MRManagers.DoctorMRM;
 import Controllers.AccountManager;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
-import UI.AccountManagementPages.UpdateDetailsPage;
 import UI.UserMenu;
 import UI.setAvailabilityPage;
 import UI.viewPersonalSchedulePage;
 import UI.AOMUI.DoctorOutcomeInterface;
+<<<<<<< HEAD
 import DatabaseItems.Account;
 import DatabaseItems.AppointmentSlot;
+=======
+import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.MedicalRecordPages.ManageMedicalRecordPage;
+>>>>>>> main
 
 public class DoctorAppMgr extends AppManager {
     // Declare managers
     private DoctorSchedule doctorSchedule;
     private DoctorAOM doctorOutcomeManager;
+    private DoctorMRM doctorMRM;
+
+    // Declare Pages
     private DoctorOutcomeInterface doctorOutcomeUI;
+<<<<<<< HEAD
     
     // Get Login Doctor account object
     private Account doctor;
@@ -46,6 +55,9 @@ public class DoctorAppMgr extends AppManager {
         vPSP = new viewPersonalSchedulePage();
         personalSchedule = new ArrayList<>();
     }
+=======
+    private ManageMedicalRecordPage manageMedicalRecordPage;
+>>>>>>> main
 
     @Override
     public void displayMainPage() {
@@ -56,34 +68,31 @@ public class DoctorAppMgr extends AppManager {
 
             switch (selection) {
                 case 1:
-                    viewPatientMedicalRecords();
+                    managePatientMedicalRecords();
                     break;
                 case 2:
-                    updatePatientMedicalRecords();
-                    break;
-                case 3:
                     viewPersonalSchedule();
                     break;
-                case 4:
+                case 3:
                     setAvailability();
                     //CustomTimer.pause(3000);
                     // System.out.println("Press Enter to continue...");
                     // new Scanner(System.in).nextLine();
                     //ClearOutput.clearOutput();
                     break;
-                case 5:
+                case 4:
                     handleAppointmentRequests();
                     break;
-                case 6:
+                case 5:
                     viewUpcomingAppointments();
                     break;
-                case 7:
+                case 6:
                     recordAppointmentOutcome();
                     break;
-                case 8:
+                case 7:
                     settings();
                     break;
-                case 9:
+                case 8:
                     ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
@@ -116,21 +125,19 @@ public class DoctorAppMgr extends AppManager {
     protected void createManagers() {
         doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
+        doctorMRM = new DoctorMRM(medicalRecordDatabase, accountDatabase);
     }
 
     @Override
     protected void createPages() {
         doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager, doctorSchedule);
         updateDetailsPage = new UpdateDetailsPage(accountManager);
+        manageMedicalRecordPage = new ManageMedicalRecordPage(doctorMRM);
     }
 
     // Methods to handle each menu option
-    private void viewPatientMedicalRecords() {
-        // Implement functionality to view patient medical records 
-    }
-
-    private void updatePatientMedicalRecords() {
-        // Implement functionality to update patient medical records
+    private void managePatientMedicalRecords() {
+        manageMedicalRecordPage.displayOptions();
     }
 
     private void viewPersonalSchedule() {
