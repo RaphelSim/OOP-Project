@@ -1,7 +1,6 @@
 package UI;
 
 import Common.ClearOutput;
-import Common.CustomTimer;
 import Controllers.AccountManager;
 import DatabaseItems.Account;
 import Common.Role;
@@ -33,10 +32,12 @@ public class UpdateDetailsPage extends UserInterface {
                 case 1 -> handlePasswordChange();
                 case 2 -> handlePhoneChange();
                 case 3 -> handleEmailChange();
-                case 4 -> {quit = true;continue;}
+                case 4 -> {
+                    quit = true;
+                    continue;
+                }
                 default -> displayError("Invalid option selected.");
             }
-            CustomTimer.pause(1500);
         }
     }
 
@@ -48,10 +49,12 @@ public class UpdateDetailsPage extends UserInterface {
 
             switch (choice) {
                 case 1 -> handlePasswordChange();
-                case 2 -> {quit = true;continue;}
+                case 2 -> {
+                    quit = true;
+                    continue;
+                }
                 default -> displayError("Invalid option selected.");
             }
-            CustomTimer.pause(1500);
         }
     }
 

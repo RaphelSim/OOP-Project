@@ -12,6 +12,19 @@ public class AppointmentSlot implements DatabaseItems {
     private String timeend;
     private AppointmentStatus status;
 
+    // If both patient id and appointment id not provided
+    public AppointmentSlot(String doctor_id, String date, String timestart,
+            String timeend,
+            AppointmentStatus status) {
+        this.doctor_id = doctor_id;
+        this.appointment_id = doctor_id + "/" + date + "/" + timestart;
+        this.patient_id = "";
+        this.date = date;
+        this.timestart = timestart;
+        this.timeend = timeend;
+        this.status = status;
+    }
+
     // If appointment id provided
     public AppointmentSlot(String appointment_id, String patient_id, String doctor_id, String date, String timestart,
             String timeend,
@@ -28,17 +41,17 @@ public class AppointmentSlot implements DatabaseItems {
     // If appointment id not provided
     public AppointmentSlot(String patient_id, String doctor_id, String date, String timestart, String timeend,
             AppointmentStatus status) {
-        this(doctor_id + "/" + date + "/" + timestart,patient_id,doctor_id,date,timestart,timeend,status);
+        this(doctor_id + "/" + date + "/" + timestart, patient_id, doctor_id, date, timestart, timeend, status);
     }
 
-    //call the deserialisation method
-    public AppointmentSlot(String ...params){
+    // call the deserialisation method
+    public AppointmentSlot(String... params) {
         deserialise(params);
     }
 
-    //appointment_id,patient_id,date,timestart,timeend,status
-    //interface functions
-    public void deserialise(String ...params){
+    // appointment_id,patient_id,date,timestart,timeend,status
+    // interface functions
+    public void deserialise(String... params) {
         this.appointment_id = params[0];
         this.patient_id = params[1];
         this.date = params[2];
@@ -47,21 +60,21 @@ public class AppointmentSlot implements DatabaseItems {
         this.status = AppointmentStatus.fromString(params[5]);
     }
 
-    public String serialise(){
+    public String serialise() {
         return String.format("%s,%s,%s,%s,%s,%s\n",
-        this.appointment_id,
-        this.patient_id,
-        this.date,
-        this.timestart,
-        this.timeend,
-        this.status.toString());
+                this.appointment_id,
+                this.patient_id,
+                this.date,
+                this.timestart,
+                this.timeend,
+                this.status.toString());
     }
 
-    public void printItem(){
+    public void printItem() {
         System.out.println(); // add a line break to improve readability
         System.out.println("Appointment ID: " + this.appointment_id);
         System.out.println("Patient ID: " + this.patient_id);
-        System.out.println("Date: " +this.date);
+        System.out.println("Date: " + this.date);
         System.out.println("Time Start: " + this.timestart);
         System.out.println("Time End: " + this.timeend);
         System.out.println("Status: " + this.status);
