@@ -38,8 +38,8 @@ public class LoginManager {
                     case PAT:
                         appManager = new PatientAppMgr();
                         break;
-                    case DOC:
-                        appManager = new DoctorAppMgr();
+                    case DOC:   // Added parameter to pass in doctor account
+                        appManager = new DoctorAppMgr(account);
                         break;
                     case PHA:
                         appManager = new PharmaAppMgr();

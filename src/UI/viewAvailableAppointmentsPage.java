@@ -1,7 +1,6 @@
 package UI;
 
-import AppointmentSystem.Doctor;
-import Common.AppointmentManager;
+//import Common.AppointmentManager;
 import Databases.AccountDatabase;
 import Databases.DoctorSchedule;
 import DatabaseItems.Account;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import Common.UserInterface;
 
 public class viewAvailableAppointmentsPage extends UserInterface{
-    private AppointmentManager am;
+    //private AppointmentManager am;
     private AccountDatabase accountDatabase;
     private DoctorSchedule doctorSchedule;
 

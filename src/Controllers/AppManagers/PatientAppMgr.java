@@ -3,7 +3,6 @@ package Controllers.AppManagers;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import AppointmentSystem.Doctor;
 import Controllers.AOManagers.PatientAOM;
 import Common.AppManager;
 import Common.ClearOutput;
