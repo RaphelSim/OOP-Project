@@ -126,7 +126,7 @@ public class DoctorAppMgr extends AppManager {
 
     // Methods to handle each menu option
     private void viewPatientMedicalRecords() {
-        // Implement functionality to view patient medical records
+        // Implement functionality to view patient medical records 
     }
 
     private void updatePatientMedicalRecords() {
