@@ -21,13 +21,10 @@ import UI.UserMenu;
 import UI.setAvailabilityPage;
 import UI.viewPersonalSchedulePage;
 import UI.AOMUI.DoctorOutcomeInterface;
-<<<<<<< HEAD
 import DatabaseItems.Account;
 import DatabaseItems.AppointmentSlot;
-=======
 import UI.AccountManagementPages.UpdateDetailsPage;
 import UI.MedicalRecordPages.ManageMedicalRecordPage;
->>>>>>> main
 
 public class DoctorAppMgr extends AppManager {
     // Declare managers
@@ -37,7 +34,6 @@ public class DoctorAppMgr extends AppManager {
 
     // Declare Pages
     private DoctorOutcomeInterface doctorOutcomeUI;
-<<<<<<< HEAD
     
     // Get Login Doctor account object
     private Account doctor;
@@ -55,9 +51,7 @@ public class DoctorAppMgr extends AppManager {
         vPSP = new viewPersonalSchedulePage();
         personalSchedule = new ArrayList<>();
     }
-=======
     private ManageMedicalRecordPage manageMedicalRecordPage;
->>>>>>> main
 
     @Override
     public void displayMainPage() {
