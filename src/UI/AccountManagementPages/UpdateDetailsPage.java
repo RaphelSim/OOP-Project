@@ -1,4 +1,4 @@
-package UI;
+package UI.AccountManagementPages;
 
 import Common.ClearOutput;
 import Controllers.AccountManager;

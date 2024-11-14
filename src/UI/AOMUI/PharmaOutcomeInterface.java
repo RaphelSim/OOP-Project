@@ -18,10 +18,10 @@ public class PharmaOutcomeInterface extends UserInterface {
     }
 
     public void displayOptions() {
-        ClearOutput.clearOutput();
         boolean exit = false;
         while (!exit) {
-            System.out.println("Pharmacist Interface - Appointment Outcome");
+            ClearOutput.clearOutput();
+            System.out.println("Please select an option:");
             System.out.println("1. View All Appointment Outcome");
             System.out.println("2. View Specific Appointment Outcome");
             System.out.println("3. Update Appointment Outcome Status");
@@ -76,10 +76,19 @@ public class PharmaOutcomeInterface extends UserInterface {
             displayError("This appointment does not exist / does not require medicine dispense yet");
             return;
         }
-        System.out.println();
 
-        if (!pharmaManager.updateOutcomeStatus(appointmentId))
-            displayError("Failed to update status");
+        System.out.println();
+        System.out.println("Dispense medicine for this appointment?");
+        System.out.println("1. Yes");
+        System.out.println("2. Back");
+        int choice = getIntInput(2);
+        if (choice == 1) {
+            if (pharmaManager.updateOutcomeStatus(appointmentId))
+                displaySuccess("Dispensed Successfully!");
+            else
+                displayError("Failed to update status");
+        } else
+            return;
     }
 
 }

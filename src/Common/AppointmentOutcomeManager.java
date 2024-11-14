@@ -39,7 +39,7 @@ public abstract class AppointmentOutcomeManager {
 
     // Get all outcomes
     public List<AppointmentOutcome> getAllOutcomes() {
-        return database.getRecords().stream()
+        return database.getRecords().stream() // convert all databaseitems in this database to appointment outcome
                 .filter(item -> item instanceof AppointmentOutcome)
                 .map(item -> (AppointmentOutcome) item)
                 .collect(Collectors.toList());

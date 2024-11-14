@@ -1,6 +1,7 @@
 package Controllers.AppManagers;
 
 import Controllers.AOManagers.PatientAOM;
+import Controllers.MRManagers.PatientMRM;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AccountManager;
@@ -8,14 +9,19 @@ import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
-import UI.UpdateDetailsPage;
 import UI.AOMUI.PatientOutcomeInterface;
+import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.MedicalRecordPages.PatientViewMedicalRecordPage;
 
 public class PatientAppMgr extends AppManager {
     // Declare managers
     private AccountManager accountManager;
     private PatientAOM patientOutcomeManager;
+    private PatientMRM patientMRM;
+
+    // Declare pages
     private PatientOutcomeInterface patientOutcomeUI;
+    private PatientViewMedicalRecordPage patientViewMedicalRecordPage;
 
     @Override
     public void displayMainPage() {
@@ -79,17 +85,19 @@ public class PatientAppMgr extends AppManager {
     protected void createManagers() {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         patientOutcomeManager = new PatientAOM(appointmentOutcomeDatabase, account.getid());
+        patientMRM = new PatientMRM(medicalRecordDatabase, account.getid());
     }
 
     @Override
     protected void createPages() {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
+        patientViewMedicalRecordPage = new PatientViewMedicalRecordPage(patientMRM);
     }
 
     // Methods to handle each menu option
     private void viewMedicalRecord() {
-        // Implement PatientMRM interaction here
+        patientViewMedicalRecordPage.displayMedicalRecord();
     }
 
     private void viewAvailableAppointments() {

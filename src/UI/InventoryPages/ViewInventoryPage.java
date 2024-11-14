@@ -1,4 +1,4 @@
-package UI;
+package UI.InventoryPages;
 
 import Common.UserInterface;
 import Databases.InventoryDatabase;

@@ -12,12 +12,12 @@ import Databases.AppointmentOutcomeDatabase;
 import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
 import Databases.MedicalRecordDatabase;
-import UI.ApproveReplenishRequestPage;
-import UI.InventoryManagementPage;
-import UI.ManageStaffPage;
-import UI.UpdateDetailsPage;
 import UI.UserMenu;
+import UI.AccountManagementPages.ManageStaffPage;
+import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.InventoryPages.ApproveReplenishRequestPage;
 // import UI.AOMUI.AdminOutcomeInterface;
+import UI.InventoryPages.InventoryManagementPage;
 
 public class AdminAppMgr extends AppManager {
     // Declare managers

@@ -1,4 +1,4 @@
-package UI;
+package UI.InventoryPages;
 
 import Common.ClearOutput;
 import Common.UserInterface;

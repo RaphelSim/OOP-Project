@@ -1,4 +1,4 @@
-package UI;
+package UI.AccountManagementPages;
 
 import Common.ClearOutput;
 import Common.FilterParam;
@@ -27,7 +27,7 @@ public class ManageStaffPage extends UserInterface {
             System.out.println("5. Back");
 
             int choice = getIntInput(5);
-            ClearOutput.clearOutput(); //clear input after making a choice
+            ClearOutput.clearOutput(); // clear input after making a choice
             switch (choice) {
                 case 1 -> handleAddStaff();
                 case 2 -> handleRemoveStaff();
@@ -76,12 +76,12 @@ public class ManageStaffPage extends UserInterface {
         System.out.println("Please enter target user id to edit:");
         String id = scanner.nextLine().trim();
         Account user = staffManager.getUserInfo(id);
-    
+
         if (user == null) {
             displayError("User not found.");
             return;
         }
-    
+
         boolean quit = false;
         while (!quit) {
             ClearOutput.clearOutput();
@@ -94,22 +94,26 @@ public class ManageStaffPage extends UserInterface {
             System.out.println("3. Password");
             System.out.println("4. Age");
             System.out.println("5. Cancel");
-    
+
             int choice = getIntInput(5);
             boolean success;
             switch (choice) {
                 case 1:
                     String newName = getValidatedString("Enter new name: ");
                     success = staffManager.editName(id, newName);
-                    if (success) displaySuccess("Name updated successfully.");
-                    else displayError("Failed to update name.");
+                    if (success)
+                        displaySuccess("Name updated successfully.");
+                    else
+                        displayError("Failed to update name.");
                     break;
                 case 2:
                     Gender gender = getGender();
                     if (gender != null) {
                         success = staffManager.editGender(id, gender);
-                        if (success) displaySuccess("Gender updated successfully.");
-                        else displayError("Failed to update gender.");
+                        if (success)
+                            displaySuccess("Gender updated successfully.");
+                        else
+                            displayError("Failed to update gender.");
                     } else {
                         displayError("Invalid gender.");
                     }
@@ -117,15 +121,19 @@ public class ManageStaffPage extends UserInterface {
                 case 3:
                     String newPassword = getValidatedString("Enter new password: ");
                     success = staffManager.editPassword(id, newPassword);
-                    if (success) displaySuccess("Password updated successfully.");
-                    else displayError("Failed to update password.");
+                    if (success)
+                        displaySuccess("Password updated successfully.");
+                    else
+                        displayError("Failed to update password.");
                     break;
                 case 4:
                     int newAge = getValidatedInt("Enter new age: ");
                     if (newAge > 0) {
                         success = staffManager.editAge(id, newAge);
-                        if (success) displaySuccess("Age updated successfully.");
-                        else displayError("Failed to update age.");
+                        if (success)
+                            displaySuccess("Age updated successfully.");
+                        else
+                            displayError("Failed to update age.");
                     } else {
                         displayError("Invalid age.");
                     }
@@ -139,7 +147,6 @@ public class ManageStaffPage extends UserInterface {
             }
         }
     }
-    
 
     private void handleDisplayStaff() {
         boolean backToFilter = false;
@@ -151,13 +158,14 @@ public class ManageStaffPage extends UserInterface {
             System.out.println("3. Filter by Role");
             System.out.println("4. Filter by Age");
             System.out.println("5. Back");
-    
+
             int choice = getIntInput(5);
 
-            ClearOutput.clearOutput(); //clear after making a choice
+            ClearOutput.clearOutput(); // clear after making a choice
             switch (choice) {
                 case 1:
-                    staffManager.displayAllStaff();;
+                    staffManager.displayAllStaff();
+                    ;
                     break;
                 case 2:
                     filterByGender();
@@ -174,24 +182,28 @@ public class ManageStaffPage extends UserInterface {
                 default:
                     displayError("Invalid filter option selected.");
             }
-            //pausing the system to allow users to view until the user decide to go back
+            // pausing the system to allow users to view until the user decide to go back
             System.out.println("\nPress Enter to go back to the filter menu...");
             scanner.nextLine();
         }
-    }   
+    }
 
-    //functions below are the actual filtering functions
+    // functions below are the actual filtering functions
 
     private void filterByGender() {
         Gender gender = getGender();
-        if (gender != null) staffManager.displayStaffs(FilterParam.GENDER, gender.toString());
-        else displayError("Invalid gender selection.");
+        if (gender != null)
+            staffManager.displayStaffs(FilterParam.GENDER, gender.toString());
+        else
+            displayError("Invalid gender selection.");
     }
 
     private void filterByRole() {
         Role role = getRole();
-        if (role != null) staffManager.displayStaffs(FilterParam.ROLE, role.toString());
-        else displayError("Invalid role selection.");
+        if (role != null)
+            staffManager.displayStaffs(FilterParam.ROLE, role.toString());
+        else
+            displayError("Invalid role selection.");
     }
 
     private void filterByAge() {
@@ -199,7 +211,7 @@ public class ManageStaffPage extends UserInterface {
         int lowerBound = getValidatedInt("Enter lower bound: ");
         System.out.println("Enter age filter upper bound:");
         int upperBound = getValidatedInt("Enter upper bound: ");
-        
+
         if (lowerBound <= upperBound) {
             staffManager.displayStaffs(FilterParam.AGE, lowerBound, upperBound);
         } else {
@@ -207,7 +219,7 @@ public class ManageStaffPage extends UserInterface {
         }
     }
 
-    //below are the functions used to get differnt enum inputs
+    // below are the functions used to get differnt enum inputs
 
     private Role getRole() {
         System.out.println("Select Role: ");

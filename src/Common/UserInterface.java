@@ -54,4 +54,10 @@ public class UserInterface {
         System.err.println("ERROR: " + message + "<<<<<<<<<");
         CustomTimer.pause(2000); // pause to view before clearing console
     }
+
+    protected void viewAndGoBack() {
+        System.out.println();
+        System.out.println("Press ENTER to return to menu");
+        scanner.nextLine();
+    }
 }

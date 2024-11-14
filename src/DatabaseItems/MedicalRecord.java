@@ -32,14 +32,14 @@ public class MedicalRecord implements DatabaseItems {
         this.treatments = treatments;
     }
 
-    //call the deserialisation method
-    public MedicalRecord(String ...params){
+    // call the deserialisation method
+    public MedicalRecord(String... params) {
         deserialise(params);
     }
 
     // id,name,dob,gender,email,phone,bloodtype,diagnoses,treatments
-    //interface functions
-    public void deserialise(String ...params){
+    // interface functions
+    public void deserialise(String... params) {
         this.id = params[0];
         this.name = params[1];
         this.dob = params[2];
@@ -51,21 +51,20 @@ public class MedicalRecord implements DatabaseItems {
         this.treatments = ListConverter.stringToList(params[8]);
     }
 
-    public String serialise(){
+    public String serialise() {
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
-        this.id,
-        this.name,
-        this.dob,
-        this.gender.toString(),
-        this.email,
-        this.phone,
-        this.bloodType.toString(),
-        ListConverter.listToString(this.diagnoses),
-        ListConverter.listToString(this.treatments)
-        );
+                this.id,
+                this.name,
+                this.dob,
+                this.gender.toString(),
+                this.email,
+                this.phone,
+                this.bloodType.toString(),
+                ListConverter.listToString(this.diagnoses),
+                ListConverter.listToString(this.treatments));
     }
 
-    public void printItem(){
+    public void printItem() {
         System.out.println(); // Print a new line for better readability
         System.out.println("ID: " + this.id);
         System.out.println("Name: " + this.name);
@@ -74,8 +73,24 @@ public class MedicalRecord implements DatabaseItems {
         System.out.println("Email: " + this.email);
         System.out.println("Phone: " + this.phone);
         System.out.println("Blood Type: " + this.bloodType);
-        System.out.println("Diagnoses: " + String.join(", ", this.diagnoses));
-        System.out.println("Treatments: " + String.join(", ", this.treatments));
+        printDiagnoses();
+        printTreatments();
+    }
+
+    public void printDiagnoses() {
+        // Print Diagnoses with Indexing
+        System.out.println("Diagnoses:");
+        for (int i = 0; i < this.diagnoses.size(); i++) {
+            System.out.println("   " + (i + 1) + ". " + this.diagnoses.get(i));
+        }
+    }
+
+    public void printTreatments() {
+        // Print Treatments with Indexing
+        System.out.println("Treatments:");
+        for (int i = 0; i < this.treatments.size(); i++) {
+            System.out.println("   " + (i + 1) + ". " + this.treatments.get(i));
+        }
     }
 
     // getters
