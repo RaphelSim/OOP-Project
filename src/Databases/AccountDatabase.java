@@ -1,6 +1,8 @@
 package Databases;
 
 
+import java.util.ArrayList;
+
 import Common.*;
 import DatabaseItems.Account;
 
@@ -48,5 +50,18 @@ public class AccountDatabase extends Database {
         } else {
             return false;
         }
+    }
+
+    // Get list of doctors
+    public ArrayList<Account> getDocList() {
+        ArrayList<Account> docList = new ArrayList<>();
+        
+        for (DatabaseItems item : records) {
+            Account account = (Account) item;
+            if (account.getrole() == Role.DOC) {
+                docList.add(account);
+            }
+        }
+        return docList;
     }
 }

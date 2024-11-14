@@ -1,4 +1,4 @@
-package AppointmentSystem;
+package Controllers.AMManagers;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -6,6 +6,10 @@ import java.time.format.DateTimeParseException;
 //import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import AppointmentSystem.Appointment;
+import AppointmentSystem.Doctor;
+import Common.AppointmentManager;
 
 // [Patient] View available appointment slots with doctors
 // 	  [ 5 ]Methods: Schedule (Choose Doctor), Reschedule, Cancel, 

@@ -1,6 +1,8 @@
 package Databases;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import Common.Database;
@@ -74,5 +76,24 @@ public class DoctorSchedule extends Database {
     @Override
     public void printItems() {
         printItems("Doctor " + doctor_id + "'s Schedule: ");
+    }
+
+    public void printDoctorSchedule(String doctor_id) {
+        String filePath = "Database/DoctorsSchedule/" + doctor_id + ".csv";
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            if ((line = br.readLine()) != null) {
+                System.out.println("Schedule for Dr. : " + doctor_id);
+                System.out.println(line);
+            }
+           
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading schedule for Doctor ID: " + doctor_id);
+            e.printStackTrace();
+        }
     }
 }

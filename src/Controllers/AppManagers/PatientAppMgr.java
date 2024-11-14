@@ -12,16 +12,18 @@ import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
+import UI.viewAvailableAppointmentsPage;
 import UI.UpdateDetailsPage;
 import UI.AOMUI.PatientOutcomeInterface;
+import DatabaseItems.Account;
 
 public class PatientAppMgr extends AppManager {
     // Declare managers
     private AccountManager accountManager;
     private UpdateDetailsPage updateDetailsPage;
+    private viewAvailableAppointmentsPage vAAP;
 
     // Attributes
-    private ArrayList<Doctor> doctorList;
     //private ArrayList<AppointmentSlot> patientApps;
     private PatientAOM patientOutcomeManager;
     private PatientOutcomeInterface patientOutcomeUI;
@@ -95,7 +97,14 @@ public class PatientAppMgr extends AppManager {
     protected void createPages() {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
+        vAAP = new viewAvailableAppointmentsPage();
     }
+
+    // // Get List of Doctors
+    // public ArrayList<Account> getDocList() {
+    //     return accountDatabase.getDocList();
+    // }
+    
 
     // Methods to handle each menu option
     private void viewMedicalRecord() {
@@ -104,46 +113,51 @@ public class PatientAppMgr extends AppManager {
 
     private void viewAvailableAppointments() {
         //  Implement PatientAptMgr interaction for viewing available slots
+        // List Doctors (Name, ID) to choose
+        // Get the chosen doctor's list of timeslots and display
+        // Dont clear output to allow scheduleAppointment method
+        vAAP.viewAvailableAppointments();
+
     }
 
     private void scheduleAppointment() {
         //  Implement PatientAptMgr interaction for scheduling an appointment
 
-        String choiceDoc = "";
-        Doctor chosenDoc = new Doctor();
-        Scanner sc = new Scanner(System.in);
-        boolean exists = true;
-        while (exists) {
-            System.out.println("Here are the list of Doctors you can choose from (Enter Doctor ID):");
-            System.out.println("Doctor ID   |   Doctor Name");
-            for(Doctor d:doctorList) {
-                System.out.println(d.getDoctorID() + "      " + d.getName());
-            }
+        // String choiceDoc = "";
+        // Doctor chosenDoc = new Doctor();
+        // Scanner sc = new Scanner(System.in);
+        // boolean exists = true;
+        // while (exists) {
+        //     System.out.println("Here are the list of Doctors you can choose from (Enter Doctor ID):");
+        //     System.out.println("Doctor ID   |   Doctor Name");
+        //     for(Doctor d:doctorList) {
+        //         System.out.println(d.getDoctorID() + "      " + d.getName());
+        //     }
             
-            choiceDoc = sc.nextLine();
+        //     choiceDoc = sc.nextLine();
 
-            for(Doctor d:doctorList) {
-                if(d.getDoctorID().equalsIgnoreCase(choiceDoc)) {
-                    chosenDoc = d;
-                    exists = false;
-                    break;
-                }
-            }
-            if(exists)
-                System.out.println("Invalid Doctor ID entered! Please enter again.");
+        //     for(Doctor d:doctorList) {
+        //         if(d.getDoctorID().equalsIgnoreCase(choiceDoc)) {
+        //             chosenDoc = d;
+        //             exists = false;
+        //             break;
+        //         }
+        //     }
+        //     if(exists)
+        //         System.out.println("Invalid Doctor ID entered! Please enter again.");
 
-        }
+        // }
 
-        chosenDoc.getAM_D().displayDocTimeSlot();
+        // chosenDoc.getAM_D().displayDocTimeSlot();
 
-        // User input to choose timeslot then add to Patient's Appointment
-        int choice;
-        choice = sc.nextInt();
-        //if(choice)
+        // // User input to choose timeslot then add to Patient's Appointment
+        // int choice;
+        // choice = sc.nextInt();
+        // //if(choice)
 
 
-		//System.out.println("Appointment slot is taken. Please choose another available slot.");
-        sc.close();
+		// //System.out.println("Appointment slot is taken. Please choose another available slot.");
+        // sc.close();
     }
 
     private void rescheduleAppointment() {

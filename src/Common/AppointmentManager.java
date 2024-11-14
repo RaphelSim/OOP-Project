@@ -1,4 +1,4 @@
-package AppointmentSystem;
+package Common;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -7,22 +7,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import AppointmentSystem.Appointment;
+import AppointmentSystem.Doctor;
+
 public class AppointmentManager {
 	/*
 	 *  Controls all the appointments exist in Hospital Management System (HMS)
 	 *	
 	 *	
 	 *	
-	 *
-	 *	
-	 *
-	 * Save to file after logout
-	 *  Files read at start of runtime
-	 *  
-	 *  Patient choose a appointment - pending
 	 */
-	
 	protected ArrayList<Appointment> slots = new ArrayList<Appointment>();
+	private ArrayList<Doctor> doctorList;
+
+	public AppointmentManager() {
+		doctorList = new ArrayList<>();
+	}
 	
 	// Display All Appointment Slots
 	public void getAppointmentSlots() {

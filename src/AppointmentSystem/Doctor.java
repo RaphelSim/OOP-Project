@@ -1,5 +1,7 @@
 package AppointmentSystem;
 
+import Controllers.AMManagers.DoctorAM;
+
 public class Doctor {
 	private String doctorID;			// DOC12345 (DOC + 5 digits)
 	private String name;

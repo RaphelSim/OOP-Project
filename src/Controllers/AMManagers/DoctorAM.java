@@ -1,4 +1,4 @@
-package AppointmentSystem;
+package Controllers.AMManagers;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -6,6 +6,10 @@ import java.time.format.DateTimeParseException;
 //import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import AppointmentSystem.Appointment;
+import AppointmentSystem.Doctor;
+import Common.AppointmentManager;
 
 // [Doctor] View personal schedule & set appointment availability
 // 	 [  ] Methods: Accept, Decline, View Upcoming list, Record Appointment Outcome
