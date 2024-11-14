@@ -11,33 +11,24 @@ import Common.ClearOutput;
 import Common.CustomTimer;
 import Common.DatabaseItems;
 import Controllers.AOManagers.DoctorAOM;
-import Controllers.MRManagers.DoctorMRM;
 import Controllers.AccountManager;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
+import UI.AccountManagementPages.UpdateDetailsPage;
 import UI.UserMenu;
 import UI.setAvailabilityPage;
 import UI.viewPersonalSchedulePage;
 import UI.AOMUI.DoctorOutcomeInterface;
-<<<<<<< HEAD
 import DatabaseItems.Account;
 import DatabaseItems.AppointmentSlot;
-=======
-import UI.AccountManagementPages.UpdateDetailsPage;
-import UI.MedicalRecordPages.ManageMedicalRecordPage;
->>>>>>> main
 
 public class DoctorAppMgr extends AppManager {
     // Declare managers
     private DoctorSchedule doctorSchedule;
     private DoctorAOM doctorOutcomeManager;
-    private DoctorMRM doctorMRM;
-
-    // Declare Pages
     private DoctorOutcomeInterface doctorOutcomeUI;
-<<<<<<< HEAD
     
     // Get Login Doctor account object
     private Account doctor;
@@ -55,9 +46,6 @@ public class DoctorAppMgr extends AppManager {
         vPSP = new viewPersonalSchedulePage();
         personalSchedule = new ArrayList<>();
     }
-=======
-    private ManageMedicalRecordPage manageMedicalRecordPage;
->>>>>>> main
 
     @Override
     public void displayMainPage() {
@@ -68,31 +56,34 @@ public class DoctorAppMgr extends AppManager {
 
             switch (selection) {
                 case 1:
-                    managePatientMedicalRecords();
+                    viewPatientMedicalRecords();
                     break;
                 case 2:
-                    viewPersonalSchedule();
+                    updatePatientMedicalRecords();
                     break;
                 case 3:
+                    viewPersonalSchedule();
+                    break;
+                case 4:
                     setAvailability();
                     //CustomTimer.pause(3000);
                     // System.out.println("Press Enter to continue...");
                     // new Scanner(System.in).nextLine();
                     //ClearOutput.clearOutput();
                     break;
-                case 4:
+                case 5:
                     handleAppointmentRequests();
                     break;
-                case 5:
+                case 6:
                     viewUpcomingAppointments();
                     break;
-                case 6:
+                case 7:
                     recordAppointmentOutcome();
                     break;
-                case 7:
+                case 8:
                     settings();
                     break;
-                case 8:
+                case 9:
                     ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
@@ -125,19 +116,21 @@ public class DoctorAppMgr extends AppManager {
     protected void createManagers() {
         doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
-        doctorMRM = new DoctorMRM(medicalRecordDatabase, accountDatabase);
     }
 
     @Override
     protected void createPages() {
         doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager, doctorSchedule);
         updateDetailsPage = new UpdateDetailsPage(accountManager);
-        manageMedicalRecordPage = new ManageMedicalRecordPage(doctorMRM);
     }
 
     // Methods to handle each menu option
-    private void managePatientMedicalRecords() {
-        manageMedicalRecordPage.displayOptions();
+    private void viewPatientMedicalRecords() {
+        // Implement functionality to view patient medical records
+    }
+
+    private void updatePatientMedicalRecords() {
+        // Implement functionality to update patient medical records
     }
 
     private void viewPersonalSchedule() {
