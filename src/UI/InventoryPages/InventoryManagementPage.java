@@ -39,9 +39,7 @@ public class InventoryManagementPage extends UserInterface {
     public void handleViewInventory() {
         ClearOutput.clearOutput();
         inventoryManager.displayInventory();
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 
     public void handleAddMedicine() {

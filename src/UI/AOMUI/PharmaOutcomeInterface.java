@@ -53,9 +53,7 @@ public class PharmaOutcomeInterface extends UserInterface {
         System.out.println("------------------------------");
         if (!pharmaManager.viewAllOutcome())
             displayError("There are no appointments pending for medicine dispense");
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 
     private void viewOutcome() {
@@ -63,9 +61,7 @@ public class PharmaOutcomeInterface extends UserInterface {
         String appointmentId = getStringInput("Enter Appointment ID to view: ");
         if (!pharmaManager.viewOutcome(appointmentId))
             displayError("This appointment does not exist / does not require medicine dispense yet");
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 
     private void updateOutcomeStatus() {

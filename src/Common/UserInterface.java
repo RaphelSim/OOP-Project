@@ -55,7 +55,7 @@ public class UserInterface {
         CustomTimer.pause(2000); // pause to view before clearing console
     }
 
-    protected void viewAndGoBack() {
+    protected void pauseAndView() {
         System.out.println();
         System.out.println("Press ENTER to return to menu");
         scanner.nextLine();

@@ -182,9 +182,7 @@ public class ManageStaffPage extends UserInterface {
                 default:
                     displayError("Invalid filter option selected.");
             }
-            // pausing the system to allow users to view until the user decide to go back
-            System.out.println("\nPress Enter to go back to the filter menu...");
-            scanner.nextLine();
+            pauseAndView();
         }
     }
 

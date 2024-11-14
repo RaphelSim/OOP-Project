@@ -39,7 +39,7 @@ public class ManageMedicalRecordPage extends UserInterface {
         System.out.println("--------------------------");
         if (!doctorMRM.viewAllRecords())
             displayError("no Record found in database");
-        viewAndGoBack();
+        pauseAndView();
     }
 
     private void editRecord() {

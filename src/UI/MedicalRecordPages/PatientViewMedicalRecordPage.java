@@ -17,8 +17,6 @@ public class PatientViewMedicalRecordPage extends UserInterface {
         System.out.println("-------------------------");
         if (!patientMRM.viewRecord())
             displayError("Medical Record does not exist");
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 }
