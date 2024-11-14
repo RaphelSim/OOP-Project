@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Controllers.AOManagers.PatientAOM;
+import Controllers.MRManagers.PatientMRM;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AccountManager;
@@ -12,9 +13,10 @@ import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
 import UI.viewAvailableAppointmentsPage;
-import UI.UpdateDetailsPage;
 import UI.AOMUI.PatientOutcomeInterface;
 import DatabaseItems.Account;
+import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.MedicalRecordPages.PatientViewMedicalRecordPage;
 
 public class PatientAppMgr extends AppManager {
     // Declare managers
@@ -25,7 +27,11 @@ public class PatientAppMgr extends AppManager {
     // Attributes
     //private ArrayList<AppointmentSlot> patientApps;
     private PatientAOM patientOutcomeManager;
+    private PatientMRM patientMRM;
+
+    // Declare pages
     private PatientOutcomeInterface patientOutcomeUI;
+    private PatientViewMedicalRecordPage patientViewMedicalRecordPage;
 
     @Override
     public void displayMainPage() {
@@ -89,12 +95,14 @@ public class PatientAppMgr extends AppManager {
     protected void createManagers() {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         patientOutcomeManager = new PatientAOM(appointmentOutcomeDatabase, account.getid());
+        patientMRM = new PatientMRM(medicalRecordDatabase, account.getid());
     }
 
     @Override
     protected void createPages() {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
+        patientViewMedicalRecordPage = new PatientViewMedicalRecordPage(patientMRM);
         vAAP = new viewAvailableAppointmentsPage();
     }
 
@@ -106,7 +114,7 @@ public class PatientAppMgr extends AppManager {
 
     // Methods to handle each menu option
     private void viewMedicalRecord() {
-        // Implement PatientMRM interaction here
+        patientViewMedicalRecordPage.displayMedicalRecord();
     }
 
     private void viewAvailableAppointments() {

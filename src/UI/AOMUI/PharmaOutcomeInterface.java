@@ -18,10 +18,10 @@ public class PharmaOutcomeInterface extends UserInterface {
     }
 
     public void displayOptions() {
-        ClearOutput.clearOutput();
         boolean exit = false;
         while (!exit) {
-            System.out.println("Pharmacist Interface - Appointment Outcome");
+            ClearOutput.clearOutput();
+            System.out.println("Please select an option:");
             System.out.println("1. View All Appointment Outcome");
             System.out.println("2. View Specific Appointment Outcome");
             System.out.println("3. Update Appointment Outcome Status");
@@ -53,9 +53,7 @@ public class PharmaOutcomeInterface extends UserInterface {
         System.out.println("------------------------------");
         if (!pharmaManager.viewAllOutcome())
             displayError("There are no appointments pending for medicine dispense");
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 
     private void viewOutcome() {
@@ -63,9 +61,7 @@ public class PharmaOutcomeInterface extends UserInterface {
         String appointmentId = getStringInput("Enter Appointment ID to view: ");
         if (!pharmaManager.viewOutcome(appointmentId))
             displayError("This appointment does not exist / does not require medicine dispense yet");
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 
     private void updateOutcomeStatus() {
@@ -76,10 +72,19 @@ public class PharmaOutcomeInterface extends UserInterface {
             displayError("This appointment does not exist / does not require medicine dispense yet");
             return;
         }
-        System.out.println();
 
-        if (!pharmaManager.updateOutcomeStatus(appointmentId))
-            displayError("Failed to update status");
+        System.out.println();
+        System.out.println("Dispense medicine for this appointment?");
+        System.out.println("1. Yes");
+        System.out.println("2. Back");
+        int choice = getIntInput(2);
+        if (choice == 1) {
+            if (pharmaManager.updateOutcomeStatus(appointmentId))
+                displaySuccess("Dispensed Successfully!");
+            else
+                displayError("Failed to update status");
+        } else
+            return;
     }
 
 }

@@ -55,9 +55,7 @@ public class PatientOutcomeInterface extends UserInterface {
         if (!patientManager.displayOutcome(appointmentId))
             displayError("There is no existing outcome for this appointment id");
 
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 
     // Method to display all past outcomes for a specific patient
@@ -68,8 +66,6 @@ public class PatientOutcomeInterface extends UserInterface {
         if (!patientManager.displayPastOutcomes(patientId))
             displayError("No apppointment outcome found");
 
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 }

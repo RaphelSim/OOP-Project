@@ -9,18 +9,20 @@ import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.InventoryDatabase;
 import Databases.InventoryRequestDatabase;
-import UI.StockRequestPage;
-import UI.UpdateDetailsPage;
 import UI.UserMenu;
-import UI.ViewInventoryPage;
 import UI.AOMUI.PharmaOutcomeInterface;
+import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.InventoryPages.StockRequestPage;
+import UI.InventoryPages.ViewInventoryPage;
 
 public class PharmaAppMgr extends AppManager {
     // Declare managers
     private PharmaAOM pharmaOutcomeManager;
+    private InventoryRequestManager inventoryRequestManager;
+
+    // Declare pages
     private PharmaOutcomeInterface pharmaOutcomeUI;
     private StockRequestPage stockRequestPage;
-    private InventoryRequestManager inventoryRequestManager;
     private ViewInventoryPage viewInventoryPage;
 
     @Override
@@ -35,18 +37,15 @@ public class PharmaAppMgr extends AppManager {
                     viewAppointmentOutcome();
                     break;
                 case 2:
-                    viewAppointmentPrescriptions();
-                    break;
-                case 3:
                     viewInventory();
                     break;
-                case 4:
+                case 3:
                     requestReplenishment();
                     break;
-                case 5:
+                case 4:
                     settings();
                     break;
-                case 6:
+                case 5:
                     ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
                     logout = true;
@@ -104,9 +103,5 @@ public class PharmaAppMgr extends AppManager {
 
     private void requestReplenishment() {
         stockRequestPage.displayOption();
-    }
-
-    private void viewAppointmentPrescriptions() {
-        // Implement functionality to view prescriptions related to appointments
     }
 }

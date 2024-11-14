@@ -58,9 +58,7 @@ public class DoctorOutcomeInterface extends UserInterface {
                 slot.printItem();
             }
         }
-        System.out.println();
-        System.out.println("Press ENTER to return to menu");
-        scanner.nextLine();
+        pauseAndView();
     }
 
     public void selectAppointment() {
