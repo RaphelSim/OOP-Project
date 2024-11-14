@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import Common.Database;
 import Common.DatabaseItems;
 import DatabaseItems.AppointmentSlot;
@@ -78,6 +80,7 @@ public class DoctorSchedule extends Database {
         printItems("Doctor " + doctor_id + "'s Schedule: ");
     }
 
+    // Print Doctor Schedule from csv
     public void printDoctorSchedule(String doctor_id) {
         String filePath = "Database/DoctorsSchedule/" + doctor_id + ".csv";
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -96,4 +99,6 @@ public class DoctorSchedule extends Database {
             e.printStackTrace();
         }
     }
+
+
 }

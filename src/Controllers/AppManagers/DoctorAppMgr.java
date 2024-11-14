@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import Common.AppManager;
 import Common.ClearOutput;
+import Common.CustomTimer;
 import Common.DatabaseItems;
 import Controllers.AOManagers.DoctorAOM;
 import Controllers.AccountManager;
@@ -18,8 +19,10 @@ import Databases.MedicalRecordDatabase;
 import UI.UpdateDetailsPage;
 import UI.UserMenu;
 import UI.setAvailabilityPage;
+import UI.viewPersonalSchedulePage;
 import UI.AOMUI.DoctorOutcomeInterface;
 import DatabaseItems.Account;
+import DatabaseItems.AppointmentSlot;
 
 public class DoctorAppMgr extends AppManager {
     // Declare managers
@@ -30,19 +33,25 @@ public class DoctorAppMgr extends AppManager {
     // Get Login Doctor account object
     private Account doctor;
 
+    // Store list of doctor Schedule
+    private ArrayList<AppointmentSlot> personalSchedule;
+
     // Pages
     private setAvailabilityPage sAP;
+    private viewPersonalSchedulePage vPSP;
 
     public DoctorAppMgr (Account doctor) {
         this.doctor = doctor;
         sAP = new setAvailabilityPage();
+        vPSP = new viewPersonalSchedulePage();
+        personalSchedule = new ArrayList<>();
     }
 
     @Override
     public void displayMainPage() {
         boolean logout = false;
         while (!logout) {
-            ClearOutput.clearOutput();
+            //ClearOutput.clearOutput();
             int selection = UserMenu.displayDoctorMenu();
 
             switch (selection) {
@@ -57,6 +66,10 @@ public class DoctorAppMgr extends AppManager {
                     break;
                 case 4:
                     setAvailability();
+                    //CustomTimer.pause(3000);
+                    // System.out.println("Press Enter to continue...");
+                    // new Scanner(System.in).nextLine();
+                    //ClearOutput.clearOutput();
                     break;
                 case 5:
                     handleAppointmentRequests();
@@ -125,11 +138,13 @@ public class DoctorAppMgr extends AppManager {
 
         // If setAvailability not called first, personal schedule will be empty
         // Else print out personal schedule = list of time slots (regardless of status)
+        vPSP.displayDocTimeSlot(doctor, personalSchedule);
     }
 
     private void setAvailability() {
         // Implement functionality to set availability for appointments
-        sAP.setAvailability(doctor);
+        this.personalSchedule = sAP.setAvailability(doctor);
+        doctorSchedule.newDoctor(doctor.getid());
     }
 
     private void handleAppointmentRequests() {

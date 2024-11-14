@@ -1,20 +1,19 @@
 package UI;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import DatabaseItems.Account;
 import DatabaseItems.AppointmentSlot;
+import Common.AppointmentStatus;
 import Common.UserInterface;
 
 
 public class setAvailabilityPage extends UserInterface{
     private ArrayList<AppointmentSlot> doctorSchedule;
 
-    public void setAvailability(Account doctor) {
+    public ArrayList<AppointmentSlot> setAvailability(Account doctor) {
         int day = 0, month = 0, year = 0;
 		String startTime = "", endTime = "";
 
@@ -88,7 +87,7 @@ public class setAvailabilityPage extends UserInterface{
         }
 
         // Display Personal Schedule Date and Time
-        System.out.printf("You have entered:\nDate: %02d/%02d/%04d\nTime: %s - %s\n", day, month, year, startTime, endTime);
+        System.out.printf("\nYou have entered:\nDate: %02d/%02d/%04d\nTime: %s - %s\n", day, month, year, startTime, endTime);
 		LocalDate confirmDate = LocalDate.of(year, month, day);
 		// Should we ask to confirm date and time?
 
@@ -96,8 +95,14 @@ public class setAvailabilityPage extends UserInterface{
 		// Code to format them and split to 60mins interval time slots assigning each to appointment
 		this.doctorSchedule = generateTimeSlot(doctor.getid(),confirmDate, startTime, endTime);
 
+        //System.out.println("Doc:" + doctor.getid());
 		// Display Timeslots
-        displayDocTimeSlot();
+        //displayDocTimeSlot(doctor);
+
+        // for(AppointmentSlot a: this.doctorSchedule) {
+        //     a.printItem();
+        // }
+        return doctorSchedule;
     }
 
 
@@ -141,28 +146,19 @@ public class setAvailabilityPage extends UserInterface{
 	// Just a method to split start time and end time to individual 30mins time slots
 	private ArrayList<AppointmentSlot> generateTimeSlot(String doctorID, LocalDate date, String startTime, String endTime) {
 		LocalTime sT = LocalTime.parse(startTime);
-		LocalTime eT = LocalTime.parse(endTime);
+		LocalTime eT = LocalTime.parse(endTime); // end time of schedule
+        LocalTime end;  // end time for each appointment slot
 		ArrayList<AppointmentSlot> ap = new ArrayList<>();
 
 		while(sT.plusMinutes(60).isBefore(eT)) {
-			//LocalTime end = sT.plusMinutes(60);
-			LocalDateTime slotTime = LocalDateTime.of(date, sT);
-			ap.add(new AppointmentSlot(slotTime, doctorID, "",false));
+			end = sT.plusMinutes(60);
+			//LocalDateTime slotTime = LocalDateTime.of(date, sT);
+
+			ap.add(new AppointmentSlot(doctorID,date.toString(), sT.toString(), end.toString(), AppointmentStatus.FREE));
 			sT = sT.plusMinutes(60);
 		}
 
 		return ap;
 	}
-
-    // Display Doctor's Personal Schedule (TimeSlots - 60min interval)
-    public void displayDocTimeSlot() {
-        int counter = 1;
-        System.out.println("Generated Timeslots:");
-        for (Appointment tS : this.doctorSchedulelist) {
-            System.out.print(counter + ". ");
-            System.out.println(tS.getAppointmentID());
-            counter ++;
-        }
-    }
 
 }

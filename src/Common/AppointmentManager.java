@@ -7,8 +7,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import AppointmentSystem.Appointment;
-import AppointmentSystem.Doctor;
 
 public class AppointmentManager {
 	/*
@@ -17,19 +15,19 @@ public class AppointmentManager {
 	 *	
 	 *	
 	 */
-	protected ArrayList<Appointment> slots = new ArrayList<Appointment>();
-	private ArrayList<Doctor> doctorList;
+	// protected ArrayList<Appointment> slots = new ArrayList<Appointment>();
+	// private ArrayList<Doctor> doctorList;
 
-	public AppointmentManager() {
-		doctorList = new ArrayList<>();
-	}
+	// public AppointmentManager() {
+	// 	doctorList = new ArrayList<>();
+	// }
 	
-	// Display All Appointment Slots
-	public void getAppointmentSlots() {
-		for(int i = 0; i < slots.size(); i++) {
-			System.out.println(slots.get(i).getAppointmentID());
-		}
-	}
+	// // Display All Appointment Slots
+	// public void getAppointmentSlots() {
+	// 	for(int i = 0; i < slots.size(); i++) {
+	// 		System.out.println(slots.get(i).getAppointmentID());
+	// 	}
+	// }
 }
 	
  
