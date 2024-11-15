@@ -34,20 +34,18 @@ public class ViewAvailableAppointmentsPage extends UserInterface {
         String docID = getValidatedString("Enter the doctor's id to view: ");
 
         // check if doctor exists
-        if (!patientAM.setDoctor(docID)) {
+        if (!patientAM.checkDoctor(docID)) {
             displayError("Doctor not found!");
             return;
         }
 
         // Show list of available timeslots for chosen Doctor
         ClearOutput.clearOutput();
-        List<AppointmentSlot> slots = patientAM.getAvailableSlots();
-        System.out.println("Available slots");
-        System.out.println("------------------");
+        List<AppointmentSlot> slots = patientAM.getAvailableSlots(docID);
+        System.out.println("Available slots for " + docID);
+        System.out.println("------------------------");
         for (AppointmentSlot slot : slots) {
-            if (slot.getStatus() == AppointmentStatus.FREE) {
-                System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
-            }
+            System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
         }
         pauseAndView();
     }
