@@ -1,4 +1,4 @@
-package UI;
+package UI.MedicalRecordPages;
 
 public class ViewMedicalRecordPage {
 

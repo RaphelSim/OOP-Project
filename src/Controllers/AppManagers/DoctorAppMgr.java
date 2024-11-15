@@ -10,12 +10,12 @@ import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
-import UI.HandleAppointmentRequestsPage;
-import UI.SetAvailabilityPage;
-import UI.ViewPersonalSchedulePage;
-import UI.ViewUpcomingAppointmentsPage;
 import UI.AOMUI.DoctorOutcomeInterface;
 import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.AppointmentPages.HandleAppointmentRequestsPage;
+import UI.AppointmentPages.SetAvailabilityPage;
+import UI.AppointmentPages.ViewPersonalSchedulePage;
+import UI.AppointmentPages.ViewUpcomingAppointmentsPage;
 import UI.MedicalRecordPages.ManageMedicalRecordPage;
 
 public class DoctorAppMgr extends AppManager {

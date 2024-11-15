@@ -1,4 +1,4 @@
-package UI;
+package UI.AppointmentPages;
 
 import java.time.LocalDate;
 import DatabaseItems.Account;

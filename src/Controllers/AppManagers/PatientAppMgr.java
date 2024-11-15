@@ -9,14 +9,14 @@ import Controllers.AMManagers.PatientAM;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
-import UI.CancelAppointmentPage;
-import UI.RescheduleAppointmentPage;
-import UI.ScheduleAppointmentPage;
 import UI.UserMenu;
-import UI.ViewAvailableAppointmentsPage;
-import UI.ViewScheduledAppointmentsPage;
 import UI.AOMUI.PatientOutcomeInterface;
 import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.AppointmentPages.CancelAppointmentPage;
+import UI.AppointmentPages.RescheduleAppointmentPage;
+import UI.AppointmentPages.ScheduleAppointmentPage;
+import UI.AppointmentPages.ViewAvailableAppointmentsPage;
+import UI.AppointmentPages.ViewScheduledAppointmentsPage;
 import UI.MedicalRecordPages.PatientViewMedicalRecordPage;
 
 public class PatientAppMgr extends AppManager {

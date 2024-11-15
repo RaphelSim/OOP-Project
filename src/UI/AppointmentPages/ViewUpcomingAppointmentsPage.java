@@ -1,4 +1,4 @@
-package UI;
+package UI.AppointmentPages;
 
 import java.util.List;
 

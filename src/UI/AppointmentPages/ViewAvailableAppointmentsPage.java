@@ -1,4 +1,4 @@
-package UI;
+package UI.AppointmentPages;
 
 //import Common.AppointmentManager;
 import DatabaseItems.Account;

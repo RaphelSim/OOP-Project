@@ -1,4 +1,4 @@
-package UI;
+package UI.AppointmentPages;
 
 import DatabaseItems.Account;
 import DatabaseItems.AppointmentSlot;
