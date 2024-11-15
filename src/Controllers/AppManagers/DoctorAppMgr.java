@@ -1,5 +1,5 @@
 package Controllers.AppManagers;
-
+import Controllers.AMManagers.*;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AOManagers.DoctorAOM;
@@ -20,14 +20,13 @@ public class DoctorAppMgr extends AppManager {
     // Declare managers
     private DoctorAOM doctorOutcomeManager;
     private DoctorMRM doctorMRM;
+    private DoctorAM doctorAM;  // Doctor Appointment Manager
 
     // Declare Pages
     private DoctorOutcomeInterface doctorOutcomeUI;
     private ManageMedicalRecordPage manageMedicalRecordPage;
-
-    // Pages
-    private SetAvailabilityPage sAP;
-    private ViewPersonalSchedulePage vPSP;
+    private SetAvailabilityPage setAvailabilityPage;
+    private ViewPersonalSchedulePage viewPersonalSchedulePage;
 
     @Override
     public void displayMainPage() {
@@ -92,6 +91,7 @@ public class DoctorAppMgr extends AppManager {
         doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         doctorMRM = new DoctorMRM(medicalRecordDatabase, accountDatabase);
+        doctorAM = new DoctorAM(doctorSchedule);          // Initialise Doctor Appointment Manager
     }
 
     @Override
@@ -99,8 +99,8 @@ public class DoctorAppMgr extends AppManager {
         doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager, doctorSchedule);
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         manageMedicalRecordPage = new ManageMedicalRecordPage(doctorMRM);
-        sAP = new SetAvailabilityPage(account, doctorSchedule);
-        vPSP = new ViewPersonalSchedulePage();
+        setAvailabilityPage = new SetAvailabilityPage(account, doctorSchedule, doctorAM);
+        viewPersonalSchedulePage = new ViewPersonalSchedulePage();
     }
 
     // Methods to handle each menu option
@@ -113,11 +113,11 @@ public class DoctorAppMgr extends AppManager {
 
         // If setAvailability not called first, personal schedule will be empty
         // Else print out personal schedule = list of time slots (regardless of status)
-        vPSP.displayDocTimeSlot(account, doctorSchedule.getRecords());
+        viewPersonalSchedulePage.displayDocTimeSlot(account, doctorSchedule.getRecords());
     }
 
     private void setAvailability() {
-        sAP.setAvailability();
+        setAvailabilityPage.setAvailability();
     }
 
     private void handleAppointmentRequests() {
