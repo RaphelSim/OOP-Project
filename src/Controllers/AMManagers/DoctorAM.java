@@ -1,11 +1,7 @@
 package Controllers.AMManagers;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-//import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
 import Common.AppointmentManager;
 import Common.AppointmentStatus;
 import DatabaseItems.AppointmentSlot;
@@ -70,18 +66,20 @@ public class DoctorAM extends AppointmentManager {
 		return String.format("%02d:00", hours);
 	}
 
-	// Split start time and end time to individual 60mins timeslot and add to database
-    public void generateTimeSlot(String doctorID, LocalDate date, String startTime,
-            String endTime) {
+	// Split start time and end time to individual 60mins timeslot and add to database item
+    public void generateTimeSlot(String doctorID, LocalDate date, String startTime, String endTime) {
         LocalTime sT = LocalTime.parse(startTime);
         LocalTime eT = LocalTime.parse(endTime); // end time of schedule
         LocalTime end; // end time for each appointment slot
-        while (sT.plusMinutes(60).isBefore(eT)) {
+
+        while (sT.isBefore(eT)) {
             end = sT.plusMinutes(60);
             // LocalDateTime slotTime = LocalDateTime.of(date, sT);
-
-            doctorSchedule.addItem(new AppointmentSlot(doctorID, date.toString(), sT.toString(), end.toString(),
-                    AppointmentStatus.FREE));
+			AppointmentSlot slot = new AppointmentSlot(doctorID, date.toString(), sT.toString(), end.toString(),
+			AppointmentStatus.FREE);
+			// Search if Appointment ID exists
+			if(doctorSchedule.searchItem(slot.getAppointmentId()) == null)
+            	doctorSchedule.addItem(slot);
             sT = sT.plusMinutes(60);
         }
     }

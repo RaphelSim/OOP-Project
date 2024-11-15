@@ -1,12 +1,8 @@
 package UI;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import DatabaseItems.Account;
-import DatabaseItems.AppointmentSlot;
 import Databases.DoctorSchedule;
-import Common.AppointmentStatus;
 import Common.ClearOutput;
 import Common.UserInterface;
 import Controllers.AMManagers.DoctorAM;
@@ -22,8 +18,6 @@ public class SetAvailabilityPage extends UserInterface {
         this.doctorAM = doctorAM;
     }
 
-    // need to check for duplication of slots
-    // problem with assuming doctor will enter time correctly?
     public void setAvailability() {
         ClearOutput.clearOutput();
         int day = 0, month = 0, year = 0;
@@ -102,11 +96,11 @@ public class SetAvailabilityPage extends UserInterface {
                 endTime);
         LocalDate confirmDate = LocalDate.of(year, month, day);
 
-        // Code to format them and split to 60mins interval time slots assigning each to
-        // appointment
+        // Format them and split to 60mins interval time slots assigning each to Appointment Slot Database Item
         doctorAM.generateTimeSlot(doctor.getid(), confirmDate, startTime, endTime);
-        displaySuccess("Available slot updated");
-
+        doctorSchedule.sortAppointments();
+        displaySuccess("Available slots updated");
+        pauseAndView();
     }
 
     
