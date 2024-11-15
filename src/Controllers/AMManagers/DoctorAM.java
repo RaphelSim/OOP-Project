@@ -1,198 +1,86 @@
 package Controllers.AMManagers;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-//import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
 import Common.AppointmentManager;
+import Common.AppointmentStatus;
+import DatabaseItems.AppointmentSlot;
+import Databases.DoctorSchedule;
 
-// [Doctor] View personal schedule & set appointment availability
-// 	 [  ] Methods: Accept, Decline, View Upcoming list, Record Appointment Outcome
-// 	 
-// 	 Set current date time?
-// 	 Appointment personal schedule doctor set a day 9am - 1300
-// 	 Doctor each appointment manager
-// 	 Time slot display in interval (30mins?) for patients when they choose doctor 
 
 public class DoctorAM extends AppointmentManager {
-    // private Doctor d;
-    // private ArrayList<Appointment> doctorSchedule = new ArrayList<>();
+    private DoctorSchedule doctorSchedule;
 
-    // public DoctorAM (Doctor d) {
-    //     this.d = d;
+	public DoctorAM(DoctorSchedule doctorSchedule) {
+		this.doctorSchedule = doctorSchedule;
+	}
+
+	// Check valid date
+    public boolean isValidDate(int year, int month, int day) {
+        try {
+            LocalDate date = LocalDate.of(year, month, day);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+	// // Check valid time
+    // private static boolean isValidTime(String time) {
+    //     if (!time.matches("\\d{2}:\\d{2}"))
+    //         return false;
+
+    //     String[] parts = time.split(":");
+    //     int hours = Integer.parseInt(parts[0]);
+    //     int mins = Integer.parseInt(parts[1]);
+
+    //     return (hours >= 8 && hours <= 18 && mins >= 0 && mins <= 59);
     // }
 
+	// Check valid hour only
+    public boolean isValidHour(int hours) {
+        return (hours >= 8 && hours <= 18);
+    }
 
+	// Check if end time is after start time
+    // private static boolean isEndTimeAfterStart(String startTime, String endTime) {
+    //     String[] startParts = startTime.split(":");
+    //     String[] endParts = endTime.split(":");
 
-    /*	[Doctor] Set Personal Schedule and availability
-	 * 	Set day and time period of availability
-	 * 	Each 30mins interval time slot will be created for patients to choose (if they choose this doc)
-	 * 	All these will be updated into file after logout
-	 */	
+    //     int startHours = Integer.parseInt(startParts[0]);
+    //     int startMinutes = Integer.parseInt(startParts[1]);
 
-// 	 public void setPersonalSchedule(Doctor d) {
+    //     int endHours = Integer.parseInt(endParts[0]);
+    //     int endMinutes = Integer.parseInt(endParts[1]);
 
-// 		Scanner sc = new Scanner(System.in);
-// 		int day = 0, month = 0, year = 0;
-// 		String startTime = "", endTime = "";
-// 		System.out.println("Welcome Dr." + d.getName());
-// 		System.out.println("Please setup your Personal Schedule Availability:");
-		
-// 		// Year
-//         while (true) {
-//             System.out.print("Enter Year (e.g.: 2024): ");
-//             try {
-//                 year = sc.nextInt();
-//                 if (year > 0)
-//                     break;
-//                 else
-//                     System.out.println("Invalid year! Please enter again.");
-//             } 
-// 			catch (NumberFormatException e) {
-//                 System.out.println("Invalid input! Please enter a numeric value.");
-// 			}
-//         }
+    //     return (endHours > startHours || (endHours == startHours && endMinutes > startMinutes));
+    // }
 
-//         // Month
-//         while (true) {
-//             System.out.print("Enter Month (1-12): ");
-//             try {
-//                 month = sc.nextInt();
-//                 if (month >= 1 && month <= 12) 
-//                     break;
-//                 else
-//                     System.out.println("Invalid month. Please enter a value between 1 and 12.");
-                
-//             } 
-// 			catch (NumberFormatException e) {
-//                 System.out.println("Invalid input. Please enter a numeric value.");
-// 			}
-//         }
+	// Check if end hour is after start hour
+    public boolean isEndTimeAfterStart(int startHours, int endHours) {
+        return (endHours > startHours);
+    }
 
-//         // Day
-//         while (true) {
-//             System.out.print("Enter Day (1-31): ");
-//             try {
-//                 day = sc.nextInt();
-//                 if (isValidDate(year, month, day))
-//                     break;
-//                 else
-//                     System.out.println("Invalid date! Please enter a valid date for your input month and year.");
-//             } 
-// 			catch (NumberFormatException e) {
-//                 System.out.println("Invalid input. Please enter a numeric value.");
-// 			}
-//         }
-        
+	// Convert hours to time format
+	public String convertHours(int hours) {
+		return String.format("%02d:00", hours);
+	}
 
-//         // Start Time
-//         while (true) {
-//             System.out.print("Enter Start Time (HH:MM, from 08:00 to 18:00): ");
-//             startTime = sc.next();
-//             if (isValidTime(startTime))
-//                 break;
-//             else
-//                 System.out.println("Invalid start time! Please enter a start time between 08:00 and 18:00.");
-//         }
+	// Split start time and end time to individual 60mins timeslot and add to database item
+    public void generateTimeSlot(String doctorID, LocalDate date, String startTime, String endTime) {
+        LocalTime sT = LocalTime.parse(startTime);
+        LocalTime eT = LocalTime.parse(endTime); // end time of schedule
+        LocalTime end; // end time for each appointment slot
 
-//         // End Time
-//         while (true) {
-//             System.out.print("Enter End Time (HH:MM, must be after Start Time): ");
-//             endTime = sc.next();
-//             if (isValidTime(endTime) && isEndTimeAfterStart(startTime, endTime))
-//                 break;
-//             else
-//                 System.out.println("Invalid end time! Ensure it is after start time and within 08:00 to 18:00.");
-//         }
-
-//         // Display Personal Schedule Date and Time
-//         System.out.printf("You have entered:\nDate: %02d/%02d/%04d\nTime: %s - %s\n", day, month, year, startTime, endTime);
-// 		LocalDate confirmDate = LocalDate.of(year, month, day);
-// 		// Should we ask to confirm date and time?
-
-
-// 		// Code to format them and split to 60mins interval time slots assigning each to appointment
-// 		this.doctorSchedule = generateTimeSlot(d.getDoctorID(),confirmDate, startTime, endTime);
-
-// 		// Display Timeslots
-//         displayDocTimeSlot();
-
-
-
-// 		sc.close();
-// 	 }
-
-// 	 // Just a method to check valid date
-// 	 private static boolean isValidDate(int year, int month, int day) {
-// 		try {
-//             LocalDate date = LocalDate.of(year, month, day);
-//             return true;
-// 		}
-//         catch (DateTimeParseException e) {
-//             return false;
-// 		}
-// 	}
-
-// 	// Just a method to check valid time
-// 	private static boolean isValidTime(String time) {
-//         if (!time.matches("\\d{2}:\\d{2}")) 
-// 			return false;
-        
-//         String[] parts = time.split(":");
-//         int hours = Integer.parseInt(parts[0]);
-// 		int mins = Integer.parseInt(parts[1]);
-        
-//         return (hours >= 8 && hours <= 18 && mins >= 0 && mins <= 59);
-//     }
-
-// 	// Just a method to check if end time is after start time
-//     private static boolean isEndTimeAfterStart(String startTime, String endTime) {
-//         String[] startParts = startTime.split(":");
-//         String[] endParts = endTime.split(":");
-        
-//         int startHours = Integer.parseInt(startParts[0]);
-//         int startMinutes = Integer.parseInt(startParts[1]);
-        
-//         int endHours = Integer.parseInt(endParts[0]);
-//         int endMinutes = Integer.parseInt(endParts[1]);
-
-//         return (endHours > startHours || (endHours == startHours && endMinutes > startMinutes));
-//     }
-
-// 	// Just a method to split start time and end time to individual 30mins time slots
-// 	private ArrayList<Appointment> generateTimeSlot(String doctorID, LocalDate date, String startTime, String endTime) {
-// 		LocalTime sT = LocalTime.parse(startTime);
-// 		LocalTime eT = LocalTime.parse(endTime);
-// 		ArrayList<Appointment> ap = new ArrayList<>();
-
-// 		while(sT.plusMinutes(60).isBefore(eT)) {
-// 			//LocalTime end = sT.plusMinutes(60);
-// 			LocalDateTime slotTime = LocalDateTime.of(date, sT);
-// 			ap.add(new Appointment(slotTime, doctorID, "",false));
-// 			sT = sT.plusMinutes(60);
-// 		}
-
-// 		return ap;
-// 	}
-
-//     // Display Doctor's Personal Schedule (TimeSlots - 60min interval)
-//     public void displayDocTimeSlot() {
-//         int counter = 1;
-//         System.out.println("Generated Timeslots:");
-//         for (Appointment tS : this.doctorSchedule) {
-//             System.out.print(counter + ". ");
-//             System.out.println(tS.getAppointmentID());
-//             counter ++;
-//         }
-//     }
+        while (sT.isBefore(eT)) {
+            end = sT.plusMinutes(60);
+            // LocalDateTime slotTime = LocalDateTime.of(date, sT);
+			AppointmentSlot slot = new AppointmentSlot(doctorID, date.toString(), sT.toString(), end.toString(),
+			AppointmentStatus.FREE);
+			// Search if Appointment ID exists
+			if(doctorSchedule.searchItem(slot.getAppointmentId()) == null)
+            	doctorSchedule.addItem(slot);
+            sT = sT.plusMinutes(60);
+        }
+    }
 }
-	
-	//  [Doctor] Accept Appointment Request
-	//public void acceptAppointment();
-	
-	//  [Doctor] Reject Appointment Request
-	//public void rejectAppointment();
-
-
