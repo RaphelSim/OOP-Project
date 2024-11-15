@@ -1,30 +1,26 @@
 package UI;
 
 //import Common.AppointmentManager;
-import Databases.AccountDatabase;
-import Databases.DoctorSchedule;
 import DatabaseItems.Account;
 import DatabaseItems.AppointmentSlot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import Common.AppointmentStatus;
 import Common.ClearOutput;
-import Common.DatabaseItems;
 import Common.UserInterface;
+import Controllers.AMManagers.PatientAM;
 
 public class ViewAvailableAppointmentsPage extends UserInterface {
-    // private AppointmentManager am;
-    private AccountDatabase accountDatabase;
+    private PatientAM patientAM;
 
-    public ViewAvailableAppointmentsPage(AccountDatabase accountDatabase) {
-        this.accountDatabase = accountDatabase;
+    public ViewAvailableAppointmentsPage(PatientAM patientAM) {
+        this.patientAM = patientAM;
     }
 
     public void viewAvailableAppointments() {
         // View List of Doctors
-        ArrayList<Account> docList = accountDatabase.getDocList();
+        List<Account> docList = patientAM.getDocList();
 
         ClearOutput.clearOutput();
         System.out.println("Doctor ID | Doctor Name");
@@ -33,22 +29,22 @@ public class ViewAvailableAppointmentsPage extends UserInterface {
             System.out.println(item.getid() + "   " + item.getName());
         }
         System.out.println();
+
+        /// viewing specific doctor's schedule
         String docID = getValidatedString("Enter the doctor's id to view: ");
 
-        // check if doctor can be found in database
-        if (docID == null || accountDatabase.searchItem(docID) == null) {
-            displayError("Invalid id");
+        // check if doctor exists
+        if (!patientAM.setDoctor(docID)) {
+            displayError("Doctor not found!");
             return;
         }
 
-        DoctorSchedule doctorSchedule = new DoctorSchedule(docID);
         // Show list of available timeslots for chosen Doctor
         ClearOutput.clearOutput();
-        List<DatabaseItems> slots = doctorSchedule.getRecords();
+        List<AppointmentSlot> slots = patientAM.getAvailableSlots();
         System.out.println("Available slots");
         System.out.println("------------------");
-        for (DatabaseItems item : slots) {
-            AppointmentSlot slot = (AppointmentSlot) item;
+        for (AppointmentSlot slot : slots) {
             if (slot.getStatus() == AppointmentStatus.FREE) {
                 System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
             }

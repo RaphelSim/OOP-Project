@@ -3,6 +3,10 @@ package Databases;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Collections;
+import java.util.Comparator;
 
 import Common.Database;
 import Common.DatabaseItems;
@@ -45,6 +49,13 @@ public class DoctorSchedule extends Database {
         }
     }
 
+    // override the storing function to sort first before storing back
+    @Override
+    public void storeToCSV() {
+        sortAppointments();
+        super.storeToCSV();
+    }
+
     public DatabaseItems createDatabaseItem(String[] values) {
         return new AppointmentSlot(values);
     }
@@ -77,5 +88,27 @@ public class DoctorSchedule extends Database {
         super.printItems("Doctor " + doctor_id + "'s Schedule: ");
     }
 
-    // might need function to sort the dates
+    // Method to sort the appointment slots in ascending order
+    public void sortAppointments() {
+        Collections.sort(this.records, new Comparator<DatabaseItems>() {
+            @Override
+            public int compare(DatabaseItems d1, DatabaseItems d2) {
+                // Downcast to AppointmentSlot
+                if (d1 instanceof AppointmentSlot && d2 instanceof AppointmentSlot) {
+                    AppointmentSlot a1 = (AppointmentSlot) d1;
+                    AppointmentSlot a2 = (AppointmentSlot) d2;
+
+                    // Compare dates first
+                    int dateComparison = LocalDate.parse(a1.getDate()).compareTo(LocalDate.parse(a2.getDate()));
+                    if (dateComparison != 0) {
+                        return dateComparison;
+                    }
+                    // If dates are equal, compare start times
+                    return LocalTime.parse(a1.getTimestart()).compareTo(LocalTime.parse(a2.getTimestart()));
+                }
+                return 0;
+            }
+        });
+    }
+
 }

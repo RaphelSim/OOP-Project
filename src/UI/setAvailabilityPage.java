@@ -158,9 +158,12 @@ public class SetAvailabilityPage extends UserInterface {
         while (sT.plusMinutes(60).isBefore(eT)) {
             end = sT.plusMinutes(60);
             // LocalDateTime slotTime = LocalDateTime.of(date, sT);
+            AppointmentSlot slot = new AppointmentSlot(doctorID, date.toString(), sT.toString(), end.toString(),
+                    AppointmentStatus.FREE);
 
-            doctorSchedule.addItem(new AppointmentSlot(doctorID, date.toString(), sT.toString(), end.toString(),
-                    AppointmentStatus.FREE));
+            if (doctorSchedule.searchItem(slot.getAppointmentId()) == null)
+                doctorSchedule.addItem(slot); // check if this slot exists already
+
             sT = sT.plusMinutes(60);
         }
     }

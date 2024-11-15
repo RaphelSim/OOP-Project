@@ -1,8 +1,5 @@
 package DatabaseItems;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import Common.AppointmentStatus;
 import Common.DatabaseItems;
 
@@ -30,15 +27,15 @@ public class AppointmentSlot implements DatabaseItems {
 
     // // Test using LocalTime type instead of String
     // public AppointmentSlot(String doctor_id, LocalDate date, LocalTime timestart,
-    //         LocalTime timeend,
-    //         AppointmentStatus status) {
-    //     this.doctor_id = doctor_id;
-    //     this.appointment_id = doctor_id + "/" + date + "/" + timestart;
-    //     this.patient_id = "";
-    //     this.date = date;
-    //     this.timestart = timestart;
-    //     this.timeend = timeend;
-    //     this.status = status;
+    // LocalTime timeend,
+    // AppointmentStatus status) {
+    // this.doctor_id = doctor_id;
+    // this.appointment_id = doctor_id + "/" + date + "/" + timestart;
+    // this.patient_id = "";
+    // this.date = date;
+    // this.timestart = timestart;
+    // this.timeend = timeend;
+    // this.status = status;
     // }
 
     // If appointment id provided

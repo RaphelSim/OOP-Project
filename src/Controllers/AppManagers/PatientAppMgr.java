@@ -5,6 +5,7 @@ import Controllers.MRManagers.PatientMRM;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AccountManager;
+import Controllers.AMManagers.PatientAM;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
@@ -23,6 +24,7 @@ public class PatientAppMgr extends AppManager {
     // private ArrayList<AppointmentSlot> patientApps;
     private PatientAOM patientOutcomeManager;
     private PatientMRM patientMRM;
+    private PatientAM patientAM;
 
     // Declare pages
     private PatientOutcomeInterface patientOutcomeUI;
@@ -91,6 +93,7 @@ public class PatientAppMgr extends AppManager {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         patientOutcomeManager = new PatientAOM(appointmentOutcomeDatabase, account.getid());
         patientMRM = new PatientMRM(medicalRecordDatabase, account.getid());
+        patientAM = new PatientAM(account.getid(), accountDatabase);
     }
 
     @Override
@@ -98,13 +101,8 @@ public class PatientAppMgr extends AppManager {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
         patientViewMedicalRecordPage = new PatientViewMedicalRecordPage(patientMRM);
-        vAAP = new ViewAvailableAppointmentsPage(accountDatabase);
+        vAAP = new ViewAvailableAppointmentsPage(patientAM);
     }
-
-    // // Get List of Doctors
-    // public ArrayList<Account> getDocList() {
-    // return accountDatabase.getDocList();
-    // }
 
     // Methods to handle each menu option
     private void viewMedicalRecord() {
@@ -121,44 +119,7 @@ public class PatientAppMgr extends AppManager {
     }
 
     private void scheduleAppointment() {
-        // Implement PatientAptMgr interaction for scheduling an appointment
 
-        // String choiceDoc = "";
-        // Doctor chosenDoc = new Doctor();
-        // Scanner sc = new Scanner(System.in);
-        // boolean exists = true;
-        // while (exists) {
-        // System.out.println("Here are the list of Doctors you can choose from (Enter
-        // Doctor ID):");
-        // System.out.println("Doctor ID | Doctor Name");
-        // for(Doctor d:doctorList) {
-        // System.out.println(d.getDoctorID() + " " + d.getName());
-        // }
-
-        // choiceDoc = sc.nextLine();
-
-        // for(Doctor d:doctorList) {
-        // if(d.getDoctorID().equalsIgnoreCase(choiceDoc)) {
-        // chosenDoc = d;
-        // exists = false;
-        // break;
-        // }
-        // }
-        // if(exists)
-        // System.out.println("Invalid Doctor ID entered! Please enter again.");
-
-        // }
-
-        // chosenDoc.getAM_D().displayDocTimeSlot();
-
-        // // User input to choose timeslot then add to Patient's Appointment
-        // int choice;
-        // choice = sc.nextInt();
-        // //if(choice)
-
-        // //System.out.println("Appointment slot is taken. Please choose another
-        // available slot.");
-        // sc.close();
     }
 
     private void rescheduleAppointment() {
