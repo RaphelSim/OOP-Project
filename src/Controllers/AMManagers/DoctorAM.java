@@ -2,8 +2,12 @@ package Controllers.AMManagers;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import Common.AppointmentManager;
 import Common.AppointmentStatus;
+import Common.DatabaseItems;
 import DatabaseItems.AppointmentSlot;
 import Databases.DoctorSchedule;
 
@@ -66,6 +70,15 @@ public class DoctorAM extends AppointmentManager {
 		return String.format("%02d:00", hours);
 	}
 
+	// Search if Appointment ID exists
+	public boolean isAppIDExist(String slotID){
+		if(doctorSchedule.searchItem(slotID) != null)
+			return true;
+		else
+			return false;
+	}
+	
+
 	// Split start time and end time to individual 60mins timeslot and add to database item
     public void generateTimeSlot(String doctorID, LocalDate date, String startTime, String endTime) {
         LocalTime sT = LocalTime.parse(startTime);
@@ -77,10 +90,36 @@ public class DoctorAM extends AppointmentManager {
             // LocalDateTime slotTime = LocalDateTime.of(date, sT);
 			AppointmentSlot slot = new AppointmentSlot(doctorID, date.toString(), sT.toString(), end.toString(),
 			AppointmentStatus.FREE);
-			// Search if Appointment ID exists
-			if(doctorSchedule.searchItem(slot.getAppointmentId()) == null)
-            	doctorSchedule.addItem(slot);
+			if(isAppIDExist(slot.getAppointmentId()))
+				doctorSchedule.addItem(slot);
             sT = sT.plusMinutes(60);
         }
     }
+
+	// Set Status to Confirmed after doctor accept appointment slot request
+	public void acceptRequest(AppointmentSlot slot) {
+		System.out.println("You have accepted the appointment slot.");
+		slot.setStatus(AppointmentStatus.CONFIRMED);
+	}
+
+	// Set Status to Declined after doctor rejects appointment slot request
+	public void rejectRequest(AppointmentSlot slot) {
+		System.out.println("You have rejected the appointment slot.");
+		slot.setStatus(AppointmentStatus.DECLINED);
+	}
+
+	public List<AppointmentSlot> getAvailableSlots() {
+        if (doctorSchedule == null)
+            return null;
+        List<AppointmentSlot> slots = new ArrayList<AppointmentSlot>();
+        for (DatabaseItems item : doctorSchedule.getRecords()) {
+            AppointmentSlot slot = (AppointmentSlot) item;
+            slots.add(slot);
+        }
+        return slots;
+    }
+
+	public AppointmentSlot getSlotWithAppID(String AppID) {
+		return (AppointmentSlot)doctorSchedule.searchItem(AppID);
+	}
 }

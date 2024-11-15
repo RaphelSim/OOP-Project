@@ -10,6 +10,7 @@ import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
+import UI.HandleAppointmentRequestsPage;
 import UI.SetAvailabilityPage;
 import UI.ViewPersonalSchedulePage;
 import UI.AOMUI.DoctorOutcomeInterface;
@@ -27,6 +28,7 @@ public class DoctorAppMgr extends AppManager {
     private ManageMedicalRecordPage manageMedicalRecordPage;
     private SetAvailabilityPage setAvailabilityPage;
     private ViewPersonalSchedulePage viewPersonalSchedulePage;
+    private HandleAppointmentRequestsPage handleAppointmentRequestsPage;
 
     @Override
     public void displayMainPage() {
@@ -101,6 +103,7 @@ public class DoctorAppMgr extends AppManager {
         manageMedicalRecordPage = new ManageMedicalRecordPage(doctorMRM);
         setAvailabilityPage = new SetAvailabilityPage(account, doctorSchedule, doctorAM);
         viewPersonalSchedulePage = new ViewPersonalSchedulePage();
+        handleAppointmentRequestsPage = new HandleAppointmentRequestsPage(doctorSchedule, doctorAM, account);
     }
 
     // Methods to handle each menu option
@@ -110,18 +113,17 @@ public class DoctorAppMgr extends AppManager {
 
     private void viewPersonalSchedule() {
         // Implement functionality to view personal schedule
-
-        // If setAvailability not called first, personal schedule will be empty
-        // Else print out personal schedule = list of time slots (regardless of status)
         viewPersonalSchedulePage.displayDocTimeSlot(account, doctorSchedule.getRecords());
     }
 
     private void setAvailability() {
+        // Implement functionality to set doctor's availability
         setAvailabilityPage.setAvailability();
     }
 
     private void handleAppointmentRequests() {
         // Implement functionality to accept or decline appointment requests
+        handleAppointmentRequestsPage.handleAppointmentRequests();
     }
 
     private void viewUpcomingAppointments() {
