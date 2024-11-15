@@ -31,9 +31,9 @@ public class CancelAppointmentPage extends UserInterface{
 
     private void displaySlots(String id) {
         ClearOutput.clearOutput();
-        List<AppointmentSlot> slots = patientAM.getAvailableSlots(id);
+        List<AppointmentSlot> slots = patientAM.getSlots(id);
         System.out.println("Available slots for " + id);
-        System.out.println("------------------------");
+        System.out.println("------------------------------");
         for (AppointmentSlot slot : slots) {
             if (slot.getStatus() == AppointmentStatus.REQUESTED || 
             slot.getStatus() == AppointmentStatus.CONFIRMED) {

@@ -18,11 +18,13 @@ public class ViewScheduledAppointmentsPage extends UserInterface{
     public void displaySlots() {
         ClearOutput.clearOutput();
         List<AppointmentSlot> slots = patientAM.getAppointments();
-        System.out.println("Available slots");
-        System.out.println("------------------------");
+        System.out.println("Your Scheduled Appointments");
+        System.out.println("------------------------------");
         for (AppointmentSlot slot : slots) {
                 System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
         }
+        pauseAndView();
     }
+    
 }
 

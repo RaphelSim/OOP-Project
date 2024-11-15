@@ -7,12 +7,15 @@ import Common.ClearOutput;
 import Common.UserInterface;
 import Controllers.AMManagers.PatientAM;
 import DatabaseItems.AppointmentSlot;
+import DatabaseItems.Account;
 
 public class RescheduleAppointmentPage extends UserInterface{
     private PatientAM patientAM;
+    private Account patient;
 
-    public RescheduleAppointmentPage(PatientAM patientAM) {
+    public RescheduleAppointmentPage(PatientAM patientAM, Account patient) {
         this.patientAM = patientAM;
+        this.patient = patient;
     }
 
     public void displayOptions() {
@@ -31,16 +34,16 @@ public class RescheduleAppointmentPage extends UserInterface{
 
     private void displaySlots(String id) {
         ClearOutput.clearOutput();
-        List<AppointmentSlot> slots = patientAM.getAvailableSlots(id);
+        List<AppointmentSlot> slots = patientAM.getSlots(id);
         System.out.println("Available slots for " + id);
-        System.out.println("------------------------");
+        System.out.println("-----------------------------");
         for (AppointmentSlot slot : slots) {
-            if (slot.getStatus() == AppointmentStatus.REQUESTED || 
-            slot.getStatus() == AppointmentStatus.CONFIRMED) {
-                System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
-            }
+            if(slot.getPatientId().equals(patient.getid()))
+                System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend() + "  "
+                 + slot.getStatus());
         }
     }
+    
 
     private void rescheduleSlot(String id) {
         System.out.println();

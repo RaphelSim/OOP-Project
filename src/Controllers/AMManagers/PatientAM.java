@@ -65,6 +65,19 @@ public class PatientAM extends AppointmentManager {
         return slots;
     }
 
+    public List<AppointmentSlot> getSlots(String id) {
+        // retrive the doctor's schedule
+        DoctorSchedule schedule = getDoctorSchedule(id);
+        if (schedule == null)
+            return null;
+        List<AppointmentSlot> slots = new ArrayList<AppointmentSlot>();
+        for (DatabaseItems item : schedule.getRecords()) {
+            AppointmentSlot slot = (AppointmentSlot) item;
+            slots.add(slot);
+        }
+        return slots;
+    }
+
     public boolean cancelSlot(String appointmentId) {
         // retrive the doctor's schedule
         DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
@@ -108,7 +121,7 @@ public class PatientAM extends AppointmentManager {
             DoctorSchedule slots = new DoctorSchedule(doctor.getid());
             for (DatabaseItems item : slots.getRecords()) {
                 AppointmentSlot slot = (AppointmentSlot) item;
-                if (slot.getPatientId() == userId)
+                if (slot.getPatientId().equals(userId))
                     appointments.add(slot);
             }
         }

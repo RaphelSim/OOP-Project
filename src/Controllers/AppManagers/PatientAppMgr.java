@@ -111,7 +111,7 @@ public class PatientAppMgr extends AppManager {
         patientViewMedicalRecordPage = new PatientViewMedicalRecordPage(patientMRM);
         viewAvailableAppointmentsPage = new ViewAvailableAppointmentsPage(patientAM);
         scheduleAppointmentPage = new ScheduleAppointmentPage(patientAM);
-        rescheduleAppointmentPage = new RescheduleAppointmentPage(patientAM);
+        rescheduleAppointmentPage = new RescheduleAppointmentPage(patientAM, account);
         cancelAppointmentPage = new CancelAppointmentPage(patientAM);
         viewScheduledAppointmentsPage = new ViewScheduledAppointmentsPage(patientAM);
     }
