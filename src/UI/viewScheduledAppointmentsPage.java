@@ -1,5 +1,5 @@
 package UI;
 
-public class viewScheduledAppointmentsPage {
+public class ViewScheduledAppointmentsPage {
 
 }

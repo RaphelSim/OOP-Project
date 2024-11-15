@@ -1,5 +1,5 @@
 package UI;
 
-public class viewMedicalRecordPage {
+public class ViewMedicalRecordPage {
 
 }
