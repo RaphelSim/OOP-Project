@@ -80,7 +80,7 @@ public class DoctorSchedule extends Database {
         printItems("Doctor " + doctor_id + "'s Schedule: ");
     }
 
-    // Print Doctor Schedule from csv
+    // Print Doctor Personal Schedule from CSV
     public void printDoctorSchedule(String doctor_id) {
         String filePath = "Database/DoctorsSchedule/" + doctor_id + ".csv";
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -96,6 +96,22 @@ public class DoctorSchedule extends Database {
             }
         } catch (IOException e) {
             System.out.println("Error reading schedule for Doctor ID: " + doctor_id);
+            e.printStackTrace();
+        }
+    }
+
+    // Save Doctor Personal Schedule to CSV
+    public void saveScheduleToCSV(ArrayList<AppointmentSlot> personalSchedule) {
+
+        try (FileWriter writer = new FileWriter(csvPath, false)) {
+            writer.write(headerFormat + "\n");
+
+            for (AppointmentSlot appointment : personalSchedule) {
+                writer.write(appointment.serialise());
+            }
+            System.out.println("Personal schedule saved successfully for Doctor ID: " + doctor_id);
+        } catch (IOException e) {
+            System.out.println("Error saving personal schedule for Doctor ID: " + doctor_id);
             e.printStackTrace();
         }
     }

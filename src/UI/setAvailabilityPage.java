@@ -143,7 +143,7 @@ public class setAvailabilityPage extends UserInterface{
         return (endHours > startHours || (endHours == startHours && endMinutes > startMinutes));
     }
 
-	// Just a method to split start time and end time to individual 30mins time slots
+	// Just a method to split start time and end time to individual 60mins time slots
 	private ArrayList<AppointmentSlot> generateTimeSlot(String doctorID, LocalDate date, String startTime, String endTime) {
 		LocalTime sT = LocalTime.parse(startTime);
 		LocalTime eT = LocalTime.parse(endTime); // end time of schedule
