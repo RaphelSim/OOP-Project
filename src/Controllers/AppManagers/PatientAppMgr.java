@@ -146,7 +146,7 @@ public class PatientAppMgr extends AppManager {
 
     private void viewScheduledAppointments() {
         // Implement PatientAptMgr interaction for viewing scheduled appointments
-        viewScheduledAppointmentsPage.displayOptions();
+        viewScheduledAppointmentsPage.displaySlots();;
     }
 
     private void viewPastAppointmentOutcomes() {

@@ -15,28 +15,14 @@ public class ViewScheduledAppointmentsPage extends UserInterface{
         this.patientAM = patientAM;
     }
 
-    public void displayOptions() {
+    public void displaySlots() {
         ClearOutput.clearOutput();
-        String docId = getValidatedString("Enter the doctor's id: ");
-
-        // check if doctor can be found
-        if (!patientAM.checkDoctor(docId)) {
-            displayError("Doctor not found");
-            return;
-        }
-        displaySlots(docId);
-    }
-
-    private void displaySlots(String id) {
-        ClearOutput.clearOutput();
-        List<AppointmentSlot> slots = patientAM.getAvailableSlots(id);
-        System.out.println("Available slots for " + id);
+        List<AppointmentSlot> slots = patientAM.getAppointments();
+        System.out.println("Available slots");
         System.out.println("------------------------");
         for (AppointmentSlot slot : slots) {
-            if (slot.getStatus() == AppointmentStatus.REQUESTED || slot.getStatus() == AppointmentStatus.CONFIRMED 
-            || slot.getStatus() == AppointmentStatus.DECLINED) {
                 System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
-            }
         }
     }
 }
+
