@@ -107,13 +107,6 @@ public class SetAvailabilityPage extends UserInterface {
         doctorAM.generateTimeSlot(doctor.getid(), confirmDate, startTime, endTime);
         displaySuccess("Available slot updated");
 
-        // System.out.println("Doc:" + doctor.getid());
-        // Display Timeslots
-        // displayDocTimeSlot(doctor);
-
-        // for(AppointmentSlot a: this.doctorSchedule) {
-        // a.printItem();
-        // }
     }
 
     

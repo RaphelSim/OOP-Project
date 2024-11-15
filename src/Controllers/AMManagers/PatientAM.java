@@ -1,92 +1,58 @@
 package Controllers.AMManagers;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-//import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import Common.AppointmentManager;
 
-// [Patient] View available appointment slots with doctors
-// 	  [ 5 ]Methods: Schedule (Choose Doctor), Reschedule, Cancel, 
-// 	 	View Status of Scheduled, View Past Appointment Outcomes
-// 	 
-// 	 Status (based on Doctor) - Confirmed, Cancelled, Completed)
-// 	  
-// 	 Should doctors be already assigned to patients? Should we allow patients to choose doctors?
+import java.util.ArrayList;
+import java.util.List;
+
+import Common.AppointmentManager;
+import Common.DatabaseItems;
+import Common.Role;
+import DatabaseItems.Account;
+import DatabaseItems.AppointmentSlot;
+import Databases.AccountDatabase;
+import Databases.DoctorSchedule;
 
 public class PatientAM extends AppointmentManager {
-    // private ArrayList<Doctor> doctorList;
-    // private Appointment patientSlot;
+    private String userId;
+    private List<Account> doctors = new ArrayList<Account>();
+    private AccountDatabase accountDatabase;
+    private DoctorSchedule schedule;
 
+    public PatientAM(String id, AccountDatabase accountDatabase) {
+        this.userId = id;
+        this.accountDatabase = accountDatabase;
+        retrieveDocList();
+    }
 
-    // public PatientAM(ArrayList<Doctor> doctorList) {
-    //     this.doctorList = doctorList;
-        
-    // }
+    private void retrieveDocList() {
+        for (DatabaseItems item : accountDatabase.getRecords()) {
+            Account account = (Account) item;
+            if (account.getrole() == Role.DOC) {
+                doctors.add(account);
+            }
+        }
+    }
 
-    /*	[Patient] Schedule an Appointment
-	 * Choose doctor, date, available time slot
-	 */
+    public List<Account> getDocList() {
+        return doctors;
+    }
 
-    // // View Available Appointment Slots
-    // public void viewAvailableAppointments() {
+    public boolean setDoctor(String id) {
+        if (accountDatabase.searchItem(id) == null) {
+            return false;
+        }
+        schedule = new DoctorSchedule(id);
+        return true;
+    }
 
-    // }
-
-	// public void scheduleAppointment() {
-	// 	String choiceDoc = "";
-    //     Doctor chosenDoc = new Doctor();
-    //     Scanner sc = new Scanner(System.in);
-    //     boolean exists = true;
-    //     while (exists) {
-    //         System.out.println("Here are the list of Doctors you can choose from (Enter Doctor ID):");
-    //         System.out.println("Doctor ID   |   Doctor Name");
-    //         for(Doctor d:doctorList) {
-    //             System.out.println(d.getDoctorID() + "      " + d.getName());
-    //         }
-            
-    //         choiceDoc = sc.nextLine();
-
-    //         for(Doctor d:doctorList) {
-    //             if(d.getDoctorID().equalsIgnoreCase(choiceDoc)) {
-    //                 chosenDoc = d;
-    //                 exists = false;
-    //                 break;
-    //             }
-    //         }
-    //         if(exists)
-    //             System.out.println("Invalid Doctor ID entered! Please enter again.");
-
-    //     }
-
-    //     chosenDoc.getAM_D().displayDocTimeSlot();
-
-    //     // User input to choose timeslot then add to Patient's Appointment
-    //     int choice;
-    //     choice = sc.nextInt();
-    //     //if(choice)
-
-
-	// 	//System.out.println("Appointment slot is taken. Please choose another available slot.");
-    //     sc.close();
-	// }
-	
-	// /* [Patient] Reschedule an Existing Appointment
-	//  * Change existing appointment to a new slot with no conflict
-	//  * Slot availability updated automatically
-	//  */ 
-	// public void rescheduleAppointment(Appointment oldApp, Appointment newApp, String patientID, String doctorID) {
-	// 	oldApp.unAssigned();
-	// 	newApp.setAssigned(newApp.getSlotTime(), patientID, doctorID);
-	// }
-	
-	// /*  [Patient] Cancel an Existing Appointment
-	//  * 	Upon success cancellation, slot availability updated automatically
-	//  * 
-	//  */
-	// public void cancelAppointment(Appointment app) {
-	// 	app.unAssigned();
-	// }
+    public List<AppointmentSlot> getAvailableSlots() {
+        if (schedule == null)
+            return null;
+        List<AppointmentSlot> slots = new ArrayList<AppointmentSlot>();
+        for (DatabaseItems item : schedule.getRecords()) {
+            AppointmentSlot slot = (AppointmentSlot) item;
+            slots.add(slot);
+        }
+        return slots;
+    }
 
 }

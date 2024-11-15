@@ -1,6 +1,5 @@
 package Databases;
 
-
 import java.util.ArrayList;
 
 import Common.*;
@@ -20,8 +19,8 @@ public class AccountDatabase extends Database {
         extractFromCSV();
     }
 
-    public DatabaseItems createDatabaseItem(String[] values){
-        //Name,id,Password,Role
+    public DatabaseItems createDatabaseItem(String[] values) {
+        // Name,id,Password,Role
         return new Account(values);
     }
 
@@ -52,16 +51,4 @@ public class AccountDatabase extends Database {
         }
     }
 
-    // Get list of doctors
-    public ArrayList<Account> getDocList() {
-        ArrayList<Account> docList = new ArrayList<>();
-        
-        for (DatabaseItems item : records) {
-            Account account = (Account) item;
-            if (account.getrole() == Role.DOC) {
-                docList.add(account);
-            }
-        }
-        return docList;
-    }
 }
