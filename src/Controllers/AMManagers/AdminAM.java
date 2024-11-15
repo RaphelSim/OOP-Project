@@ -3,6 +3,7 @@ package Controllers.AMManagers;
 import java.util.ArrayList;
 import java.util.List;
 
+import Common.AppointmentStatus;
 import Common.DatabaseItems;
 import Common.Role;
 import DatabaseItems.Account;
@@ -19,7 +20,6 @@ public class AdminAM {
         retrieveDocList();
     }
 
-
     private void retrieveDocList() {
         for (DatabaseItems item : accountDatabase.getRecords()) {
             Account account = (Account) item;
@@ -29,7 +29,6 @@ public class AdminAM {
         }
     }
 
-
     public List<AppointmentSlot> getAppointments() {
         List<AppointmentSlot> appointments = new ArrayList<AppointmentSlot>();
 
@@ -38,7 +37,8 @@ public class AdminAM {
             DoctorSchedule slots = new DoctorSchedule(doctor.getid());
             for (DatabaseItems item : slots.getRecords()) {
                 AppointmentSlot slot = (AppointmentSlot) item;
-                appointments.add(slot);
+                if (slot.getStatus() != AppointmentStatus.FREE)
+                    appointments.add(slot);
             }
         }
 

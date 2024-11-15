@@ -2,13 +2,12 @@ package UI.AppointmentPages;
 
 import java.util.List;
 
-import Common.AppointmentStatus;
 import Common.ClearOutput;
 import Common.UserInterface;
 import Controllers.AMManagers.PatientAM;
 import DatabaseItems.AppointmentSlot;
 
-public class ViewScheduledAppointmentsPage extends UserInterface{
+public class ViewScheduledAppointmentsPage extends UserInterface {
     private PatientAM patientAM;
 
     public ViewScheduledAppointmentsPage(PatientAM patientAM) {
@@ -21,10 +20,11 @@ public class ViewScheduledAppointmentsPage extends UserInterface{
         System.out.println("Your Scheduled Appointments");
         System.out.println("------------------------------");
         for (AppointmentSlot slot : slots) {
-                System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
+            System.out.println(
+                    slot.getAppointmentId().substring(0, 8) + " " + slot.getDate() + "  " + slot.getTimestart() + " to "
+                            + slot.getTimeend() + " " + slot.getStatus());
         }
         pauseAndView();
     }
-    
-}
 
+}

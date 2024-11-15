@@ -63,17 +63,29 @@ public class DoctorOutcomeInterface extends UserInterface {
 
     public void selectAppointment() {
         ClearOutput.clearOutput();
-        String aptID = getValidatedString("Enter the appointment id to record outcome");
+        System.out.println("All confirmed appointments");
+        System.out.println("--------------------------------");
+        for (DatabaseItems item : schedule.getRecords()) {
+            AppointmentSlot slot = (AppointmentSlot) item;
+            System.out.println(slot.getPatientId() + "  " + slot.getDate() + "  " + slot.getTimestart() + " to "
+                    + slot.getTimeend());
+        }
+
+        System.out.println();
+        String aptID = getValidatedString(
+                "Enter the date and time in the format YYYY-MM-DD/HH:mm \n e.g 2024-12-31/13:00");
+        aptID = doctorManager.getDoctorId() + "/" + aptID;
         if (schedule.searchItem(aptID) == null) {
             displayError("Appointment does not exist");
             return;
         } else {
             AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(aptID);
-            if (slot.getStatus() != AppointmentStatus.CONFIRMED) {
-                displayError("Slot has not been confirmed");
+            if (slot == null || slot.getStatus() != AppointmentStatus.CONFIRMED) {
+                displayError("Invalid slot");
                 return;
             } else {
                 recordOutcome(slot.getAppointmentId(), slot.getDoctorId(), slot.getPatientId(), slot.getDate());
+                displaySuccess("Outcome recorded");
             }
         }
     }
@@ -85,9 +97,9 @@ public class DoctorOutcomeInterface extends UserInterface {
         String consultationNotes = getStringInput("Enter Consultation Notes: ");
 
         if (doctorManager.writeOutcome(appointmentId, patientId, date, typeOfService, medication, consultationNotes)) {
-            System.out.println("Appointment outcome recorded successfully.");
+            displaySuccess("Appointment outcome recorded successfully.");
         } else {
-            System.out.println("Failed to record appointment outcome. An outcome with this ID may already exist.");
+            displayError("Failed to record appointment outcome. An outcome with this ID may already exist.");
         }
     }
 }

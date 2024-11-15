@@ -8,7 +8,7 @@ import Common.UserInterface;
 import Controllers.AMManagers.PatientAM;
 import DatabaseItems.AppointmentSlot;
 
-public class CancelAppointmentPage extends UserInterface{
+public class CancelAppointmentPage extends UserInterface {
     private PatientAM patientAM;
 
     public CancelAppointmentPage(PatientAM patientAM) {
@@ -32,11 +32,11 @@ public class CancelAppointmentPage extends UserInterface{
     private void displaySlots(String id) {
         ClearOutput.clearOutput();
         List<AppointmentSlot> slots = patientAM.getSlots(id);
-        System.out.println("Available slots for " + id);
+        System.out.println("Your appointments with " + id);
         System.out.println("------------------------------");
         for (AppointmentSlot slot : slots) {
-            if (slot.getStatus() == AppointmentStatus.REQUESTED || 
-            slot.getStatus() == AppointmentStatus.CONFIRMED) {
+            if (slot.getStatus() == AppointmentStatus.REQUESTED ||
+                    slot.getStatus() == AppointmentStatus.CONFIRMED) {
                 System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
             }
         }
@@ -52,6 +52,5 @@ public class CancelAppointmentPage extends UserInterface{
         else
             displayError("There is no such available slot");
     }
-
 
 }

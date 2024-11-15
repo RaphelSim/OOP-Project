@@ -20,6 +20,7 @@ import UI.InventoryPages.ApproveReplenishRequestPage;
 // import UI.AOMUI.AdminOutcomeInterface;
 import UI.InventoryPages.InventoryManagementPage;
 import Controllers.AMManagers.AdminAM;
+import Controllers.AOManagers.AdminAOM;
 
 public class AdminAppMgr extends AppManager {
     // Declare managers
@@ -29,6 +30,7 @@ public class AdminAppMgr extends AppManager {
     private InventoryRequestManager inventoryRequestManager;
     private InventoryManager inventoryManager;
     private AdminAM adminAM;
+    private AdminAOM adminAOM;
 
     // Declare pages
     private ApproveReplenishRequestPage approveReplenishRequestPage;
@@ -96,7 +98,7 @@ public class AdminAppMgr extends AppManager {
         inventoryManager = new InventoryManager(inventoryDatabase);
         inventoryRequestManager = new InventoryRequestManager(inventoryRequestDatabase, inventoryManager);
         adminAM = new AdminAM(accountDatabase);
-
+        adminAOM = new AdminAOM(appointmentOutcomeDatabase);
     }
 
     @Override
@@ -105,7 +107,7 @@ public class AdminAppMgr extends AppManager {
         manageStaffPage = new ManageStaffPage(staffManager);
         inventoryManagementPage = new InventoryManagementPage(inventoryManager);
         approveReplenishRequestPage = new ApproveReplenishRequestPage(inventoryRequestManager);
-        viewAppointmentsDetailsPage = new ViewAppointmentsDetailsPage(adminAM);
+        viewAppointmentsDetailsPage = new ViewAppointmentsDetailsPage(adminAM, adminAOM);
     }
 
     // Methods to handle each menu option

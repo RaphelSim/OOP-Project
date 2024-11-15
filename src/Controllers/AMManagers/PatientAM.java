@@ -81,11 +81,10 @@ public class PatientAM extends AppointmentManager {
     public boolean cancelSlot(String appointmentId) {
         // retrive the doctor's schedule
         DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
-
         if (schedule == null)
             return false;
         AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId);
-        if (slot == null)
+        if (slot == null || !userId.equals(slot.getPatientId()))
             return false;
 
         slot.setPatientId("");
@@ -130,6 +129,29 @@ public class PatientAM extends AppointmentManager {
         AppointmentSlot.sortAppointments(appointments);
 
         return appointments;
+    }
+
+    public boolean checkSlotAvailable(String appointmentId) {
+        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
+        if (schedule == null)
+            return false;
+        AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId);
+        if (slot == null || slot.getStatus() != AppointmentStatus.FREE)
+            return false;
+
+        return true;
+    }
+
+    public boolean checkSlotCancellable(String appointmentId) {
+        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
+        System.out.println(appointmentId);
+        if (schedule == null)
+            return false;
+        AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId);
+        if (slot == null || !userId.equals(slot.getPatientId()))
+            return false;
+
+        return true;
     }
 
 }

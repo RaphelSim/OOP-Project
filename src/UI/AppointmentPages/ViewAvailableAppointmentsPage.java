@@ -6,7 +6,6 @@ import DatabaseItems.AppointmentSlot;
 
 import java.util.List;
 
-import Common.AppointmentStatus;
 import Common.ClearOutput;
 import Common.UserInterface;
 import Controllers.AMManagers.PatientAM;

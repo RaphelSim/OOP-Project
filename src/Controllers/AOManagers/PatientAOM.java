@@ -26,7 +26,7 @@ public class PatientAOM extends AppointmentOutcomeManager {
     }
 
     // Method to retrieve past outcomes for a specific patient by patient ID
-    public boolean displayPastOutcomes(String patientId) {
+    public boolean displayPastOutcomes() {
         List<AppointmentOutcome> outcomes = getAllOutcomes().stream()
                 .filter(outcome -> outcome.getPatientId().equals(patientId))
                 .collect(Collectors.toList());
