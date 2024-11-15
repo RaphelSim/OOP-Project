@@ -15,9 +15,12 @@ import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
 import UI.AccountManagementPages.ManageStaffPage;
 import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.AppointmentPages.ViewAppointmentsDetailsPage;
 import UI.InventoryPages.ApproveReplenishRequestPage;
 // import UI.AOMUI.AdminOutcomeInterface;
 import UI.InventoryPages.InventoryManagementPage;
+import Controllers.AMManagers.AdminAM;
+import Controllers.AOManagers.AdminAOM;
 
 public class AdminAppMgr extends AppManager {
     // Declare managers
@@ -26,10 +29,13 @@ public class AdminAppMgr extends AppManager {
     private ManageStaffPage manageStaffPage;
     private InventoryRequestManager inventoryRequestManager;
     private InventoryManager inventoryManager;
+    private AdminAM adminAM;
+    private AdminAOM adminAOM;
 
     // Declare pages
     private ApproveReplenishRequestPage approveReplenishRequestPage;
     private InventoryManagementPage inventoryManagementPage;
+    private ViewAppointmentsDetailsPage viewAppointmentsDetailsPage;
 
     @Override
     public void displayMainPage() {
@@ -91,6 +97,8 @@ public class AdminAppMgr extends AppManager {
         staffManager = new StaffManager(accountDatabase);
         inventoryManager = new InventoryManager(inventoryDatabase);
         inventoryRequestManager = new InventoryRequestManager(inventoryRequestDatabase, inventoryManager);
+        adminAM = new AdminAM(accountDatabase);
+        adminAOM = new AdminAOM(appointmentOutcomeDatabase);
     }
 
     @Override
@@ -99,6 +107,7 @@ public class AdminAppMgr extends AppManager {
         manageStaffPage = new ManageStaffPage(staffManager);
         inventoryManagementPage = new InventoryManagementPage(inventoryManager);
         approveReplenishRequestPage = new ApproveReplenishRequestPage(inventoryRequestManager);
+        viewAppointmentsDetailsPage = new ViewAppointmentsDetailsPage(adminAM, adminAOM);
     }
 
     // Methods to handle each menu option
@@ -108,6 +117,8 @@ public class AdminAppMgr extends AppManager {
 
     private void viewAppointmentsDetails() {
         // Implement functionality to view appointment details
+        viewAppointmentsDetailsPage.displaySlots();
+
     }
 
     private void manageMedicationInventory() {

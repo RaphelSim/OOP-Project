@@ -1,5 +1,11 @@
 package DatabaseItems;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import Common.AppointmentStatus;
 import Common.DatabaseItems;
 
@@ -24,6 +30,19 @@ public class AppointmentSlot implements DatabaseItems {
         this.timeend = timeend;
         this.status = status;
     }
+
+    // // Test using LocalTime type instead of String
+    // public AppointmentSlot(String doctor_id, LocalDate date, LocalTime timestart,
+    // LocalTime timeend,
+    // AppointmentStatus status) {
+    // this.doctor_id = doctor_id;
+    // this.appointment_id = doctor_id + "/" + date + "/" + timestart;
+    // this.patient_id = "";
+    // this.date = date;
+    // this.timestart = timestart;
+    // this.timeend = timeend;
+    // this.status = status;
+    // }
 
     // If appointment id provided
     public AppointmentSlot(String appointment_id, String patient_id, String doctor_id, String date, String timestart,
@@ -78,6 +97,22 @@ public class AppointmentSlot implements DatabaseItems {
         System.out.println("Time Start: " + this.timestart);
         System.out.println("Time End: " + this.timeend);
         System.out.println("Status: " + this.status);
+    }
+
+    // Method to sort appointments by date and time
+    public static void sortAppointments(List<AppointmentSlot> appointments) {
+        Collections.sort(appointments, new Comparator<AppointmentSlot>() {
+            @Override
+            public int compare(AppointmentSlot a1, AppointmentSlot a2) {
+                // Compare dates first
+                int dateComparison = LocalDate.parse(a1.getDate()).compareTo(LocalDate.parse(a2.getDate()));
+                if (dateComparison != 0) {
+                    return dateComparison;
+                }
+                // If dates are equal, compare start times
+                return LocalTime.parse(a1.getTimestart()).compareTo(LocalTime.parse(a2.getTimestart()));
+            }
+        });
     }
 
     // Getters

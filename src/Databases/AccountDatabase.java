@@ -1,6 +1,5 @@
 package Databases;
 
-
 import Common.*;
 import DatabaseItems.Account;
 
@@ -18,8 +17,8 @@ public class AccountDatabase extends Database {
         extractFromCSV();
     }
 
-    public DatabaseItems createDatabaseItem(String[] values){
-        //Name,id,Password,Role
+    public DatabaseItems createDatabaseItem(String[] values) {
+        // Name,id,Password,Role
         return new Account(values);
     }
 
@@ -49,4 +48,5 @@ public class AccountDatabase extends Database {
             return false;
         }
     }
+
 }

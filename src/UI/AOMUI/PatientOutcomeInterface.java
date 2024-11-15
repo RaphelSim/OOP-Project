@@ -31,7 +31,7 @@ public class PatientOutcomeInterface extends UserInterface {
                     viewSpecificOutcome();
                     break;
                 case 2:
-                    viewPastOutcomes(accountId);
+                    viewPastOutcomes();
                     break;
                 case 3:
                     System.out.println("Exiting Patient Interface...");
@@ -59,11 +59,11 @@ public class PatientOutcomeInterface extends UserInterface {
     }
 
     // Method to display all past outcomes for a specific patient
-    public void viewPastOutcomes(String patientId) {
+    public void viewPastOutcomes() {
         ClearOutput.clearOutput();
         System.out.println("Appointment Outcome History");
         System.out.println("------------------------------");
-        if (!patientManager.displayPastOutcomes(patientId))
+        if (!patientManager.displayPastOutcomes())
             displayError("No apppointment outcome found");
 
         pauseAndView();

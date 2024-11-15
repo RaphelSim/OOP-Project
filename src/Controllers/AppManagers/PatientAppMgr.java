@@ -5,23 +5,38 @@ import Controllers.MRManagers.PatientMRM;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AccountManager;
+import Controllers.AMManagers.PatientAM;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
 import UI.AOMUI.PatientOutcomeInterface;
 import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.AppointmentPages.CancelAppointmentPage;
+import UI.AppointmentPages.RescheduleAppointmentPage;
+import UI.AppointmentPages.ScheduleAppointmentPage;
+import UI.AppointmentPages.ViewAvailableAppointmentsPage;
+import UI.AppointmentPages.ViewScheduledAppointmentsPage;
 import UI.MedicalRecordPages.PatientViewMedicalRecordPage;
 
 public class PatientAppMgr extends AppManager {
     // Declare managers
     private AccountManager accountManager;
+
+    // Attributes
+    // private ArrayList<AppointmentSlot> patientApps;
     private PatientAOM patientOutcomeManager;
     private PatientMRM patientMRM;
+    private PatientAM patientAM;
 
     // Declare pages
     private PatientOutcomeInterface patientOutcomeUI;
     private PatientViewMedicalRecordPage patientViewMedicalRecordPage;
+    private ViewAvailableAppointmentsPage viewAvailableAppointmentsPage;
+    private ScheduleAppointmentPage scheduleAppointmentPage;
+    private RescheduleAppointmentPage rescheduleAppointmentPage;
+    private CancelAppointmentPage cancelAppointmentPage;
+    private ViewScheduledAppointmentsPage viewScheduledAppointmentsPage;
 
     @Override
     public void displayMainPage() {
@@ -86,6 +101,7 @@ public class PatientAppMgr extends AppManager {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         patientOutcomeManager = new PatientAOM(appointmentOutcomeDatabase, account.getid());
         patientMRM = new PatientMRM(medicalRecordDatabase, account.getid());
+        patientAM = new PatientAM(account.getid(), accountDatabase);
     }
 
     @Override
@@ -93,6 +109,11 @@ public class PatientAppMgr extends AppManager {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
         patientViewMedicalRecordPage = new PatientViewMedicalRecordPage(patientMRM);
+        viewAvailableAppointmentsPage = new ViewAvailableAppointmentsPage(patientAM);
+        scheduleAppointmentPage = new ScheduleAppointmentPage(patientAM);
+        rescheduleAppointmentPage = new RescheduleAppointmentPage(patientAM, account);
+        cancelAppointmentPage = new CancelAppointmentPage(patientAM);
+        viewScheduledAppointmentsPage = new ViewScheduledAppointmentsPage(patientAM);
     }
 
     // Methods to handle each menu option
@@ -102,22 +123,30 @@ public class PatientAppMgr extends AppManager {
 
     private void viewAvailableAppointments() {
         // Implement PatientAptMgr interaction for viewing available slots
+        // List Doctors (Name, ID) to choose
+        // Get the chosen doctor's list of timeslots and display
+        // Dont clear output to allow scheduleAppointment method
+        viewAvailableAppointmentsPage.viewAvailableAppointments();
+
     }
 
     private void scheduleAppointment() {
-        // Implement PatientAptMgr interaction for scheduling an appointment
+        scheduleAppointmentPage.displayOptions();
     }
 
     private void rescheduleAppointment() {
         // Implement PatientAptMgr interaction for rescheduling an appointment
+        rescheduleAppointmentPage.displayOptions();
     }
 
     private void cancelAppointment() {
         // Implement PatientAptMgr interaction for canceling an appointment
+        cancelAppointmentPage.displayOptions();
     }
 
     private void viewScheduledAppointments() {
         // Implement PatientAptMgr interaction for viewing scheduled appointments
+        viewScheduledAppointmentsPage.displaySlots();;
     }
 
     private void viewPastAppointmentOutcomes() {

@@ -1,5 +1,5 @@
 package Controllers.AppManagers;
-
+import Controllers.AMManagers.*;
 import Common.AppManager;
 import Common.ClearOutput;
 import Controllers.AOManagers.DoctorAOM;
@@ -12,17 +12,25 @@ import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
 import UI.AOMUI.DoctorOutcomeInterface;
 import UI.AccountManagementPages.UpdateDetailsPage;
+import UI.AppointmentPages.HandleAppointmentRequestsPage;
+import UI.AppointmentPages.SetAvailabilityPage;
+import UI.AppointmentPages.ViewPersonalSchedulePage;
+import UI.AppointmentPages.ViewUpcomingAppointmentsPage;
 import UI.MedicalRecordPages.ManageMedicalRecordPage;
 
 public class DoctorAppMgr extends AppManager {
     // Declare managers
-    private DoctorSchedule doctorSchedule;
     private DoctorAOM doctorOutcomeManager;
     private DoctorMRM doctorMRM;
+    private DoctorAM doctorAM;  // Doctor Appointment Manager
 
     // Declare Pages
     private DoctorOutcomeInterface doctorOutcomeUI;
     private ManageMedicalRecordPage manageMedicalRecordPage;
+    private SetAvailabilityPage setAvailabilityPage;
+    private ViewPersonalSchedulePage viewPersonalSchedulePage;
+    private HandleAppointmentRequestsPage handleAppointmentRequestsPage;
+    private ViewUpcomingAppointmentsPage viewUpcomingAppointmentsPage;
 
     @Override
     public void displayMainPage() {
@@ -87,6 +95,7 @@ public class DoctorAppMgr extends AppManager {
         doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         doctorMRM = new DoctorMRM(medicalRecordDatabase, accountDatabase);
+        doctorAM = new DoctorAM(doctorSchedule);          // Initialise Doctor Appointment Manager
     }
 
     @Override
@@ -94,6 +103,10 @@ public class DoctorAppMgr extends AppManager {
         doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager, doctorSchedule);
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         manageMedicalRecordPage = new ManageMedicalRecordPage(doctorMRM);
+        setAvailabilityPage = new SetAvailabilityPage(account, doctorSchedule, doctorAM);
+        viewPersonalSchedulePage = new ViewPersonalSchedulePage();
+        handleAppointmentRequestsPage = new HandleAppointmentRequestsPage(doctorAM, account);
+        viewUpcomingAppointmentsPage = new ViewUpcomingAppointmentsPage(doctorAM);
     }
 
     // Methods to handle each menu option
@@ -103,18 +116,22 @@ public class DoctorAppMgr extends AppManager {
 
     private void viewPersonalSchedule() {
         // Implement functionality to view personal schedule
+        viewPersonalSchedulePage.displayDocTimeSlot(account, doctorSchedule.getRecords());
     }
 
     private void setAvailability() {
-        // Implement functionality to set availability for appointments
+        // Implement functionality to set doctor's availability
+        setAvailabilityPage.setAvailability();
     }
 
     private void handleAppointmentRequests() {
         // Implement functionality to accept or decline appointment requests
+        handleAppointmentRequestsPage.handleAppointmentRequests();
     }
 
     private void viewUpcomingAppointments() {
         // Implement functionality to view upcoming appointments
+        viewUpcomingAppointmentsPage.viewUpcomingAppointments();
     }
 
     private void recordAppointmentOutcome() {
