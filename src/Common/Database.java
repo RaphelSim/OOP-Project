@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public abstract class Database {
     protected String csvPath;
     protected String headerFormat;
@@ -28,7 +27,7 @@ public abstract class Database {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] values = line.split(",");
-                
+
                 // Use the abstract method to create a specific DatabaseItem
                 records.add(createDatabaseItem(values));
             }
@@ -40,7 +39,7 @@ public abstract class Database {
     public void storeToCSV() {
         try (FileWriter writer = new FileWriter(csvPath)) {
             // Write header line
-            writer.write(headerFormat+"\n");
+            writer.write(headerFormat + "\n");
             // Write account details
             for (DatabaseItems items : records) {
                 writer.write(items.serialise());
@@ -51,7 +50,7 @@ public abstract class Database {
         }
     }
 
-    protected void setHeaderFormat(String headerFormat){
+    protected void setHeaderFormat(String headerFormat) {
         this.headerFormat = headerFormat;
     }
 
@@ -67,13 +66,16 @@ public abstract class Database {
         records.add(item);
     };
 
-    public List<DatabaseItems> getRecords(){
+    public List<DatabaseItems> getRecords() {
         return records;
     }
 
     // Abstract method for subclasses to implement
     protected abstract DatabaseItems createDatabaseItem(String[] values);
+
     public abstract void printItems();
+
     public abstract boolean removeItem(String id);
+
     public abstract DatabaseItems searchItem(String id);
 }

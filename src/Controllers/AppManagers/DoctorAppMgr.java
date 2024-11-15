@@ -1,15 +1,7 @@
 package Controllers.AppManagers;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import Common.AppManager;
 import Common.ClearOutput;
-import Common.CustomTimer;
-import Common.DatabaseItems;
 import Controllers.AOManagers.DoctorAOM;
 import Controllers.MRManagers.DoctorMRM;
 import Controllers.AccountManager;
@@ -18,52 +10,30 @@ import Databases.AppointmentOutcomeDatabase;
 import Databases.DoctorSchedule;
 import Databases.MedicalRecordDatabase;
 import UI.UserMenu;
-import UI.setAvailabilityPage;
-import UI.viewPersonalSchedulePage;
+import UI.SetAvailabilityPage;
+import UI.ViewPersonalSchedulePage;
 import UI.AOMUI.DoctorOutcomeInterface;
-<<<<<<< HEAD
-import DatabaseItems.Account;
-import DatabaseItems.AppointmentSlot;
-=======
 import UI.AccountManagementPages.UpdateDetailsPage;
 import UI.MedicalRecordPages.ManageMedicalRecordPage;
->>>>>>> main
 
 public class DoctorAppMgr extends AppManager {
     // Declare managers
-    private DoctorSchedule doctorSchedule;
     private DoctorAOM doctorOutcomeManager;
     private DoctorMRM doctorMRM;
 
     // Declare Pages
     private DoctorOutcomeInterface doctorOutcomeUI;
-<<<<<<< HEAD
-    
-    // Get Login Doctor account object
-    private Account doctor;
-
-    // Store list of doctor Schedule
-    private ArrayList<AppointmentSlot> personalSchedule;
+    private ManageMedicalRecordPage manageMedicalRecordPage;
 
     // Pages
-    private setAvailabilityPage sAP;
-    private viewPersonalSchedulePage vPSP;
-
-    public DoctorAppMgr (Account doctor) {
-        this.doctor = doctor;
-        sAP = new setAvailabilityPage();
-        vPSP = new viewPersonalSchedulePage();
-        personalSchedule = new ArrayList<>();
-    }
-=======
-    private ManageMedicalRecordPage manageMedicalRecordPage;
->>>>>>> main
+    private SetAvailabilityPage sAP;
+    private ViewPersonalSchedulePage vPSP;
 
     @Override
     public void displayMainPage() {
         boolean logout = false;
         while (!logout) {
-            //ClearOutput.clearOutput();
+            ClearOutput.clearOutput();
             int selection = UserMenu.displayDoctorMenu();
 
             switch (selection) {
@@ -75,10 +45,6 @@ public class DoctorAppMgr extends AppManager {
                     break;
                 case 3:
                     setAvailability();
-                    //CustomTimer.pause(3000);
-                    // System.out.println("Press Enter to continue...");
-                    // new Scanner(System.in).nextLine();
-                    //ClearOutput.clearOutput();
                     break;
                 case 4:
                     handleAppointmentRequests();
@@ -133,6 +99,8 @@ public class DoctorAppMgr extends AppManager {
         doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager, doctorSchedule);
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         manageMedicalRecordPage = new ManageMedicalRecordPage(doctorMRM);
+        sAP = new SetAvailabilityPage(account, doctorSchedule);
+        vPSP = new ViewPersonalSchedulePage();
     }
 
     // Methods to handle each menu option
@@ -145,13 +113,11 @@ public class DoctorAppMgr extends AppManager {
 
         // If setAvailability not called first, personal schedule will be empty
         // Else print out personal schedule = list of time slots (regardless of status)
-        vPSP.displayDocTimeSlot(doctor, personalSchedule);
+        vPSP.displayDocTimeSlot(account, doctorSchedule.getRecords());
     }
 
     private void setAvailability() {
-        // Implement functionality to set availability for appointments
-        this.personalSchedule = sAP.setAvailability(doctor);
-        doctorSchedule.newDoctor(doctor.getid());
+        sAP.setAvailability();
     }
 
     private void handleAppointmentRequests() {

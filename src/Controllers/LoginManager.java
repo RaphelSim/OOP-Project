@@ -15,31 +15,31 @@ import UI.LoginPage;
 public class LoginManager {
     AccountDatabase accountDatabase;
 
-    public LoginManager(){
-       accountDatabase = new AccountDatabase();
+    public LoginManager() {
+        accountDatabase = new AccountDatabase();
     }
-    
-    public void logIn(){
+
+    public void logIn() {
         String userId = LoginPage.getUserId();
         Account account = (Account) accountDatabase.searchItem(userId);
         AppManager appManager;
 
-        //check if account exist
-        if(account == null){
+        // check if account exist
+        if (account == null) {
             LoginPage.displayError("User not found!");
             CustomTimer.pause(2000);
         }
-        //check if password is correct
-        else{
+        // check if password is correct
+        else {
             String password = LoginPage.getPassword();
-            if(account.checkPassword(password)){
+            if (account.checkPassword(password)) {
                 System.out.println(account.getrole().toString());
                 switch (account.getrole()) {
                     case PAT:
                         appManager = new PatientAppMgr();
                         break;
-                    case DOC:   // Added parameter to pass in doctor account
-                        appManager = new DoctorAppMgr(account);
+                    case DOC: // Added parameter to pass in doctor account
+                        appManager = new DoctorAppMgr();
                         break;
                     case PHA:
                         appManager = new PharmaAppMgr();
@@ -48,15 +48,14 @@ public class LoginManager {
                         appManager = new AdminAppMgr();
                         break;
                     default:
-                        appManager = null; //should never reach here!
+                        appManager = null; // should never reach here!
                         LoginPage.displayError("Something went wrong!!! Invalid Role!!!");
                         break;
                 }
                 ClearOutput.clearOutput();
-                LoginPage.displaySuccess("Welcome to Hospital X System "+ account.getName());
+                LoginPage.displaySuccess("Welcome to Hospital X System " + account.getName());
                 appManager.logIn(account);
-            }
-            else{
+            } else {
                 LoginPage.displayError("Wrong Password!");
             }
         }
