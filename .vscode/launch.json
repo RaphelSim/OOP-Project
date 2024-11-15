@@ -13,13 +13,6 @@
         },
         {
             "type": "java",
-            "name": "Testing",
-            "request": "launch",
-            "mainClass": "Testing",
-            "projectName": "OOP-Project_49f6d1ec"
-        },
-        {
-            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
