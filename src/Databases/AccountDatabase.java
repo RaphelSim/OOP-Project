@@ -1,7 +1,5 @@
 package Databases;
 
-import java.util.ArrayList;
-
 import Common.*;
 import DatabaseItems.Account;
 

@@ -9,6 +9,7 @@ import Controllers.AMManagers.PatientAM;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
+import UI.ScheduleAppointmentPage;
 import UI.UserMenu;
 import UI.ViewAvailableAppointmentsPage;
 import UI.AOMUI.PatientOutcomeInterface;
@@ -29,6 +30,7 @@ public class PatientAppMgr extends AppManager {
     // Declare pages
     private PatientOutcomeInterface patientOutcomeUI;
     private PatientViewMedicalRecordPage patientViewMedicalRecordPage;
+    private ScheduleAppointmentPage scheduleAppointmentPage;
 
     @Override
     public void displayMainPage() {
@@ -102,6 +104,7 @@ public class PatientAppMgr extends AppManager {
         patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
         patientViewMedicalRecordPage = new PatientViewMedicalRecordPage(patientMRM);
         vAAP = new ViewAvailableAppointmentsPage(patientAM);
+        scheduleAppointmentPage = new ScheduleAppointmentPage(patientAM);
     }
 
     // Methods to handle each menu option
@@ -119,7 +122,7 @@ public class PatientAppMgr extends AppManager {
     }
 
     private void scheduleAppointment() {
-
+        scheduleAppointmentPage.displayOptions();
     }
 
     private void rescheduleAppointment() {
