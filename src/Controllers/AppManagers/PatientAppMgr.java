@@ -9,9 +9,12 @@ import Controllers.AMManagers.PatientAM;
 import Databases.AccountDatabase;
 import Databases.AppointmentOutcomeDatabase;
 import Databases.MedicalRecordDatabase;
+import UI.CancelAppointmentPage;
+import UI.RescheduleAppointmentPage;
 import UI.ScheduleAppointmentPage;
 import UI.UserMenu;
 import UI.ViewAvailableAppointmentsPage;
+import UI.ViewScheduledAppointmentsPage;
 import UI.AOMUI.PatientOutcomeInterface;
 import UI.AccountManagementPages.UpdateDetailsPage;
 import UI.MedicalRecordPages.PatientViewMedicalRecordPage;
@@ -19,7 +22,6 @@ import UI.MedicalRecordPages.PatientViewMedicalRecordPage;
 public class PatientAppMgr extends AppManager {
     // Declare managers
     private AccountManager accountManager;
-    private ViewAvailableAppointmentsPage vAAP;
 
     // Attributes
     // private ArrayList<AppointmentSlot> patientApps;
@@ -30,7 +32,11 @@ public class PatientAppMgr extends AppManager {
     // Declare pages
     private PatientOutcomeInterface patientOutcomeUI;
     private PatientViewMedicalRecordPage patientViewMedicalRecordPage;
+    private ViewAvailableAppointmentsPage viewAvailableAppointmentsPage;
     private ScheduleAppointmentPage scheduleAppointmentPage;
+    private RescheduleAppointmentPage rescheduleAppointmentPage;
+    private CancelAppointmentPage cancelAppointmentPage;
+    private ViewScheduledAppointmentsPage viewScheduledAppointmentsPage;
 
     @Override
     public void displayMainPage() {
@@ -103,8 +109,11 @@ public class PatientAppMgr extends AppManager {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
         patientOutcomeUI = new PatientOutcomeInterface(patientOutcomeManager);
         patientViewMedicalRecordPage = new PatientViewMedicalRecordPage(patientMRM);
-        vAAP = new ViewAvailableAppointmentsPage(patientAM);
+        viewAvailableAppointmentsPage = new ViewAvailableAppointmentsPage(patientAM);
         scheduleAppointmentPage = new ScheduleAppointmentPage(patientAM);
+        rescheduleAppointmentPage = new RescheduleAppointmentPage(patientAM);
+        cancelAppointmentPage = new CancelAppointmentPage(patientAM);
+        viewScheduledAppointmentsPage = new ViewScheduledAppointmentsPage(patientAM);
     }
 
     // Methods to handle each menu option
@@ -117,7 +126,7 @@ public class PatientAppMgr extends AppManager {
         // List Doctors (Name, ID) to choose
         // Get the chosen doctor's list of timeslots and display
         // Dont clear output to allow scheduleAppointment method
-        vAAP.viewAvailableAppointments();
+        viewAvailableAppointmentsPage.viewAvailableAppointments();
 
     }
 
@@ -127,14 +136,17 @@ public class PatientAppMgr extends AppManager {
 
     private void rescheduleAppointment() {
         // Implement PatientAptMgr interaction for rescheduling an appointment
+        rescheduleAppointmentPage.displayOptions();
     }
 
     private void cancelAppointment() {
         // Implement PatientAptMgr interaction for canceling an appointment
+        cancelAppointmentPage.displayOptions();
     }
 
     private void viewScheduledAppointments() {
         // Implement PatientAptMgr interaction for viewing scheduled appointments
+        viewScheduledAppointmentsPage.displayOptions();
     }
 
     private void viewPastAppointmentOutcomes() {
