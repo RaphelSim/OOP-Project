@@ -13,6 +13,7 @@ import UI.UserMenu;
 import UI.HandleAppointmentRequestsPage;
 import UI.SetAvailabilityPage;
 import UI.ViewPersonalSchedulePage;
+import UI.ViewUpcomingAppointmentsPage;
 import UI.AOMUI.DoctorOutcomeInterface;
 import UI.AccountManagementPages.UpdateDetailsPage;
 import UI.MedicalRecordPages.ManageMedicalRecordPage;
@@ -29,6 +30,7 @@ public class DoctorAppMgr extends AppManager {
     private SetAvailabilityPage setAvailabilityPage;
     private ViewPersonalSchedulePage viewPersonalSchedulePage;
     private HandleAppointmentRequestsPage handleAppointmentRequestsPage;
+    private ViewUpcomingAppointmentsPage viewUpcomingAppointmentsPage;
 
     @Override
     public void displayMainPage() {
@@ -103,7 +105,8 @@ public class DoctorAppMgr extends AppManager {
         manageMedicalRecordPage = new ManageMedicalRecordPage(doctorMRM);
         setAvailabilityPage = new SetAvailabilityPage(account, doctorSchedule, doctorAM);
         viewPersonalSchedulePage = new ViewPersonalSchedulePage();
-        handleAppointmentRequestsPage = new HandleAppointmentRequestsPage(doctorSchedule, doctorAM, account);
+        handleAppointmentRequestsPage = new HandleAppointmentRequestsPage(doctorAM, account);
+        viewUpcomingAppointmentsPage = new ViewUpcomingAppointmentsPage(doctorAM);
     }
 
     // Methods to handle each menu option
@@ -128,6 +131,7 @@ public class DoctorAppMgr extends AppManager {
 
     private void viewUpcomingAppointments() {
         // Implement functionality to view upcoming appointments
+        viewUpcomingAppointmentsPage.viewUpcomingAppointments();
     }
 
     private void recordAppointmentOutcome() {

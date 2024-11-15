@@ -5,18 +5,15 @@ import java.util.List;
 import Common.AppointmentStatus;
 import Common.ClearOutput;
 import Common.UserInterface;
-import Databases.DoctorSchedule;
 import Controllers.AMManagers.DoctorAM;
 import DatabaseItems.AppointmentSlot;
 import DatabaseItems.Account;
 
 public class HandleAppointmentRequestsPage extends UserInterface{
-    private DoctorSchedule doctorSchedule;
     private DoctorAM doctorAM;
     private Account doctor;
 
-    public HandleAppointmentRequestsPage(DoctorSchedule doctorSchedule, DoctorAM doctorAM, Account doctor) {
-        this.doctorSchedule = doctorSchedule;
+    public HandleAppointmentRequestsPage(DoctorAM doctorAM, Account doctor) {
         this.doctorAM = doctorAM;
         this.doctor = doctor;
     }
