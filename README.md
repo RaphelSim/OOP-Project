@@ -4,7 +4,7 @@ A Java-based application which mimics a hospital management system. This project
 
 ## For course coordinators/assistants/supervisors
 - Our code which contains the java doc comments is under the [JavaDoc branch](https://github.com/RaphelSim/OOP-Project/tree/JavaDoc/src/javadoc/)
-- Or you can view the html [here](https://raw.githack.com/RaphelSim/OOP-Project/refs/heads/JavaDoc/src/javadoc/index-all.html)
+- Or you can view the html [here](https://raw.githack.com/RaphelSim/OOP-Project/refs/heads/JavaDoc/src/javadoc/index.html)
 
 ## Features
 
