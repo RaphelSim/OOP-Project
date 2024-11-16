@@ -1,2 +1,3 @@
 appointment_id,patient_id,doctor_id,date,type_of_service,medication,consultation_notes,status
 DOC12345/2024-10-29/12:00,PAT00001,DOC12345,2024-10-29,Massage,PainKiller,Rest well~ stay tight,PENDING
+DOC88888/2024-12-11/13:00,PAT00002,DOC88888,2024-12-11,X-rat,painkiller,na,DISPENSED
