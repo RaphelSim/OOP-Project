@@ -24,6 +24,12 @@ public class ViewScheduledAppointmentsPage extends UserInterface {
                     slot.getAppointmentId().substring(0, 8) + " " + slot.getDate() + "  " + slot.getTimestart() + " to "
                             + slot.getTimeend() + " " + slot.getStatus());
         }
+
+        if (slots.size() == 0) {
+            displayError("No scheduled appointments");
+            pauseAndView();
+            return;
+        }
         pauseAndView();
     }
 

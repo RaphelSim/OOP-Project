@@ -37,6 +37,12 @@ public class HandleAppointmentRequestsPage extends UserInterface {
             }
         }
 
+        if (slots.size() == 0) {
+            displayError("No requested appointments.");
+            pauseAndView();
+            return;
+        }
+
         System.out.println();
         while (true) {
             appID = getValidatedString(

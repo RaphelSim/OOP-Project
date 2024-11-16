@@ -9,6 +9,13 @@
             "name": "HomePage",
             "request": "launch",
             "mainClass": "HomePage",
+            "projectName": "OOP-Project_f46e5df6"
+        },
+        {
+            "type": "java",
+            "name": "HomePage",
+            "request": "launch",
+            "mainClass": "HomePage",
             "projectName": "OOP-Project_c1a6683"
         },
         {

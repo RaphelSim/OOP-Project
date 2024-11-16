@@ -16,8 +16,8 @@ public class ScheduleAppointmentPage extends UserInterface {
     }
 
     public void displayOptions() {
-        ClearOutput.clearOutput();
-        String docId = getValidatedString("Enter the doctor's id: ");
+        //ClearOutput.clearOutput();
+        String docId = getValidatedString("Enter the Doctor's id: ");
 
         // check if doctor can be found
         if (!patientAM.checkDoctor(docId)) {
@@ -38,6 +38,12 @@ public class ScheduleAppointmentPage extends UserInterface {
             if (slot.getStatus() == AppointmentStatus.FREE) {
                 System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
             }
+        }
+
+        if (slots.size() == 0) {
+            displayError("No available appointments");
+            pauseAndView();
+            return;
         }
     }
 

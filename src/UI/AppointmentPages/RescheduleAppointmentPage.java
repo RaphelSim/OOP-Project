@@ -33,13 +33,22 @@ public class RescheduleAppointmentPage extends UserInterface {
 
     private void displaySlots(String id) {
         ClearOutput.clearOutput();
+        Boolean check = false;
         List<AppointmentSlot> slots = patientAM.getSlots(id);
         System.out.println("Current appointments with " + id);
         System.out.println("-----------------------------");
         for (AppointmentSlot slot : slots) {
-            if (slot.getPatientId().equals(patient.getid()))
+            if (slot.getPatientId().equals(patient.getid())) {
+                check = true;
                 System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend() + "  "
                         + slot.getStatus());
+            }
+        }
+
+        if (!check) {
+            displayError("No Available slots");
+            pauseAndView();
+            return;
         }
     }
 
@@ -50,11 +59,11 @@ public class RescheduleAppointmentPage extends UserInterface {
         cancelappointmentId = id + "/" + cancelappointmentId;
 
         System.out.println();
-        System.out.println("Available slots: ");
-        System.out.println("---------------------");
+        System.out.println("Available slots for " + id);
+        System.out.println("------------------------------------------");
         List<AppointmentSlot> slots = patientAM.getAvailableSlots(id);
 
-        if (slots == null) {
+        if (slots.size() == 0) {
             displayError("No Available slots");
             pauseAndView();
             return;
@@ -83,6 +92,7 @@ public class RescheduleAppointmentPage extends UserInterface {
 
         if (patientAM.requestSlot(appointmentId) && patientAM.cancelSlot(cancelappointmentId)) {
             displaySuccess("Your appointment request has been sent to the doctor");
+            pauseAndView();
         } else
             displayError("There is no such available slot, please enter a valid slot");
 
