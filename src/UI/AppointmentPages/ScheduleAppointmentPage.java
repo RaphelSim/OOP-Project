@@ -39,6 +39,12 @@ public class ScheduleAppointmentPage extends UserInterface {
                 System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
             }
         }
+
+        if (slots.size() == 0) {
+            displayError("No available appointments");
+            pauseAndView();
+            return;
+        }
     }
 
     private void bookSlot(String id) {

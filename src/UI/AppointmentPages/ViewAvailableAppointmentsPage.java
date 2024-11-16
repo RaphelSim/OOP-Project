@@ -51,6 +51,10 @@ public class ViewAvailableAppointmentsPage extends UserInterface {
                 if(slot.getStatus() == AppointmentStatus.FREE)
                     System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
             }
+
+            if (slots.size() == 0) {
+                displayError("No available slots appointments");
+            }
         //pauseAndView();
             while(true) {
                 choice = getValidatedString("Would you like to look at other doctor's list of available slots? (Y/N)")

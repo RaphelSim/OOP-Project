@@ -28,6 +28,11 @@ public class ViewUpcomingAppointmentsPage extends UserInterface{
             }
         }
         pauseAndView();
+        if (slots.size() == 0) {
+            displayError("No upcoming appointments");
+            pauseAndView();
+            return;
+        }
     }
 
     

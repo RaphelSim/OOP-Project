@@ -33,6 +33,12 @@ public class ViewAppointmentsDetailsPage extends UserInterface {
                     + "  " + slot.getTimestart() + " to " + slot.getTimeend() + "  " + slot.getStatus());
         }
 
+        if (slots.size() == 0) {
+            displayError("No appointments to show at this moment.");
+            pauseAndView();
+            return;
+        }
+
         System.out.println();
         String aptId = getValidatedString("Enter the appointment id to view outcome. [Enter 'q' to go back]");
         if (aptId.equals("q"))

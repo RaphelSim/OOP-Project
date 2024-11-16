@@ -63,7 +63,7 @@ public class RescheduleAppointmentPage extends UserInterface {
         System.out.println("------------------------------------------");
         List<AppointmentSlot> slots = patientAM.getAvailableSlots(id);
 
-        if (slots == null) {
+        if (slots.size() == 0) {
             displayError("No Available slots");
             pauseAndView();
             return;

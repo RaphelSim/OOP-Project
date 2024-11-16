@@ -28,7 +28,7 @@ public class CancelAppointmentPage extends UserInterface {
                             + slot.getTimeend() + " " + slot.getStatus());
         }
 
-        if (slots == null) {
+        if (slots.size() == 0) {
             displayError("No scheduled appointments");
             pauseAndView();
             return;
