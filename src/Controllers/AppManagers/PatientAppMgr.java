@@ -42,12 +42,13 @@ public class PatientAppMgr extends AppManager {
     public void displayMainPage() {
         boolean logout = false;
         while (!logout) {
-            ClearOutput.clearOutput();
+            //ClearOutput.clearOutput();
             int selection = UserMenu.displayPatientMenu();
 
             switch (selection) {
                 case 1:
                     viewMedicalRecord();
+                    ClearOutput.clearOutput();
                     break;
                 case 2:
                     settings();
@@ -57,18 +58,23 @@ public class PatientAppMgr extends AppManager {
                     break;
                 case 4:
                     scheduleAppointment();
+                    ClearOutput.clearOutput();
                     break;
                 case 5:
                     rescheduleAppointment();
+                    ClearOutput.clearOutput();
                     break;
                 case 6:
                     cancelAppointment();
+                    ClearOutput.clearOutput();
                     break;
                 case 7:
                     viewScheduledAppointments();
+                    ClearOutput.clearOutput();
                     break;
                 case 8:
                     viewPastAppointmentOutcomes();
+                    ClearOutput.clearOutput();
                     break;
                 case 9:
                     System.out.println("Thank you for using the Hospital X System. See you again soon!");
@@ -141,7 +147,7 @@ public class PatientAppMgr extends AppManager {
 
     private void cancelAppointment() {
         // Implement PatientAptMgr interaction for canceling an appointment
-        cancelAppointmentPage.displayOptions();
+        cancelAppointmentPage.displaySlots();
     }
 
     private void viewScheduledAppointments() {

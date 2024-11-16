@@ -16,8 +16,8 @@ public class ScheduleAppointmentPage extends UserInterface {
     }
 
     public void displayOptions() {
-        ClearOutput.clearOutput();
-        String docId = getValidatedString("Enter the doctor's id: ");
+        //ClearOutput.clearOutput();
+        String docId = getValidatedString("Enter the Doctor's id: ");
 
         // check if doctor can be found
         if (!patientAM.checkDoctor(docId)) {

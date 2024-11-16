@@ -10,43 +10,50 @@ import DatabaseItems.AppointmentSlot;
 
 public class CancelAppointmentPage extends UserInterface {
     private PatientAM patientAM;
+    List<AppointmentSlot> slots;
 
     public CancelAppointmentPage(PatientAM patientAM) {
         this.patientAM = patientAM;
+        slots = patientAM.getAppointments();
     }
 
-    public void displayOptions() {
+    public void displaySlots() {
         ClearOutput.clearOutput();
-        String docId = getValidatedString("Enter the doctor's id: ");
-
-        // check if doctor can be found
-        if (!patientAM.checkDoctor(docId)) {
-            displayError("Doctor not found");
-            return;
-        }
-        displaySlots(docId);
-
-        cancelSlot(docId);
-    }
-
-    private void displaySlots(String id) {
-        ClearOutput.clearOutput();
-        List<AppointmentSlot> slots = patientAM.getSlots(id);
-        System.out.println("Your appointments with " + id);
+        
+        System.out.println("Your Scheduled Appointments");
         System.out.println("------------------------------");
         for (AppointmentSlot slot : slots) {
-            if (slot.getStatus() == AppointmentStatus.REQUESTED ||
-                    slot.getStatus() == AppointmentStatus.CONFIRMED) {
-                System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
-            }
+            System.out.println(
+                    slot.getAppointmentId() + " " + slot.getDate() + "  " + slot.getTimestart() + " to "
+                            + slot.getTimeend() + " " + slot.getStatus());
         }
+
+        if (slots == null) {
+            displayError("No scheduled appointments");
+            pauseAndView();
+            return;
+        }
+        cancelSlot();
     }
 
-    private void cancelSlot(String id) {
+    private void cancelSlot() {
         System.out.println();
         String appointmentId = getValidatedString(
                 "Enter the date and time you wish to cancel in the format YYYY-MM-DD/HH:MM \n e.g 2024-12-31/12:00 where 12:00 is the start time");
-        appointmentId = id + "/" + appointmentId;
+        if(appointmentId != null) {
+            for(AppointmentSlot slot : slots) {
+                if(slot.getAppointmentId().substring(9).equals(appointmentId)) {
+                    appointmentId = slot.getAppointmentId();
+                }
+            } 
+        }
+        else {
+            System.out.println("You have not entered anything.");
+            pauseAndView();
+            return;
+        }
+              
+
         if (patientAM.cancelSlot(appointmentId))
             displaySuccess("Your appointment has been cancelled.");
         else
