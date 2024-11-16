@@ -2,6 +2,10 @@
 
 A Java-based application which mimics a hospital management system. This project demonstrates key concepts of Object-Oriented Programming (OOP) and includes a sample `.jar` file to execute the application.
 
+## For course coordinators/assistants/supervisors
+- Our code which contains the java doc comments is under the [JavaDoc branch](https://github.com/RaphelSim/OOP-Project/tree/JavaDoc/src/javadoc/)
+- Or you can view the html [here](https://raw.githack.com/RaphelSim/OOP-Project/refs/heads/JavaDoc/src/javadoc/index-all.html)
+
 ## Features
 
 - Manage and organize appointments, staff management, inventories, and more!
