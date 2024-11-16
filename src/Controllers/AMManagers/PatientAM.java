@@ -11,146 +11,212 @@ import DatabaseItems.AppointmentSlot;
 import Databases.AccountDatabase;
 import Databases.DoctorSchedule;
 
+/**
+ * The {@code PatientAM} class manages appointment-related functionalities for patients.
+ * It provides methods to retrieve doctor information, check appointment availability,
+ * and manage appointment slots.
+ */
 public class PatientAM {
-    private String userId;
-    private List<Account> doctors = new ArrayList<Account>();
-    private AccountDatabase accountDatabase;
+    private String userId; // Unique identifier for the patient
+    private List<Account> doctors = new ArrayList<Account>(); // List of doctors
+    private AccountDatabase accountDatabase; // Database for managing accounts
 
+    /**
+     * Constructs a {@code PatientAM} with the specified patient ID and account database.
+     *
+     * @param id              the unique identifier of the patient
+     * @param accountDatabase the {@link AccountDatabase} used to manage accounts
+     */
     public PatientAM(String id, AccountDatabase accountDatabase) {
         this.userId = id;
         this.accountDatabase = accountDatabase;
-        retrieveDocList();
+        retrieveDocList(); // Retrieve the list of doctors upon initialization
     }
 
+    /**
+     * Retrieves the list of doctors from the account database.
+     */
     private void retrieveDocList() {
         for (DatabaseItems item : accountDatabase.getRecords()) {
             Account account = (Account) item;
-            if (account.getrole() == Role.DOC) {
-                doctors.add(account);
+            if (account.getrole() == Role.DOC) { // Check if the account role is DOC (Doctor)
+                doctors.add(account); // Add doctor to the list
             }
         }
     }
 
+    /**
+     * Returns the list of doctors available to the patient.
+     *
+     * @return a list of {@link Account} objects representing doctors
+     */
     public List<Account> getDocList() {
-        return doctors;
+        return doctors; // Return the list of doctors
     }
 
+    /**
+     * Checks if a doctor exists in the database by their ID.
+     *
+     * @param id the unique identifier of the doctor
+     * @return true if the doctor exists; false otherwise
+     */
     public boolean checkDoctor(String id) {
-        if (accountDatabase.searchItem(id) == null) {
-            return false;
-        } else
-            return true;
+        return accountDatabase.searchItem(id) != null; // Return true if found
     }
 
+    /**
+     * Retrieves the schedule for a specific doctor by their ID.
+     *
+     * @param id the unique identifier of the doctor
+     * @return a {@link DoctorSchedule} object if found; null otherwise
+     */
     public DoctorSchedule getDoctorSchedule(String id) {
         if (!checkDoctor(id)) {
-            return null;
+            return null; // Doctor not found
         }
-        return new DoctorSchedule(id);
+        return new DoctorSchedule(id); // Return new schedule instance for doctor
     }
 
+    /**
+     * Retrieves available appointment slots for a specific doctor by their ID.
+     *
+     * @param id the unique identifier of the doctor
+     * @return a list of available {@link AppointmentSlot} objects; null if no schedule found
+     */
     public List<AppointmentSlot> getAvailableSlots(String id) {
-        // retrive the doctor's schedule
-        DoctorSchedule schedule = getDoctorSchedule(id);
+        DoctorSchedule schedule = getDoctorSchedule(id); // Retrieve doctor's schedule
         if (schedule == null)
-            return null;
+            return null; // No schedule found
+
         List<AppointmentSlot> slots = new ArrayList<AppointmentSlot>();
         for (DatabaseItems item : schedule.getRecords()) {
             AppointmentSlot slot = (AppointmentSlot) item;
 
             if (slot.getStatus() == AppointmentStatus.FREE)
-                slots.add(slot);
+                slots.add(slot); // Add free slots to list
         }
-        return slots;
+        return slots; // Return available slots
     }
 
+    /**
+     * Retrieves all appointment slots for a specific doctor by their ID.
+     *
+     * @param id the unique identifier of the doctor
+     * @return a list of all {@link AppointmentSlot} objects; null if no schedule found
+     */
     public List<AppointmentSlot> getSlots(String id) {
-        // retrive the doctor's schedule
-        DoctorSchedule schedule = getDoctorSchedule(id);
+        DoctorSchedule schedule = getDoctorSchedule(id); // Retrieve doctor's schedule
         if (schedule == null)
-            return null;
+            return null; // No schedule found
+
         List<AppointmentSlot> slots = new ArrayList<AppointmentSlot>();
         for (DatabaseItems item : schedule.getRecords()) {
             AppointmentSlot slot = (AppointmentSlot) item;
-            slots.add(slot);
+            slots.add(slot); // Add all slots to list
         }
-        return slots;
+        return slots; // Return all slots
     }
 
+    /**
+     * Cancels an appointment slot by its ID.
+     *
+     * @param appointmentId the unique identifier of the appointment to cancel
+     * @return true if the slot was successfully canceled; false otherwise
+     */
     public boolean cancelSlot(String appointmentId) {
-        // retrive the doctor's schedule
-        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
+        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8)); // Get doctor's schedule using appointment ID prefix
         if (schedule == null)
-            return false;
-        AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId);
+            return false; // No schedule found
+
+        AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId); // Find slot by ID
         if (slot == null || !userId.equals(slot.getPatientId()))
-            return false;
+            return false; // Slot not found or does not belong to this patient
 
-        slot.setPatientId("");
-        slot.setStatus(AppointmentStatus.FREE);
+        slot.setPatientId(""); // Clear patient ID from slot
+        slot.setStatus(AppointmentStatus.FREE); // Set status to FREE
 
-        // save the changes
-        schedule.storeToCSV();
-        return true;
+        schedule.storeToCSV(); // Save changes to schedule
+        return true; // Slot canceled successfully
     }
 
+    /**
+     * Requests an appointment slot by its ID.
+     *
+     * @param appointmentId the unique identifier of the appointment to request
+     * @return true if the slot was successfully requested; false otherwise
+     */
     public boolean requestSlot(String appointmentId) {
-        // retrive the doctor's schedule
-        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
+        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8)); // Get doctor's schedule using appointment ID prefix
         if (schedule == null)
-            return false;
-        AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId);
+            return false; // No schedule found
+
+        AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId); // Find slot by ID
         if (slot == null)
-            return false;
+            return false; // Slot not found
 
-        slot.setPatientId(userId);
-        slot.setStatus(AppointmentStatus.REQUESTED);
+        slot.setPatientId(userId); // Assign patient ID to slot
+        slot.setStatus(AppointmentStatus.REQUESTED); // Set status to REQUESTED
 
-        // save the changes
-        schedule.storeToCSV();
-        return true;
+        schedule.storeToCSV(); // Save changes to schedule
+        return true; // Slot requested successfully
     }
 
+    /**
+     * Retrieves all appointments associated with this patient across all doctors.
+     *
+     * @return a list of {@link AppointmentSlot} objects representing this patient's appointments
+     */
     public List<AppointmentSlot> getAppointments() {
         List<AppointmentSlot> appointments = new ArrayList<AppointmentSlot>();
 
-        // for each doctor, iterate their slots to get this patient's appointments
-        for (Account doctor : doctors) {
-            DoctorSchedule slots = new DoctorSchedule(doctor.getid());
-            for (DatabaseItems item : slots.getRecords()) {
-                AppointmentSlot slot = (AppointmentSlot) item;
-                if (slot.getPatientId().equals(userId))
-                    appointments.add(slot);
-            }
+        for (Account doctor : doctors) { 
+            DoctorSchedule slots = new DoctorSchedule(doctor.getid()); 
+            for (DatabaseItems item : slots.getRecords()) { 
+                AppointmentSlot slot = (AppointmentSlot) item; 
+                if (slot.getPatientId().equals(userId)) 
+                    appointments.add(slot); 
+            } 
         }
 
-        // use the static function provided by appointment slot to sort the appointments
-        AppointmentSlot.sortAppointments(appointments);
+        AppointmentSlot.sortAppointments(appointments); // Sort appointments using static method
 
-        return appointments;
+        return appointments; 
     }
 
+    /**
+     * Checks whether a specific appointment slot is available.
+     *
+     * @param appointmentId the unique identifier of the appointment to check availability for
+     * @return true if the slot is available; false otherwise
+     */
     public boolean checkSlotAvailable(String appointmentId) {
-        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
+        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8)); 
         if (schedule == null)
-            return false;
-        AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId);
+            return false; 
+
+        AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId); 
         if (slot == null || slot.getStatus() != AppointmentStatus.FREE)
             return false;
 
-        return true;
+        return true; 
     }
 
+    /**
+     * Checks whether a specific appointment slot can be canceled by this patient.
+     *
+     * @param appointmentId the unique identifier of the appointment to check cancelability for
+     * @return true if the slot can be canceled; false otherwise
+     */
     public boolean checkSlotCancellable(String appointmentId) {
-        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
-        System.out.println(appointmentId);
+        DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8)); 
         if (schedule == null)
             return false;
+
         AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(appointmentId);
-        if (slot == null || !userId.equals(slot.getPatientId()))
-            return false;
+        
+         if (slot == null || !userId.equals(slot.getPatientId())) 
+             return false;
 
-        return true;
-    }
-
+         return true;
+   }
 }

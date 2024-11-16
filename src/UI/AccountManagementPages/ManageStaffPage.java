@@ -8,13 +8,24 @@ import Common.UserInterface;
 import Controllers.StaffManager;
 import DatabaseItems.Account;
 
+/**
+ * Represents the staff management page in the user interface.
+ * Provides functionalities to add, remove, edit, and display staff details.
+ */
 public class ManageStaffPage extends UserInterface {
     private final StaffManager staffManager;
 
+    /**
+     * Constructs a new instance of the ManageStaffPage with the specified StaffManager.
+     * @param staffManager the staff manager responsible for handling staff data.
+     */
     public ManageStaffPage(StaffManager staffManager) {
         this.staffManager = staffManager;
     }
 
+    /**
+     * Displays the main menu options for managing staff and handles user input.
+     */
     public void displayOptions() {
         boolean quit = false;
         while (!quit) {
@@ -39,6 +50,9 @@ public class ManageStaffPage extends UserInterface {
         }
     }
 
+    /**
+     * Handles the addition of a new staff member by collecting input and delegating to the StaffManager.
+     */
     private void handleAddStaff() {
         Role role = getRole();
         Gender gender = getGender();
@@ -58,6 +72,9 @@ public class ManageStaffPage extends UserInterface {
         }
     }
 
+    /**
+     * Handles the removal of a staff member by their ID.
+     */
     private void handleRemoveStaff() {
         System.out.println("Please enter target user id to remove:");
         String id = scanner.nextLine().trim();
@@ -72,6 +89,9 @@ public class ManageStaffPage extends UserInterface {
         }
     }
 
+    /**
+     * Handles editing details of an existing staff member.
+     */
     private void handleEditStaff() {
         System.out.println("Please enter target user id to edit:");
         String id = scanner.nextLine().trim();
@@ -148,6 +168,9 @@ public class ManageStaffPage extends UserInterface {
         }
     }
 
+    /**
+     * Displays staff details based on selected filters.
+     */
     private void handleDisplayStaff() {
         boolean backToFilter = false;
         while (!backToFilter) {
@@ -165,7 +188,6 @@ public class ManageStaffPage extends UserInterface {
             switch (choice) {
                 case 1:
                     staffManager.displayAllStaff();
-                    ;
                     break;
                 case 2:
                     filterByGender();
@@ -186,8 +208,9 @@ public class ManageStaffPage extends UserInterface {
         }
     }
 
-    // functions below are the actual filtering functions
-
+    /**
+     * Filters staff members by gender.
+     */
     private void filterByGender() {
         Gender gender = getGender();
         if (gender != null)
@@ -196,6 +219,9 @@ public class ManageStaffPage extends UserInterface {
             displayError("Invalid gender selection.");
     }
 
+    /**
+     * Filters staff members by role.
+     */
     private void filterByRole() {
         Role role = getRole();
         if (role != null)
@@ -204,6 +230,9 @@ public class ManageStaffPage extends UserInterface {
             displayError("Invalid role selection.");
     }
 
+    /**
+     * Filters staff members by age range.
+     */
     private void filterByAge() {
         System.out.println("Enter age filter lower bound:");
         int lowerBound = getValidatedInt("Enter lower bound: ");
@@ -217,8 +246,10 @@ public class ManageStaffPage extends UserInterface {
         }
     }
 
-    // below are the functions used to get differnt enum inputs
-
+    /**
+     * Prompts the user to select a staff role.
+     * @return the selected role, or null if the selection is invalid.
+     */
     private Role getRole() {
         System.out.println("Select Role: ");
         System.out.println("1. Doctor");
@@ -234,6 +265,10 @@ public class ManageStaffPage extends UserInterface {
         };
     }
 
+    /**
+     * Prompts the user to select a gender.
+     * @return the selected gender, or null if the selection is invalid.
+     */
     private Gender getGender() {
         System.out.println("Select Gender: ");
         System.out.println("1. Male");

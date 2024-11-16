@@ -15,6 +15,11 @@ import UI.AccountManagementPages.UpdateDetailsPage;
 import UI.InventoryPages.StockRequestPage;
 import UI.InventoryPages.ViewInventoryPage;
 
+/**
+ * The {@code PharmaAppMgr} class manages the pharmacist's application functionalities.
+ * It provides methods for viewing appointment outcomes, managing inventory,
+ * requesting replenishments, and handling user settings.
+ */
 public class PharmaAppMgr extends AppManager {
     // Declare managers
     private PharmaAOM pharmaOutcomeManager;
@@ -25,6 +30,9 @@ public class PharmaAppMgr extends AppManager {
     private StockRequestPage stockRequestPage;
     private ViewInventoryPage viewInventoryPage;
 
+    /**
+     * Displays the main menu for the pharmacist and handles user selections.
+     */
     @Override
     public void displayMainPage() {
         boolean logout = false;
@@ -34,30 +42,33 @@ public class PharmaAppMgr extends AppManager {
 
             switch (selection) {
                 case 1:
-                    viewAppointmentOutcome();
+                    viewAppointmentOutcome(); // View appointment outcomes
                     break;
                 case 2:
-                    viewInventory();
+                    viewInventory(); // View current inventory
                     break;
                 case 3:
-                    requestReplenishment();
+                    requestReplenishment(); // Request stock replenishment
                     break;
                 case 4:
-                    settings();
+                    settings(); // Access settings
                     break;
                 case 5:
                     ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
-                    logout = true;
+                    logout = true; // Exit the menu loop
                     break;
                 default:
                     System.out.println("Invalid selection. Please try again.");
                     break;
             }
         }
-        logOut();
+        logOut(); // Log out after exiting the menu
     }
 
+    /**
+     * Loads necessary databases for the application.
+     */
     @Override
     protected void loadDatabases() {
         accountDatabase = new AccountDatabase();
@@ -66,6 +77,9 @@ public class PharmaAppMgr extends AppManager {
         appointmentOutcomeDatabase = new AppointmentOutcomeDatabase();
     }
 
+    /**
+     * Saves all databases to their respective storage formats (e.g., CSV).
+     */
     @Override
     protected void saveDatabases() {
         accountDatabase.storeToCSV();
@@ -74,6 +88,9 @@ public class PharmaAppMgr extends AppManager {
         appointmentOutcomeDatabase.storeToCSV();
     }
 
+    /**
+     * Creates instances of managers used in the pharmacist application.
+     */
     @Override
     protected void createManagers() {
         // Initialize manager instances here once the relevant classes are created
@@ -82,6 +99,9 @@ public class PharmaAppMgr extends AppManager {
         inventoryRequestManager = new InventoryRequestManager(inventoryRequestDatabase);
     }
 
+    /**
+     * Creates instances of UI pages used in the pharmacist application.
+     */
     @Override
     protected void createPages() {
         // Initialize UI pages here once they are available
@@ -93,15 +113,24 @@ public class PharmaAppMgr extends AppManager {
 
     // Methods to handle each menu option
 
+    /**
+     * Displays options for viewing appointment outcomes.
+     */
     private void viewAppointmentOutcome() {
-        pharmaOutcomeUI.displayOptions();
+        pharmaOutcomeUI.displayOptions(); // Delegate to the outcome interface
     }
 
+    /**
+     * Displays the current inventory.
+     */
     private void viewInventory() {
-        viewInventoryPage.display(inventoryDatabase);
+        viewInventoryPage.display(inventoryDatabase); // Delegate to the inventory page
     }
 
+    /**
+     * Displays options for requesting stock replenishment.
+     */
     private void requestReplenishment() {
-        stockRequestPage.displayOption();
+        stockRequestPage.displayOption(); // Delegate to the stock request page
     }
 }

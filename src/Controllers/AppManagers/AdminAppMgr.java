@@ -2,7 +2,6 @@ package Controllers.AppManagers;
 
 import Common.AppManager;
 import Common.ClearOutput;
-//import Controllers.AOManagers.AdminAOM;
 import Controllers.AccountManager;
 import Controllers.InventoryManager;
 import Controllers.InventoryRequestManager;
@@ -17,14 +16,17 @@ import UI.AccountManagementPages.ManageStaffPage;
 import UI.AccountManagementPages.UpdateDetailsPage;
 import UI.AppointmentPages.ViewAppointmentsDetailsPage;
 import UI.InventoryPages.ApproveReplenishRequestPage;
-// import UI.AOMUI.AdminOutcomeInterface;
 import UI.InventoryPages.InventoryManagementPage;
 import Controllers.AMManagers.AdminAM;
 import Controllers.AOManagers.AdminAOM;
 
+/**
+ * The {@code AdminAppMgr} class is responsible for managing the administrative
+ * operations of the hospital system. It provides functionalities for managing
+ * hospital staff, viewing appointment details, and handling inventory operations.
+ */
 public class AdminAppMgr extends AppManager {
     // Declare managers
-    // private AdminAOM adminOutcomeManager;
     private StaffManager staffManager;
     private ManageStaffPage manageStaffPage;
     private InventoryRequestManager inventoryRequestManager;
@@ -37,6 +39,10 @@ public class AdminAppMgr extends AppManager {
     private InventoryManagementPage inventoryManagementPage;
     private ViewAppointmentsDetailsPage viewAppointmentsDetailsPage;
 
+    /**
+     * Displays the main administrative menu and handles user selections
+     * until the user chooses to log out.
+     */
     @Override
     public void displayMainPage() {
         boolean logout = false;
@@ -73,6 +79,10 @@ public class AdminAppMgr extends AppManager {
         logOut();
     }
 
+    /**
+     * Loads the necessary databases for managing accounts, inventory,
+     * medical records, and appointment outcomes.
+     */
     @Override
     protected void loadDatabases() {
         accountDatabase = new AccountDatabase();
@@ -82,6 +92,9 @@ public class AdminAppMgr extends AppManager {
         appointmentOutcomeDatabase = new AppointmentOutcomeDatabase();
     }
 
+    /**
+     * Saves all changes made to the databases back to their respective CSV files.
+     */
     @Override
     protected void saveDatabases() {
         accountDatabase.storeToCSV();
@@ -91,6 +104,11 @@ public class AdminAppMgr extends AppManager {
         appointmentOutcomeDatabase.storeToCSV();
     }
 
+    /**
+     * Creates instances of various managers used in the application,
+     * including account management, staff management, inventory management,
+     * and appointment outcome management.
+     */
     @Override
     protected void createManagers() {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
@@ -101,6 +119,11 @@ public class AdminAppMgr extends AppManager {
         adminAOM = new AdminAOM(appointmentOutcomeDatabase);
     }
 
+    /**
+     * Creates instances of various pages used in the application,
+     * including pages for managing staff, updating details, viewing appointments,
+     * and managing inventory.
+     */
     @Override
     protected void createPages() {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
@@ -111,20 +134,35 @@ public class AdminAppMgr extends AppManager {
     }
 
     // Methods to handle each menu option
+
+    /**
+     * Handles the functionality for managing hospital staff by displaying
+     * options available on the manage staff page.
+     */
     private void manageHospitalStaff() {
         manageStaffPage.displayOptions();
     }
 
+    /**
+     * Handles viewing appointment details by displaying available slots
+     * on the appointments details page.
+     */
     private void viewAppointmentsDetails() {
-        // Implement functionality to view appointment details
         viewAppointmentsDetailsPage.displaySlots();
-
     }
 
+    /**
+     * Handles managing medication inventory by displaying options available
+     * on the inventory management page.
+     */
     private void manageMedicationInventory() {
         inventoryManagementPage.displayOptions();
     }
 
+    /**
+     * Handles approving replenishment requests by displaying options available
+     * on the replenish request approval page.
+     */
     private void approveReplenishmentRequests() {
         approveReplenishRequestPage.displayOptions();
     }

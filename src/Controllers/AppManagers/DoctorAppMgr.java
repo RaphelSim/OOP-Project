@@ -19,10 +19,15 @@ import UI.AppointmentPages.ViewPersonalSchedulePage;
 import UI.AppointmentPages.ViewUpcomingAppointmentsPage;
 import UI.MedicalRecordPages.ManageMedicalRecordPage;
 
+/**
+ * The {@code DoctorAppMgr} class manages the functionalities available to doctors
+ * within the Hospital X System. It provides methods for managing patient medical records,
+ * handling appointments, and accessing doctor-specific services.
+ */
 public class DoctorAppMgr extends AppManager {
     // Declare managers
     private DoctorAOM doctorOutcomeManager;
-    private DoctorMRM doctorMRM;
+    private DoctorMRM doctorMRM; // Medical Records Manager for doctors
     private DoctorAM doctorAM; // Doctor Appointment Manager
 
     // Declare Pages
@@ -33,6 +38,9 @@ public class DoctorAppMgr extends AppManager {
     private HandleAppointmentRequestsPage handleAppointmentRequestsPage;
     private ViewUpcomingAppointmentsPage viewUpcomingAppointmentsPage;
 
+    /**
+     * Displays the main menu for doctors and handles user selections.
+     */
     @Override
     public void displayMainPage() {
         boolean logout = false;
@@ -42,63 +50,75 @@ public class DoctorAppMgr extends AppManager {
 
             switch (selection) {
                 case 1:
-                    managePatientMedicalRecords();
+                    managePatientMedicalRecords(); // Manage patient medical records
                     break;
                 case 2:
-                    viewPersonalSchedule();
+                    viewPersonalSchedule(); // View personal schedule
                     break;
                 case 3:
-                    setAvailability();
+                    setAvailability(); // Set doctor's availability
                     break;
                 case 4:
-                    handleAppointmentRequests();
+                    handleAppointmentRequests(); // Handle appointment requests
                     break;
                 case 5:
-                    viewUpcomingAppointments();
+                    viewUpcomingAppointments(); // View upcoming appointments
                     break;
                 case 6:
-                    recordAppointmentOutcome();
+                    recordAppointmentOutcome(); // Record appointment outcomes
                     break;
                 case 7:
-                    settings();
+                    settings(); // Access settings
                     break;
                 case 8:
                     ClearOutput.clearOutput();
                     System.out.println("Thank you for using the Hospital X System. Goodbye!");
-                    logout = true;
+                    logout = true; // Exit the menu loop
                     break;
                 default:
                     System.out.println("Invalid selection. Please try again.");
                     break;
             }
         }
-        logOut();
+        logOut(); // Log out after exiting the menu
     }
 
+    /**
+     * Loads necessary databases for the application.
+     */
     @Override
     protected void loadDatabases() {
         accountDatabase = new AccountDatabase();
         medicalRecordDatabase = new MedicalRecordDatabase();
         appointmentOutcomeDatabase = new AppointmentOutcomeDatabase();
-        doctorSchedule = new DoctorSchedule(account.getid());
+        doctorSchedule = new DoctorSchedule(account.getid()); // Load doctor's schedule
     }
 
+    /**
+     * Saves all databases to their respective storage formats (e.g., CSV).
+     */
     @Override
     protected void saveDatabases() {
         accountDatabase.storeToCSV();
         medicalRecordDatabase.storeToCSV();
         appointmentOutcomeDatabase.storeToCSV();
-        doctorSchedule.storeToCSV();
+        doctorSchedule.storeToCSV(); // Save doctor's schedule
     }
 
+    /**
+     * Creates instances of managers used in the doctor application.
+     */
     @Override
     protected void createManagers() {
         doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid(), doctorSchedule);
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         doctorMRM = new DoctorMRM(medicalRecordDatabase, accountDatabase);
-        doctorAM = new DoctorAM(doctorSchedule); // Initialise Doctor Appointment Manager
+        doctorAM = new DoctorAM(doctorSchedule); // Initialize Doctor Appointment Manager
     }
 
+    /**
+     * Creates instances of UI pages used in the doctor application.
+     */
     @Override
     protected void createPages() {
         doctorOutcomeUI = new DoctorOutcomeInterface(doctorOutcomeManager, doctorSchedule);
@@ -111,32 +131,46 @@ public class DoctorAppMgr extends AppManager {
     }
 
     // Methods to handle each menu option
+
+    /**
+     * Displays options for managing patient medical records.
+     */
     private void managePatientMedicalRecords() {
-        manageMedicalRecordPage.displayOptions();
+        manageMedicalRecordPage.displayOptions(); // Delegate to manage medical record page
     }
 
+    /**
+     * Displays the personal schedule of the doctor.
+     */
     private void viewPersonalSchedule() {
-        // Implement functionality to view personal schedule
-        viewPersonalSchedulePage.displayDocTimeSlot(account, doctorSchedule.getRecords());
+        viewPersonalSchedulePage.displayDocTimeSlot(account, doctorSchedule.getRecords()); // Show personal time slots
     }
 
+    /**
+     * Displays options for setting the doctor's availability.
+     */
     private void setAvailability() {
-        // Implement functionality to set doctor's availability
-        setAvailabilityPage.setAvailability();
+        setAvailabilityPage.setAvailability(); // Delegate to availability setting page
     }
 
+    /**
+     * Displays options for handling appointment requests.
+     */
     private void handleAppointmentRequests() {
-        // Implement functionality to accept or decline appointment requests
-        handleAppointmentRequestsPage.handleAppointmentRequests();
+        handleAppointmentRequestsPage.handleAppointmentRequests(); // Delegate to handle appointment requests page
     }
 
+    /**
+     * Displays upcoming appointments for the doctor.
+     */
     private void viewUpcomingAppointments() {
-        // Implement functionality to view upcoming appointments
-        viewUpcomingAppointmentsPage.viewUpcomingAppointments();
+        viewUpcomingAppointmentsPage.viewUpcomingAppointments(); // Delegate to view upcoming appointments page
     }
 
+    /**
+     * Displays options for recording appointment outcomes.
+     */
     private void recordAppointmentOutcome() {
-        // Implement functionality to record appointment outcomes
-        doctorOutcomeUI.displayOptions();
+        doctorOutcomeUI.displayOptions(); // Delegate to outcome interface for recording outcomes
     }
 }

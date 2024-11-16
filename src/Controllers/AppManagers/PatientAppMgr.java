@@ -19,12 +19,16 @@ import UI.AppointmentPages.ViewAvailableAppointmentsPage;
 import UI.AppointmentPages.ViewScheduledAppointmentsPage;
 import UI.MedicalRecordPages.PatientViewMedicalRecordPage;
 
+/**
+ * The {@code PatientAppMgr} class manages the functionalities available to patients
+ * within the Hospital X System. It provides methods for viewing medical records,
+ * managing appointments, and accessing patient-specific services.
+ */
 public class PatientAppMgr extends AppManager {
     // Declare managers
     private AccountManager accountManager;
 
     // Attributes
-    // private ArrayList<AppointmentSlot> patientApps;
     private PatientAOM patientOutcomeManager;
     private PatientMRM patientMRM;
     private PatientAM patientAM;
@@ -38,6 +42,9 @@ public class PatientAppMgr extends AppManager {
     private CancelAppointmentPage cancelAppointmentPage;
     private ViewScheduledAppointmentsPage viewScheduledAppointmentsPage;
 
+    /**
+     * Displays the main menu for patients and handles user selections.
+     */
     @Override
     public void displayMainPage() {
         boolean logout = false;
@@ -47,47 +54,50 @@ public class PatientAppMgr extends AppManager {
 
             switch (selection) {
                 case 1:
-                    viewMedicalRecord();
+                    viewMedicalRecord(); // View medical record
                     ClearOutput.clearOutput();
                     break;
                 case 2:
-                    settings();
+                    settings(); // Access settings
                     break;
                 case 3:
-                    viewAvailableAppointments();
+                    viewAvailableAppointments(); // View available appointment slots
                     break;
                 case 4:
-                    scheduleAppointment();
+                    scheduleAppointment(); // Schedule a new appointment
                     ClearOutput.clearOutput();
                     break;
                 case 5:
-                    rescheduleAppointment();
+                    rescheduleAppointment(); // Reschedule an existing appointment
                     ClearOutput.clearOutput();
                     break;
                 case 6:
-                    cancelAppointment();
+                    cancelAppointment(); // Cancel an existing appointment
                     ClearOutput.clearOutput();
                     break;
                 case 7:
-                    viewScheduledAppointments();
+                    viewScheduledAppointments(); // View all scheduled appointments
                     ClearOutput.clearOutput();
                     break;
                 case 8:
-                    viewPastAppointmentOutcomes();
+                    viewPastAppointmentOutcomes(); // View outcomes of past appointments
                     ClearOutput.clearOutput();
                     break;
                 case 9:
                     System.out.println("Thank you for using the Hospital X System. See you again soon!");
-                    logout = true;
+                    logout = true; // Exit the menu loop
                     break;
                 default:
                     System.out.println("Invalid selection. Please try again.");
                     break;
             }
         }
-        logOut();
+        logOut(); // Log out after exiting the menu
     }
 
+    /**
+     * Loads necessary databases for the application.
+     */
     @Override
     protected void loadDatabases() {
         accountDatabase = new AccountDatabase();
@@ -95,6 +105,9 @@ public class PatientAppMgr extends AppManager {
         appointmentOutcomeDatabase = new AppointmentOutcomeDatabase();
     }
 
+    /**
+     * Saves all databases to their respective storage formats (e.g., CSV).
+     */
     @Override
     protected void saveDatabases() {
         accountDatabase.storeToCSV();
@@ -102,6 +115,9 @@ public class PatientAppMgr extends AppManager {
         appointmentOutcomeDatabase.storeToCSV();
     }
 
+    /**
+     * Creates instances of managers used in the patient application.
+     */
     @Override
     protected void createManagers() {
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
@@ -110,6 +126,9 @@ public class PatientAppMgr extends AppManager {
         patientAM = new PatientAM(account.getid(), accountDatabase);
     }
 
+    /**
+     * Creates instances of UI pages used in the patient application.
+     */
     @Override
     protected void createPages() {
         updateDetailsPage = new UpdateDetailsPage(accountManager);
@@ -123,41 +142,53 @@ public class PatientAppMgr extends AppManager {
     }
 
     // Methods to handle each menu option
+
+    /**
+     * Displays the patient's medical record.
+     */
     private void viewMedicalRecord() {
-        patientViewMedicalRecordPage.displayMedicalRecord();
+        patientViewMedicalRecordPage.displayMedicalRecord(); // Delegate to the medical record page
     }
 
+    /**
+     * Displays available appointment slots for scheduling.
+     */
     private void viewAvailableAppointments() {
-        // Implement PatientAptMgr interaction for viewing available slots
-        // List Doctors (Name, ID) to choose
-        // Get the chosen doctor's list of timeslots and display
-        // Dont clear output to allow scheduleAppointment method
-        viewAvailableAppointmentsPage.viewAvailableAppointments();
-
+        viewAvailableAppointmentsPage.viewAvailableAppointments(); // Delegate to available appointments page
     }
 
+    /**
+     * Displays options for scheduling a new appointment.
+     */
     private void scheduleAppointment() {
-        scheduleAppointmentPage.displayOptions();
+        scheduleAppointmentPage.displayOptions(); // Delegate to schedule appointment page
     }
 
+    /**
+     * Displays options for rescheduling an existing appointment.
+     */
     private void rescheduleAppointment() {
-        // Implement PatientAptMgr interaction for rescheduling an appointment
-        rescheduleAppointmentPage.displayOptions();
+        rescheduleAppointmentPage.displayOptions(); // Delegate to reschedule appointment page
     }
 
+    /**
+     * Displays options for canceling an existing appointment.
+     */
     private void cancelAppointment() {
-        // Implement PatientAptMgr interaction for canceling an appointment
-        cancelAppointmentPage.displaySlots();
+        cancelAppointmentPage.displaySlots(); // Delegate to cancel appointment page
     }
 
+    /**
+     * Displays scheduled appointments for the patient.
+     */
     private void viewScheduledAppointments() {
-        // Implement PatientAptMgr interaction for viewing scheduled appointments
-        viewScheduledAppointmentsPage.displaySlots();
-        ;
+        viewScheduledAppointmentsPage.displaySlots(); // Delegate to view scheduled appointments page
     }
 
+    /**
+     * Displays past appointment outcomes for the patient.
+     */
     private void viewPastAppointmentOutcomes() {
-        // Implement PatientAOM interaction for viewing past outcomes
-        patientOutcomeUI.displayOptions(account.getid());
+        patientOutcomeUI.displayOptions(account.getid()); // Delegate to outcome interface for past appointments
     }
 }

@@ -3,15 +3,36 @@ package Common;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The {@code BloodType} enum represents different blood types.
+ * It includes types such as A, B, AB, and O, along with their positive and negative variants.
+ */
 public enum BloodType {
+    /** Represents a non-applicable blood type. */
     NA,
+    
+    /** Represents A positive blood type. */
     A_POSITIVE,
+    
+    /** Represents A negative blood type. */
     A_NEGATIVE,
+    
+    /** Represents B positive blood type. */
     B_POSITIVE,
+    
+    /** Represents B negative blood type. */
     B_NEGATIVE,
+    
+    /** Represents AB positive blood type. */
     AB_POSITIVE,
+    
+    /** Represents AB negative blood type. */
     AB_NEGATIVE,
+    
+    /** Represents O positive blood type. */
     O_POSITIVE,
+    
+    /** Represents O negative blood type. */
     O_NEGATIVE;
 
     // Map to hold alternative representations for each blood type
@@ -34,6 +55,14 @@ public enum BloodType {
         }
     }
 
+    /**
+     * Converts a string representation of a blood type to its corresponding
+     * {@code BloodType} enum value.
+     *
+     * @param bloodtype the string representation of the blood type
+     * @return the corresponding {@code BloodType} enum value or {@code NA}
+     *         if the input does not match any known blood types
+     */
     public static BloodType fromString(String bloodtype) {
         // Convert the input to uppercase and remove spaces for flexible matching
         String normalizedInput = bloodtype.toUpperCase().replace(" ", "");
@@ -41,9 +70,9 @@ public enum BloodType {
         BloodType result = STRING_TO_BLOODTYPE_MAP.get(normalizedInput);
 
         if (result == null) {
-            return NA;
+            return NA; // Return NA if no match found
         }
 
-        return result;
+        return result; // Return the matched BloodType
     }
 }
