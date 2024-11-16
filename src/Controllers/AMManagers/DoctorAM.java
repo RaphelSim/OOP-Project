@@ -6,13 +6,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Common.AppointmentManager;
 import Common.AppointmentStatus;
 import Common.DatabaseItems;
 import DatabaseItems.AppointmentSlot;
 import Databases.DoctorSchedule;
 
-public class DoctorAM extends AppointmentManager {
+public class DoctorAM {
     private DoctorSchedule doctorSchedule;
 
     public DoctorAM(DoctorSchedule doctorSchedule) {

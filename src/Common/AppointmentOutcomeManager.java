@@ -1,7 +1,9 @@
 package Common;
 
 import Databases.AppointmentOutcomeDatabase;
+import Databases.DoctorSchedule;
 import DatabaseItems.AppointmentOutcome;
+import DatabaseItems.AppointmentSlot;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,9 +16,12 @@ public abstract class AppointmentOutcomeManager {
     }
 
     // Method to add a new outcome
-    public boolean addOutcome(AppointmentOutcome outcome) {
-        if (database.searchItem(outcome.getAppointmentId()) == null) {
+    public boolean addOutcome(AppointmentOutcome outcome, DoctorSchedule schedule) {
+        if (database.searchItem(outcome.getAppointmentId()) == null
+                && schedule.searchItem(outcome.getAppointmentId()) != null) {
             database.addItem(outcome);
+            AppointmentSlot slot = (AppointmentSlot) schedule.searchItem(outcome.getAppointmentId());
+            slot.setStatus(AppointmentStatus.COMPLETED);
             return true; // Outcome added successfully
         } else {
             return false; // Outcome already exists

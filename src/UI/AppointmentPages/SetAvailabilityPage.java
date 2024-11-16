@@ -34,10 +34,15 @@ public class SetAvailabilityPage extends UserInterface {
                     slot.getDate() + " " + slot.getTimestart() + " to " + slot.getTimeend() + " " + slot.getStatus());
         }
 
-        System.out.println("Please setup your Personal Schedule Availability:");
+        // option to go back
+        String choice = getValidatedString(
+                "\nEnter 'q' to go back to menu, enter any character to proceed to setup your personal schedule");
+        if (choice != null && choice.equals("q"))
+            return;
 
         // Year
         while (true) {
+            System.out.println("\nSetup your Personal Schedule Availability:");
             System.out.print("Enter Year (e.g.: 2024): ");
             try {
                 year = getIntInput(-1);

@@ -17,9 +17,9 @@ public class PatientOutcomeInterface extends UserInterface {
     }
 
     public void displayOptions(String accountId) {
-        ClearOutput.clearOutput();
         boolean exit = false;
         while (!exit) {
+            ClearOutput.clearOutput();
             System.out.println("Patient Interface - Appointment Outcome");
             System.out.println("1. View Specific Appointment Outcome");
             System.out.println("2. View All Past Appointment Outcomes");

@@ -42,7 +42,7 @@ public class PatientAppMgr extends AppManager {
     public void displayMainPage() {
         boolean logout = false;
         while (!logout) {
-            //ClearOutput.clearOutput();
+            ClearOutput.clearOutput();
             int selection = UserMenu.displayPatientMenu();
 
             switch (selection) {
@@ -152,7 +152,8 @@ public class PatientAppMgr extends AppManager {
 
     private void viewScheduledAppointments() {
         // Implement PatientAptMgr interaction for viewing scheduled appointments
-        viewScheduledAppointmentsPage.displaySlots();;
+        viewScheduledAppointmentsPage.displaySlots();
+        ;
     }
 
     private void viewPastAppointmentOutcomes() {

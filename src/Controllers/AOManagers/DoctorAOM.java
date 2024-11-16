@@ -3,14 +3,17 @@ package Controllers.AOManagers;
 import Common.AppointmentOutcomeManager;
 import Common.AppointmentOutcomeStatus;
 import Databases.AppointmentOutcomeDatabase;
+import Databases.DoctorSchedule;
 import DatabaseItems.AppointmentOutcome;
 
 public class DoctorAOM extends AppointmentOutcomeManager {
     private String doctorId;
+    private DoctorSchedule schedule;
 
-    public DoctorAOM(AppointmentOutcomeDatabase database, String doctorId) {
+    public DoctorAOM(AppointmentOutcomeDatabase database, String doctorId, DoctorSchedule schedule) {
         super(database);
         this.doctorId = doctorId;
+        this.schedule = schedule;
     }
 
     public String getDoctorId() {
@@ -26,6 +29,6 @@ public class DoctorAOM extends AppointmentOutcomeManager {
                 appointmentId, doctorId, patientId, newDate, newTypeOfService, newMedication, newConsultationNotes,
                 AppointmentOutcomeStatus.PENDING);
 
-        return addOutcome(record);
+        return addOutcome(record, schedule);
     }
 }

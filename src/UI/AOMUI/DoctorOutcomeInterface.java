@@ -67,13 +67,16 @@ public class DoctorOutcomeInterface extends UserInterface {
         System.out.println("--------------------------------");
         for (DatabaseItems item : schedule.getRecords()) {
             AppointmentSlot slot = (AppointmentSlot) item;
-            System.out.println(slot.getPatientId() + "  " + slot.getDate() + "  " + slot.getTimestart() + " to "
-                    + slot.getTimeend());
+            if (slot.getStatus() == AppointmentStatus.CONFIRMED)
+                System.out.println(slot.getPatientId() + "  " + slot.getDate() + "  " + slot.getTimestart() + " to "
+                        + slot.getTimeend());
         }
-
+        System.out.println("--------------------------------");
         System.out.println();
         String aptID = getValidatedString(
-                "Enter the date and time in the format YYYY-MM-DD/HH:mm \n e.g 2024-12-31/13:00");
+                "Enter 'q' to go back\n\nOR\n\nEnter the date and time in the format YYYY-MM-DD/HH:mm \n e.g 2024-12-31/13:00");
+        if (aptID != null && aptID.equals("q"))
+            return;
         aptID = doctorManager.getDoctorId() + "/" + aptID;
         if (schedule.searchItem(aptID) == null) {
             displayError("Appointment does not exist");
@@ -85,7 +88,6 @@ public class DoctorOutcomeInterface extends UserInterface {
                 return;
             } else {
                 recordOutcome(slot.getAppointmentId(), slot.getDoctorId(), slot.getPatientId(), slot.getDate());
-                displaySuccess("Outcome recorded");
             }
         }
     }

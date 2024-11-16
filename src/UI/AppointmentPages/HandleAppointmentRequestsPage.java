@@ -31,7 +31,7 @@ public class HandleAppointmentRequestsPage extends UserInterface {
 
         for (AppointmentSlot slot : slots) {
             if (slot.getStatus() == AppointmentStatus.REQUESTED) {
-                System.out.println("   " + slot.getDate() + "    " + slot.getTimestart()
+                System.out.println(slot.getDate() + "    " + slot.getTimestart()
                         + " to " + slot.getTimeend());
                 System.out.println();
             }

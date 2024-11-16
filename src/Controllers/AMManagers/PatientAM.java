@@ -3,7 +3,6 @@ package Controllers.AMManagers;
 import java.util.ArrayList;
 import java.util.List;
 
-import Common.AppointmentManager;
 import Common.AppointmentStatus;
 import Common.DatabaseItems;
 import Common.Role;
@@ -12,7 +11,7 @@ import DatabaseItems.AppointmentSlot;
 import Databases.AccountDatabase;
 import Databases.DoctorSchedule;
 
-public class PatientAM extends AppointmentManager {
+public class PatientAM {
     private String userId;
     private List<Account> doctors = new ArrayList<Account>();
     private AccountDatabase accountDatabase;

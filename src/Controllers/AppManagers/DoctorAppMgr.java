@@ -1,4 +1,5 @@
 package Controllers.AppManagers;
+
 import Controllers.AMManagers.*;
 import Common.AppManager;
 import Common.ClearOutput;
@@ -22,7 +23,7 @@ public class DoctorAppMgr extends AppManager {
     // Declare managers
     private DoctorAOM doctorOutcomeManager;
     private DoctorMRM doctorMRM;
-    private DoctorAM doctorAM;  // Doctor Appointment Manager
+    private DoctorAM doctorAM; // Doctor Appointment Manager
 
     // Declare Pages
     private DoctorOutcomeInterface doctorOutcomeUI;
@@ -92,10 +93,10 @@ public class DoctorAppMgr extends AppManager {
 
     @Override
     protected void createManagers() {
-        doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid());
+        doctorOutcomeManager = new DoctorAOM(appointmentOutcomeDatabase, account.getid(), doctorSchedule);
         accountManager = new AccountManager(account, accountDatabase, medicalRecordDatabase);
         doctorMRM = new DoctorMRM(medicalRecordDatabase, accountDatabase);
-        doctorAM = new DoctorAM(doctorSchedule);          // Initialise Doctor Appointment Manager
+        doctorAM = new DoctorAM(doctorSchedule); // Initialise Doctor Appointment Manager
     }
 
     @Override

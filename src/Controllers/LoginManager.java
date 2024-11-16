@@ -2,7 +2,6 @@ package Controllers;
 
 import Common.AppManager;
 import Common.ClearOutput;
-import Common.CustomTimer;
 import Controllers.AppManagers.AdminAppMgr;
 import Controllers.AppManagers.DoctorAppMgr;
 // import Common.Role;
@@ -27,7 +26,6 @@ public class LoginManager {
         // check if account exist
         if (account == null) {
             LoginPage.displayError("User not found!");
-            CustomTimer.pause(2000);
         }
         // check if password is correct
         else {

@@ -229,7 +229,6 @@ public class ManageStaffPage extends UserInterface {
             case 1 -> Role.DOC;
             case 2 -> Role.PHA;
             default -> {
-                displayError("Invalid role selection.");
                 yield null;
             }
         };

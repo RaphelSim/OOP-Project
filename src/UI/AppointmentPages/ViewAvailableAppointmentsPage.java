@@ -23,9 +23,9 @@ public class ViewAvailableAppointmentsPage extends UserInterface {
         List<Account> docList = patientAM.getDocList();
         Boolean quit = false;
         char choice;
-        ClearOutput.clearOutput();
 
-        while(!quit) {
+        while (!quit) {
+            ClearOutput.clearOutput();
             System.out.println("Doctor ID | Doctor Name");
             System.out.println("----------------------------");
             for (Account item : docList) {
@@ -34,7 +34,9 @@ public class ViewAvailableAppointmentsPage extends UserInterface {
             System.out.println();
 
             /// viewing specific doctor's schedule
-            String docID = getValidatedString("Enter the doctor's id to view: ");
+            String docID = getValidatedString("Enter the doctor's id to view or enter 'q' to go back to menu: ");
+            if (docID == null || docID.equals("q"))
+                return;
 
             // check if doctor exists
             if (!patientAM.checkDoctor(docID)) {
@@ -43,31 +45,38 @@ public class ViewAvailableAppointmentsPage extends UserInterface {
             }
 
             // Show list of available timeslots for chosen Doctor
-            //ClearOutput.clearOutput();
+            // ClearOutput.clearOutput();
             List<AppointmentSlot> slots = patientAM.getAvailableSlots(docID);
+            System.out.println();
             System.out.println("Available slots for " + docID);
             System.out.println("------------------------");
             for (AppointmentSlot slot : slots) {
-                if(slot.getStatus() == AppointmentStatus.FREE)
+                if (slot.getStatus() == AppointmentStatus.FREE)
                     System.out.println(slot.getDate() + "  " + slot.getTimestart() + " to " + slot.getTimeend());
             }
 
             if (slots.size() == 0) {
                 displayError("No available slots appointments");
             }
-        //pauseAndView();
-            while(true) {
-                choice = getValidatedString("Would you like to look at other doctor's list of available slots? (Y/N)")
-                .charAt(0);
-                if(choice == 'y' || choice == 'Y') {
+            // pauseAndView();
+            while (true) {
+                String c = getValidatedString(
+                        "Would you like to look at other doctor's list of available slots? (Y/N)");
+
+                // check for null input
+                if (c == null) {
+                    displayError("Invalid input");
+                    break;
+                }
+                choice = c.charAt(0);
+
+                if (choice == 'y' || choice == 'Y') {
                     System.out.println("Loading list of doctors..");
                     break;
-                }
-                else if(choice == 'n' || choice == 'N'){
+                } else if (choice == 'n' || choice == 'N') {
                     quit = true;
                     break;
-                }
-                else
+                } else
                     System.out.println("You have entered an invalid option.");
             }
 

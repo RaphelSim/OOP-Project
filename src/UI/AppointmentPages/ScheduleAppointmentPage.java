@@ -6,6 +6,7 @@ import Common.AppointmentStatus;
 import Common.ClearOutput;
 import Common.UserInterface;
 import Controllers.AMManagers.PatientAM;
+import DatabaseItems.Account;
 import DatabaseItems.AppointmentSlot;
 
 public class ScheduleAppointmentPage extends UserInterface {
@@ -16,8 +17,14 @@ public class ScheduleAppointmentPage extends UserInterface {
     }
 
     public void displayOptions() {
-        //ClearOutput.clearOutput();
-        String docId = getValidatedString("Enter the Doctor's id: ");
+        ClearOutput.clearOutput();
+        System.out.println("List of Doctors");
+        System.out.println("--------------------");
+        for (Account doctor : patientAM.getDocList()) {
+            System.out.println(doctor.getid() + "  " + doctor.getName());
+        }
+
+        String docId = getValidatedString("\nEnter the Doctor's id: ");
 
         // check if doctor can be found
         if (!patientAM.checkDoctor(docId)) {

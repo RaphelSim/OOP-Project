@@ -4,6 +4,7 @@ import DatabaseItems.Account;
 import DatabaseItems.AppointmentSlot;
 import java.util.List;
 
+import Common.ClearOutput;
 import Common.DatabaseItems;
 import Common.UserInterface;
 
@@ -11,6 +12,7 @@ public class ViewPersonalSchedulePage extends UserInterface {
 
     // Display Doctor's Personal Schedule (TimeSlots - 60min interval)
     public void displayDocTimeSlot(Account doctor, List<DatabaseItems> personalSchedule) {
+        ClearOutput.clearOutput();
         if (personalSchedule.size() == 0)
             System.out.println("You have yet to set your Personal Schedule! Use Set Availability option.");
         else {

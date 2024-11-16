@@ -19,7 +19,20 @@ public class RescheduleAppointmentPage extends UserInterface {
 
     public void displayOptions() {
         ClearOutput.clearOutput();
-        String docId = getValidatedString("Enter the doctor's id: ");
+        System.out.println("Your Scheduled Appointments");
+        System.out.println("------------------------------");
+        for (AppointmentSlot slot : patientAM.getAppointments()) {
+            System.out.println(
+                    slot.getAppointmentId().substring(0, 8) + " " + slot.getDate() + "  " + slot.getTimestart() + " to "
+                            + slot.getTimeend() + " " + slot.getStatus());
+        }
+
+        if (patientAM.getAppointments().size() == 0) {
+            displayError("\nNo scheduled appointments");
+            pauseAndView();
+            return;
+        }
+        String docId = getValidatedString("\nEnter the doctor's id: ");
 
         // check if doctor can be found
         if (!patientAM.checkDoctor(docId)) {
