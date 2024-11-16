@@ -79,6 +79,8 @@ public class PatientAM {
 
     public boolean cancelSlot(String appointmentId) {
         // retrive the doctor's schedule
+        if (appointmentId.length() < 25)
+            return false;
         DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
         if (schedule == null)
             return false;
@@ -96,6 +98,8 @@ public class PatientAM {
 
     public boolean requestSlot(String appointmentId) {
         // retrive the doctor's schedule
+        if (appointmentId.length() < 25)
+            return false;
         DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
         if (schedule == null)
             return false;
@@ -131,6 +135,8 @@ public class PatientAM {
     }
 
     public boolean checkSlotAvailable(String appointmentId) {
+        if (appointmentId.length() < 25)
+            return false;
         DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
         if (schedule == null)
             return false;
@@ -142,6 +148,8 @@ public class PatientAM {
     }
 
     public boolean checkSlotCancellable(String appointmentId) {
+        if (appointmentId.length() < 25)
+            return false;
         DoctorSchedule schedule = getDoctorSchedule(appointmentId.substring(0, 8));
         System.out.println(appointmentId);
         if (schedule == null)
